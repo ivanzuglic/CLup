@@ -1,0 +1,74 @@
+// scss-lint:disable ImportantRule, SelectorDepth, NestingDepth
+
+@mixin push--auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+@mixin fill-parent($position: absolute, $zindex: 0) {
+    position: $position;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $zindex;
+}
+@mixin responsive-ratio($x, $y, $pseudo: false) {
+    $padding: unquote(($y / $x) * 100 + '%');
+    @if $pseudo {
+        &::before {
+            @include pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    } @else {
+        padding-top: $padding;
+    }
+}
+@mixin hardware($backface: true, $perspective: 1000) {
+    @if $backface {
+        backface-visibility: hidden;
+    }
+    perspective: $perspective;
+}
+@mixin visuallyhidden($focusable: false) {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    @if $focusable {
+		@include visuallyhidden-focusable;
+	}
+}
+@mixin visuallyhidden-reset {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+@mixin visuallyhidden-focusable {
+    &:active,
+	&:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+	}
+}
+@mixin truncation($line-height: 21px, $rows: 2) {
+    max-height: calc(#{$line-height} * #{$rows});
+}

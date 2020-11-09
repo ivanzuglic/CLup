@@ -1,0 +1,28 @@
+#nav {
+    background: $white;
+    width: $nav-width;
+    height: 100%;
+    padding: $base-spacing*2;
+    position: fixed;
+    overflow: visible;
+
+    #toggle-nav {
+        position: absolute;
+        top: $base-spacing/2;
+        right: 0;
+        transform: translateX(100%);
+        display: none;
+        cursor: pointer;
+        background: $white;
+        height: $base-spacing*2;
+        width: $base-spacing*2;
+        z-index: -1;
+        border: 0;
+        box-shadow: 0 2px 4px 0 rgba(11,48,59,.12);
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        opacity: 0.75;
+        outline: none;
+    }
+}

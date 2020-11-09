@@ -1,0 +1,16 @@
+// Generic styling parameters for all template elements within the body
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    padding-top: $header-height;
+    font-family: $font-family;
+    color: rgba($text-color, 1);
+    font-size: 14px;
+    line-height: 1.43;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: $background-gray;
+}
