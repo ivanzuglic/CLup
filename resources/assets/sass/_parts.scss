@@ -1,0 +1,48 @@
+// Styling for small frequently used template elements (e.g. buttons)
+
+.btn {
+    background-color: $blue;
+    border-radius: 8px;
+    color: $white;
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: normal;
+    text-align: center;
+    transition: background-color .3s ease, color .3s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    cursor: pointer;
+    &:hover {
+        background-color: darken($blue, 10%)
+    }
+
+    &.small {
+        max-width: $base-spacing*7;
+        max-height: 20px;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    &.medium {
+        max-width: $base-spacing*8;
+        max-height: $base-spacing*1.5;
+        padding: $base-spacing*.25;
+    }
+    &.large {
+        max-width: $base-spacing*12.5;
+        max-height: $base-spacing*3;
+        padding: $base-spacing;
+    }
+}
+
+.widget {
+    background-color: $white;
+    border-radius: 8px;
+}
+
+.pager {
+
+}
+
+.notification {
+    
+}
