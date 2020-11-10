@@ -1,0 +1,8 @@
+// Stylizes the central portion of the webpage
+
+main {
+    width: calc(100% - #{$nav-width});
+    padding: $base-spacing*2 $base-spacing*2 $base-spacing*2 $base-spacing*2;
+    position: relative;
+    margin-left: $nav-width;
+}

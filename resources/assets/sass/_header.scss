@@ -1,0 +1,52 @@
+// Styling for header
+
+header {
+    background: $white;
+    height: $header-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    padding-left: $base-spacing*2;
+    z-index: 9;    
+    min-width: 24rem;
+
+    #toggle-nav {
+        position: absolute;
+        display: block;
+        pointer-events: none;
+        border-radius: 4px;
+        height: $base-spacing*2;
+        width: $base-spacing*2;
+        overflow: hidden;
+        border: 0;
+        opacity: 0;
+        margin: 0;
+        transition: opacity .25s ease-in-out;
+        cursor: pointer;
+    }
+
+    .user-info {
+        height: $base-spacing*4;
+        min-width: $base-spacing*4;
+        background-color: $background-grey;
+        .user-image {
+            position: relative;
+            height: $base-spacing*3;
+            width: $base-spacing*3;
+            border-radius: 100%;
+            background-color: $grey;
+            overflow: hidden;
+        }
+        .user-name {
+
+        }
+    }
+
+    .logo {
+        overflow: hidden;
+    }
+}
