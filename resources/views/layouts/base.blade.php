@@ -12,11 +12,25 @@
 
     <body>
         @section('header')
-            <!-- Header markup goes here -->
+            <header>
+                <button id="toggle-nav" class="toggle-nav-btn" type="button"><span></span></button>
+                <div class="logo">
+                    <img src="public/images/CLupLogoFinal.png" alt="CLup">
+                </div>
+                <div class="user-info">
+                    <div class="user-image" data-first-two-letters="{{app.user.username|slice(0,2)|upper}}"></div>
+                    <span class="user-name">
+                    </span>
+                </div>
+            </header>
         @show
 
         @section('navbar')
-            <!-- Navbar markup goes here -->
+            <ul class="nav-container">
+                <li class="nav-option" id="find-store">
+                    <a href="">Find store</a>
+                </li>
+            </ul>
         @show
 
         <main>
