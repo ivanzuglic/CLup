@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('_login');
+});
+
 Auth::routes();
 
 Route::get('/home', 'Views\HomeController@index')->middleware('role:2');

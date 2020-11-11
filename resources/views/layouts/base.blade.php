@@ -4,33 +4,53 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>@yield('title')</title>
+
+        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-        <link rel="icon" href="CLupFavicon.png" tyoe="image/gif" sizes="16x16">
+
+        <!-- Favicon -->
+        <link rel="icon" href="{{ asset('images/CLupFavicon.png') }}" tyoe="image/gif" sizes="16x16">
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
 
     <body>
         @section('header')
             <header>
-                <button id="toggle-nav" class="toggle-nav-btn" type="button"><span></span></button>
+                <button id="toggle-nav" class="toggle-nav-btn" type="button"></button>
                 <div class="logo">
-                    <img src="public/images/CLupLogoFinal.png" alt="CLup">
+                    <img src="{{ asset('images/CLupLogoFinal.png') }}" alt="CLup">
                 </div>
-                <div class="user-info">
-                    <div class="user-image" data-first-two-letters="{{app.user.username|slice(0,2)|upper}}"></div>
-                    <span class="user-name">
-                    </span>
-                </div>
+                @if (Auth::check())
+                    <div class="user-info">
+                        <div class="user-image"></div>
+                        <span class="user-name">
+                        </span>
+                    </div>
+                @endif
             </header>
         @show
 
         @section('navbar')
-            <ul class="nav-container">
-                <li class="nav-option" id="find-store">
-                    <a href="">Find store</a>
-                </li>
-            </ul>
+            @if (Auth::check())
+                <nav id="nav">
+                    <ul class="nav-container">
+                        <li class="nav-option" id="find-store">
+                            <a href="">Find store</a>
+                        </li>
+                    </ul>
+                </nav>
+            @endif
         @show
 
         <main>

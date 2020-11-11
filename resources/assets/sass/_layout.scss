@@ -9,8 +9,14 @@ body {
     color: rgba($text-color, 1);
     font-size: 14px;
     line-height: 1.43;
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
     flex-wrap: wrap;
-    background-color: $background-gray;
+    background-color: $background-grey;
+    margin: 0 !important;
+
+    a {
+        color: $blue;
+        text-decoration: none;
+    }
 }
