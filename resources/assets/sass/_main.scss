@@ -1,8 +1,23 @@
 // Stylizes the central portion of the webpage
 
 main {
-    width: calc(100% - #{$nav-width});
+    width: 100%;
     padding: $base-spacing*2 $base-spacing*2 $base-spacing*2 $base-spacing*2;
     position: relative;
-    margin-left: $nav-width;
+    display: flex;
+    > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &.active-nav {
+        width: calc(100% - #{$nav-width});
+        margin-left: $nav-width;
+    }
+
+    div.form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

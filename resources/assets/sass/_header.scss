@@ -7,8 +7,9 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0px -2px 1px rgba(0, 0, 0, 0.12);
     display: flex;
+    flex-direction: row;
     align-items: center;
     padding-left: $base-spacing*2;
     z-index: 9;    
@@ -16,7 +17,7 @@ header {
 
     #toggle-nav {
         position: absolute;
-        display: block;
+        display: none;
         pointer-events: none;
         border-radius: 4px;
         height: $base-spacing*2;
@@ -33,13 +34,22 @@ header {
         height: $base-spacing*4;
         min-width: $base-spacing*4;
         background-color: $background-grey;
+        margin-left: auto;
+        margin-right: $base-spacing;
+        border-radius: 8px;
         .user-image {
             position: relative;
+            margin-top: $base-spacing*.5;
+            margin-left: $base-spacing*.5;
             height: $base-spacing*3;
             width: $base-spacing*3;
             border-radius: 100%;
             background-color: $grey;
             overflow: hidden;
+            background-image: url('/images/user-solid.svg');
+            background-size: $base-spacing*1.5;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         .user-name {
 
@@ -48,5 +58,7 @@ header {
 
     .logo {
         overflow: hidden;
+        align-self: flex-start;
+        margin-top: $base-spacing*.75;
     }
 }

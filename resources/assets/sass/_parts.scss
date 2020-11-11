@@ -2,34 +2,43 @@
 
 .btn {
     background-color: $blue;
-    border-radius: 8px;
+    border-radius: 4px;
     color: $white;
+    border: none;
     font-size: 1rem;
     line-height: 1;
     font-weight: normal;
-    text-align: center;
     transition: background-color .3s ease, color .3s ease;
     white-space: nowrap;
     display: inline-flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
     cursor: pointer;
+    > span {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
     &:hover {
         background-color: darken($blue, 10%)
     }
 
     &.small {
-        max-width: $base-spacing*7;
-        max-height: 20px;
+        width: $base-spacing*7;
+        height: 20px;
         padding: 4px 8px;
-        font-size: 12px;
     }
     &.medium {
-        max-width: $base-spacing*8;
-        max-height: $base-spacing*1.5;
-        padding: $base-spacing*.25;
+        width: $base-spacing*7;
+        height: $base-spacing*2.5;
+        padding: $base-spacing*.5;
+        line-height: 1.6rem;
+        font-size: 1.2rem;
     }
     &.large {
-        max-width: $base-spacing*12.5;
-        max-height: $base-spacing*3;
+        width: $base-spacing*12.5;
+        height: $base-spacing*3;
         padding: $base-spacing;
     }
 }
@@ -37,6 +46,25 @@
 .widget {
     background-color: $white;
     border-radius: 8px;
+    box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
+    display: flex;
+    object-fit: cover;
+
+    &.widget-small {
+        width: 30%;
+        min-height: $base-spacing*20;
+    }
+    &.widget-medium {
+        min-width: $base-spacing*24;
+        max-height: $base-spacing*22;
+    }
+    &.widget-large {
+        width: 100%;
+    }
+
+    &.form {
+        flex-direction: column;
+    }
 }
 
 .pager {
