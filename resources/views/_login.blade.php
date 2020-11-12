@@ -6,6 +6,9 @@
 
 @section('main')
     <div class="form widget widget-medium">
+        <div class="widget-header title-only">
+            <h2 class="widget-title">Login Form</h2>
+        </div>
         <form method="POST">
             @csrf
 
@@ -22,7 +25,6 @@
             <div>
                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}:</label><br/>
                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
-
                 @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -37,7 +39,7 @@
                 </label>
             </div>
 
-            <div class="login-control">
+            <div class="form-control">
                 <button type="submit" class="btn medium">
                     <span>{{ __('Login') }}</span>
                 </button>
@@ -47,7 +49,7 @@
             </div>
 
             <div>
-                or <a href="">Register an account</a>
+                or <a href="{{ route('register') }}">Register an account</a>
             <div>
         </form>
     </div>

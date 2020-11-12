@@ -48,15 +48,38 @@
     border-radius: 8px;
     box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
     display: flex;
-    object-fit: cover;
+    overflow: hidden;
+    height: auto;
+    min-width: $base-spacing*24;
+
+    .widget-header {
+        border-bottom: 1px solid $grey;
+        width: 100%;
+        height: $base-spacing*4;
+        display: flex;
+
+        h2 {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .title-only {
+            align-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
 
     &.widget-small {
         width: 30%;
         min-height: $base-spacing*20;
     }
     &.widget-medium {
-        min-width: $base-spacing*24;
-        max-height: $base-spacing*22;
+        width: $base-spacing*30;
+        @include media('<=tablet') {
+            width: 90%;
+        }
     }
     &.widget-large {
         width: 100%;

@@ -34,8 +34,9 @@
                 @if (Auth::check())
                     <div class="user-info">
                         <div class="user-image"></div>
-                        <span class="user-name">
-                        </span>
+                        <h2 class="user-name">
+                            Username
+                        </h2>
                     </div>
                 @endif
             </header>
@@ -45,8 +46,17 @@
             @if (Auth::check())
                 <nav id="nav">
                     <ul class="nav-container">
-                        <li class="nav-option" id="find-store">
-                            <a href="">Find store</a>
+                        <li class="nav-option">
+                                <a id="find-store" href="">Find store</a>
+                        </li>
+                        <li class="nav-option">
+                                <a id="placaments" href="">My Placaments</a>
+                        </li>
+                        <li class="nav-option">
+                                <a id="settings" href="">Settings</a>
+                        </li>
+                        <li class="nav-option">
+                                <a id="logout" href="">Logout</a>
                         </li>
                     </ul>
                 </nav>
