@@ -5,6 +5,74 @@
     position: fixed;
     overflow: visible;
 
+    ul {
+        list-style-type: none;
+        padding: $base-spacing;
+        margin: 0;
+
+        li {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $grey;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+
+            a {
+                font-size: 1.5rem;
+                font-weight: bold;
+                z-index: 10;
+                width: 100%;
+                border-radius: 5px;
+                color: $text-color;
+                padding-left: $base-spacing*3;
+                margin-bottom: $base-spacing*.5;
+                margin-top: $base-spacing*.5;
+                cursor: pointer;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba($text-color, .2);
+                    color: $blue;
+                }
+
+                &::before {
+                    content: '';
+                    width: $base-spacing*2;
+                    height: $base-spacing*2;
+                    position: absolute;
+                    display: block;
+                    background-size: $base-spacing*1.5 $base-spacing*1.5;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    transform: translateX(-$base-spacing*2.5);
+                }
+    
+                &#find-store {
+                    &::before {
+                        background-image: url('/images/store-solid.svg');
+                    }
+                }
+                &#placaments {
+                    &::before {
+                        background-image: url('/images/bookmark-solid.svg');
+                    }
+                }
+                &#settings {
+                    &::before {
+                        background-image: url('/images/cog-solid.svg');
+                    }
+                }
+                &#logout {
+                    &::before {
+                        background-image: url('/images/power-off-solid.svg');
+                    }
+                }
+            }
+        }
+    }
+
     #toggle-nav {
         position: absolute;
         top: $base-spacing/2;

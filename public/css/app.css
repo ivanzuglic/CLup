@@ -53,6 +53,24 @@ form input[type=password] {
   height: 32px;
 }
 
+form input[type=tel] {
+  border-radius: 4px;
+  border-color: rgba(160, 160, 160, 0.2);
+  border-width: 1px;
+  background-color: #e9e9e9;
+  width: 100%;
+  height: 32px;
+}
+
+form input[type=text] {
+  border-radius: 4px;
+  border-color: rgba(160, 160, 160, 0.2);
+  border-width: 1px;
+  background-color: #e9e9e9;
+  width: 100%;
+  height: 32px;
+}
+
 form input[type=checkbox] {
   width: 24px;
   height: 24px;
@@ -63,7 +81,7 @@ form .form-check-label {
   line-height: 2rem;
 }
 
-form .login-control {
+form .form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -73,9 +91,18 @@ form .login-control {
           flex-direction: row;
 }
 
-form .login-control a {
-  line-height: 2.4rem;
+form .form-control a {
+  line-height: 2.5rem;
   margin-left: auto;
+}
+
+form .form-control span {
+  line-height: 2.5rem;
+  margin-left: auto;
+}
+
+form .required-fields {
+  color: #ff0f0f;
 }
 
 header {
@@ -119,8 +146,12 @@ header #toggle-nav {
 }
 
 header .user-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   height: 64px;
   min-width: 64px;
+  max-width: 192px;
   background-color: #e9e9e9;
   margin-left: auto;
   margin-right: 16px;
@@ -142,6 +173,11 @@ header .user-info .user-image {
   background-position: center;
 }
 
+header .user-info .user-name {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 header .logo {
   overflow: hidden;
   -ms-flex-item-align: start;
@@ -158,7 +194,6 @@ body {
   color: black;
   font-size: 14px;
   line-height: 1.43;
-  min-height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -211,6 +246,75 @@ main div.form {
   height: 100%;
   position: fixed;
   overflow: visible;
+}
+
+#nav ul {
+  list-style-type: none;
+  padding: 16px;
+  margin: 0;
+}
+
+#nav ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+#nav ul li:last-of-type {
+  border-bottom: none;
+}
+
+#nav ul li a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 10;
+  width: 100%;
+  border-radius: 5px;
+  color: #000000;
+  padding-left: 48px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+#nav ul li a:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #0ca7ff;
+}
+
+#nav ul li a::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  display: block;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transform: translateX(-40px);
+          transform: translateX(-40px);
+}
+
+#nav ul li a#find-store::before {
+  background-image: url("/images/store-solid.svg");
+}
+
+#nav ul li a#placaments::before {
+  background-image: url("/images/bookmark-solid.svg");
+}
+
+#nav ul li a#settings::before {
+  background-image: url("/images/cog-solid.svg");
+}
+
+#nav ul li a#logout::before {
+  background-image: url("/images/power-off-solid.svg");
 }
 
 #nav #toggle-nav {
@@ -296,8 +400,33 @@ main div.form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -o-object-fit: cover;
-     object-fit: cover;
+  overflow: hidden;
+  height: auto;
+  min-width: 384px;
+}
+
+.widget .widget-header {
+  border-bottom: 1px solid #a0a0a0;
+  width: 100%;
+  height: 64px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.widget .widget-header h2 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.widget .widget-header .title-only {
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
 }
 
 .widget.widget-small {
@@ -306,8 +435,13 @@ main div.form {
 }
 
 .widget.widget-medium {
-  min-width: 384px;
-  max-height: 352px;
+  width: 480px;
+}
+
+@media (max-width: 768px) {
+  .widget.widget-medium {
+    width: 90%;
+  }
 }
 
 .widget.widget-large {
