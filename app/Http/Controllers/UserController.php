@@ -29,18 +29,11 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-//        $validator=$this->validator2($request->all())->validate();
-
-//        if ($validator->fails()) {
-//            return redirect('/users_edit')
-//                ->withErrors($validator)
-//                ->withInput();
-//        }
 
         $request->validate([
-            'name' => 'required|min:3',
-            'email' => 'required',
-            'phone_number' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'email|string|max:255|required|unique:users,email,'.$this->user->id,
+            'phone_number' => 'required|min:8|max:14'
         ]);
 
         $this->user->name = $request->name;
@@ -51,18 +44,4 @@ class UserController extends Controller
 
         return back();
     }
-
-    public function validator2(array $data)
-    {
-        return Validator::make($data, [
-
-            'name' => 'required|min:2',
-            'email' => 'required|email|unique:users',
-            'phone_number' => 'string|min:8|max:14'
-        ],[
-            'name.required'=>'greska'
-        ]);
-    }
-
-
 }
