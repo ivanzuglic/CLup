@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Views\HomeController@index')->middleware('role:2');
+Route::get('/admin/dashboard', 'Views\AdminDashboardController@index')->middleware('role:1');
+Route::get('/manager/dashboard', 'Views\ManagerDashboardController@index')->middleware('role:3');
 
-Route::get('/users_edit', ['as' => 'users.edit', 'uses' => 'UserController@edit']);
-Route::patch('/users_edit/update', ['as' => 'users.update', 'uses' => 'UserController@update']);
+Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
+Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
