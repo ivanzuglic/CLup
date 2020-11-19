@@ -4,12 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Store extends Model
+class Roles extends Model
 {
     public $timestamps = true;
 
-    protected $table = 'stores';
-    protected $primaryKey = 'store_id';
+    protected $table = 'roles';
 
     /**
      * The attributes that are mass assignable.
@@ -17,12 +16,8 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'store_type', 'address_line_1',
-        'address_line_2', 'zip_code', 'town', 'country',
-        'image_reference', 'max_occupancy',
-        'current_occupancy', 'max_reservation_ratio'
+        'role_name'
     ];
-
 
     /**
      * The attributes that should be hidden for arrays.

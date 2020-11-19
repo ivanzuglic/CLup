@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Store extends Model
+class WorkingHours extends Model
 {
     public $timestamps = true;
 
-    protected $table = 'stores';
-    protected $primaryKey = 'store_id';
+    protected $table = 'working_hours';
+    protected $primaryKey = 'working_hours_id';
 
     /**
      * The attributes that are mass assignable.
@@ -17,10 +17,7 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'store_type', 'address_line_1',
-        'address_line_2', 'zip_code', 'town', 'country',
-        'image_reference', 'max_occupancy',
-        'current_occupancy', 'max_reservation_ratio'
+        'store_id', 'day', 'opening_hours', 'closing_hours'
     ];
 
 

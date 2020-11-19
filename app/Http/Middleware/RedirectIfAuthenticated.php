@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Roles;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,18 +25,17 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $role_id = Auth::user()->role_id;
 
-            switch ($role_id) {
-                case '1':
-                    return redirect('/admin/dashboard');
-                    break;
+            $role = Roles::where('id', $role_id)->firstOrFail();
 
-                case '3':
+            switch ($role->role_name) {
+                case 'admin':
+                    return redirect('/admin/dashboard');
+
+                case 'manager':
                     return redirect('/manager/dashboard');
-                    break;
 
                 default:
                     return redirect('/home');
-                    break;
             }
         }
         return $next($request);
