@@ -64,13 +64,14 @@ class ManagerRegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone_number' => $data['phone_number'],
-            'role_id' => '3',
-        ]);
+        if (Gate::allows('ManagerRegister')) {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone_number' => $data['phone_number'],
+                'role_id' => '3',
+            ]);
+        }
     }
-
 }
