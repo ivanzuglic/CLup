@@ -14,40 +14,46 @@ class StoreController extends Controller
     public function __construct()
     {
         $this->user = Auth::user();
-
     }
 
-    /**
-     * Create a new store instance.
-     *
-     * @param  array  $data
-     * @return Store
-     */
-    public function create (array $data)
+    public function index()
     {
-        return Store::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'store_type' => $data['store_type'],
-            'address_line_1' => $data['address_line_1'],
-            'address_line_2' => $data['address_line_2'],
-            'zip_code' => $data['zip_code'],
-            'town' => $data['town'],
-            'country' => $data['country'],
-            'image_reference' => $data['image_reference'],
-            'max_occupancy' => $data['max_occupancy'],
-            'current_occupancy' => '0',
-            'max_reservation_ratio' => '1.0',
-        ]);
+        return Store::all();
     }
 
-    public function edit ()
+    public function create()
     {
 
     }
 
-    public function update ()
+    public function store(Request $request)
+    {
+        return Store::create($request->all());
+    }
+
+    public function show($store_id)
+    {
+        return Store::findOrFail($store_id);
+    }
+
+    public function edit()
     {
 
+    }
+
+    public function update(Request $request, $store_id)
+    {
+        $store = Store::findOrFail($store_id);
+        $store->update($request->all());
+
+        return $store;
+    }
+
+    public function destroy(Request $request, $store_id)
+    {
+        $store = Store::findOrFail($store_id);
+        $store->delete();
+
+        return 204;
     }
 }

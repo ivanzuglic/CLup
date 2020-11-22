@@ -20,10 +20,12 @@ class WorkingHours extends Model
         'store_id', 'day', 'opening_hours', 'closing_hours'
     ];
 
-
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be cast.
      *
      * @var array
      */
+    protected $casts = [
+        'day' => 'integer'
+    ];
 }

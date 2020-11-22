@@ -23,10 +23,15 @@ class Store extends Model
         'current_occupancy', 'max_reservation_ratio'
     ];
 
-
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be cast.
      *
      * @var array
      */
+    protected $casts = [
+        'store_type' => 'integer',
+        'max_occupancy' => 'integer',
+        'current_occupancy' => 'integer',
+        'max_reservation_ratio' => 'double'
+    ];
 }
