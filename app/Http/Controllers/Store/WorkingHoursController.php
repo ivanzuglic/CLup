@@ -25,7 +25,7 @@ class WorkingHoursController extends Controller
 
     public function create ()
     {
-
+        // return creation field
     }
 
     public function store(Request $request, $store_id)
@@ -50,7 +50,7 @@ class WorkingHoursController extends Controller
 
     public function edit ()
     {
-
+        // return edit field
     }
 
     public function update (Request $request, $store_id, $working_hours_id)

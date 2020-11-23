@@ -23,7 +23,7 @@ class StoreController extends Controller
 
     public function create()
     {
-
+        // return creation field
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class StoreController extends Controller
 
     public function edit()
     {
-
+        // return edit field
     }
 
     public function update(Request $request, $store_id)
