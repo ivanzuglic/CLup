@@ -20,7 +20,7 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment)
     {
-        return $user->id === $appointment->user_id;
+        return true;
     }
 
     /**
