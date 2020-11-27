@@ -1,6 +1,7 @@
 // Styling for small frequently used template elements (e.g. buttons)
 
 .btn {
+    width: 100%;
     background-color: $blue;
     border-radius: 4px;
     color: $white;
@@ -26,8 +27,10 @@
 
     &.small {
         width: $base-spacing*7;
-        height: 20px;
-        padding: 4px 8px;
+        height: $base-spacing*2.5;
+        padding: $base-spacing*.5;
+        line-height: 1.6rem;
+        font-size: 1.2rem;
     }
     &.medium {
         width: $base-spacing*7;
@@ -40,6 +43,13 @@
         width: $base-spacing*12.5;
         height: $base-spacing*3;
         padding: $base-spacing;
+    }
+    &.long {
+        width: 95%;
+        height: $base-spacing*1.5;
+        padding: $base-spacing*.5;
+        line-height: 1.6rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -77,9 +87,6 @@
     }
     &.widget-medium {
         width: $base-spacing*30;
-        @include media('<=tablet') {
-            width: 90%;
-        }
     }
     &.widget-large {
         width: 100%;

@@ -1,1 +1,11 @@
-<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+<svg width="448" height="512" xmlns="http://www.w3.org/2000/svg" class="svg-inline--fa fa-bars fa-w-14">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="602" width="802" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" d="m16,132l416,0c8.837,0 16,-7.163 16,-16l0,-40c0,-8.837 -7.163,-16 -16,-16l-416,0c-8.837,0 -16,7.163 -16,16l0,40c0,8.837 7.163,16 16,16zm0,160l416,0c8.837,0 16,-7.163 16,-16l0,-40c0,-8.837 -7.163,-16 -16,-16l-416,0c-8.837,0 -16,7.163 -16,16l0,40c0,8.837 7.163,16 16,16zm0,160l416,0c8.837,0 16,-7.163 16,-16l0,-40c0,-8.837 -7.163,-16 -16,-16l-416,0c-8.837,0 -16,7.163 -16,16l0,40c0,8.837 7.163,16 16,16z" fill="#0ca7ff"/>
+ </g>
+</svg>

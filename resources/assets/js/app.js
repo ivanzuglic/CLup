@@ -15,8 +15,30 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });
+
+;(() => {
+    const menu = document.querySelector('#nav')
+    const body = document.querySelector('body')
+    const menuToggleButton = document.querySelector('#toggle-nav')
+    if (menuToggleButton) {
+        menuToggleButton.addEventListener('click', () => menuShow())
+        const menuShow = () => {
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active')
+                menuToggleButton.classList.remove('active')
+                menuToggleButton.style.backgroundImage = 'url("/images/bars-solid.svg")'
+                body.classList.remove('nav-active')
+            } else {
+                menu.classList.add('active')
+                menuToggleButton.classList.add('active')
+                menuToggleButton.style.backgroundImage = 'url("/images/arrow-left-solid.svg")'
+                body.classList.add('nav-active')
+            }
+        }
+    }
+})()
