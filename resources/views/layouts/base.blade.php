@@ -46,12 +46,33 @@
             @if (Auth::check())
                 <nav id="nav">
                     <ul class="nav-container">
-                        <li class="nav-option">
-                                <a id="find-store" href="">Find store</a>
-                        </li>
-                        <li class="nav-option">
-                                <a id="placaments" href="">My Placaments</a>
-                        </li>
+                        @if (Auth::user()->role_id == 2)
+                            <li class="nav-option">
+                                    <a id="find-store" href="">Find store</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="placaments" href="">My placaments</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->role_id == 3)
+                            <li class="nav-option">
+                                    <a id="store-parameters" href="">Store parameters</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="print-tickets" href="">Print tickets</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="store-statistics" href="">Store statistics</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->role_id == 1)
+                            <li class="nav-option">
+                                    <a id="add-store" href="">Add store</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="add-managers" href="">Add managers</a>
+                            </li>
+                        @endif
                         <li class="nav-option">
                                 <a id="settings" href="">Settings</a>
                         </li>

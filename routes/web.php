@@ -24,6 +24,7 @@ Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
 Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
 
+
 // StoreController CRUD routes
 Route::get('/stores', 'Store\StoreController@index');
 Route::get('/stores/create', 'Store\StoreController@create');
@@ -41,3 +42,13 @@ Route::get('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\Working
 Route::get('/stores/{store_id}/working_hours/{working_hours_id}/edit', 'Store\WorkingHoursController@edit');
 Route::patch('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@update');
 Route::delete('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@destroy');
+
+// AppointmentController and QueueController CRUD routes
+Route::get('/appointments', 'Appointment\AppointmentController@index');
+Route::get('/appointments/create', 'Appointment\AppointmentController@create');
+Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment');
+Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show');
+Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit');
+Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update');
+Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
+
