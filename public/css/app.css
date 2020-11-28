@@ -157,9 +157,13 @@ header .user-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   height: 64px;
   min-width: 64px;
-  max-width: 192px;
+  max-width: 320px;
   background-color: #e9e9e9;
   margin-left: auto;
   margin-right: 16px;
@@ -167,11 +171,14 @@ header .user-info {
 }
 
 header .user-info .user-image {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   position: relative;
   margin-top: 8px;
   margin-left: 8px;
   height: 48px;
   width: 48px;
+  display: inline-block;
   border-radius: 100%;
   background-color: #a0a0a0;
   overflow: hidden;
@@ -182,8 +189,10 @@ header .user-info .user-image {
 }
 
 header .user-info .user-name {
+  display: block;
   margin-left: 16px;
   margin-right: 16px;
+  overflow: hidden;
 }
 
 header .logo {
@@ -307,6 +316,7 @@ main .store-card-area .store-card .store-image {
   background-repeat: no-repeat;
   background-size: 288px;
   background-position: center;
+  border: 1px solid #a0a0a0;
 }
 
 main .store-card-area .store-card ul {
