@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
+
         $stores = app('App\Http\Controllers\Store\StoreController')->index();
         return view('Customer.find-store', ['stores' => $stores]);
     }

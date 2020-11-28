@@ -6,7 +6,7 @@
 
 @section('main')
     <div class="search-bar">
-        <input class="search-input" type="text" placeholder="Search servers" id="server-search" name="server-search">
+        <input class="search-input" type="text" placeholder="Search stores"  name="server-search">
         <div class="search-actions">
             <button class="btn medium" type="submit"><span>Search<span></button>
         </div>
@@ -16,7 +16,7 @@
         @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image">
-                    <img src="{{ $store->img }}" alt="">
+                    <img src="{{ $store->image_reference }}" width="336" height="336" alt="">
                 </div>
                 <div class="store-details">
                     <ul>
@@ -24,7 +24,7 @@
                             Store name:&nbsp;<span>{{ $store->name }}</span>
                         </li>
                         <li>
-                            Store type:&nbsp;<span>{{ $store->store_type }}</span>
+                            Store type:&nbsp;<span>{{ $store->type->store_type }}</span>
                         </li>
                         <li>
                             Work hours:&nbsp;<span>{{ $store->hours }}</span>

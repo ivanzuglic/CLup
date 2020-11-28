@@ -37,7 +37,7 @@ class LoginController extends Controller
 
         switch ($role->role_name) {
             case 'admin':
-                return '/admin/dashboard';
+                return '/admin/dashboard/add_store';
 
             case 'manager':
                 return '/manager/dashboard';

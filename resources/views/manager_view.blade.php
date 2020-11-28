@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title','managerView')
+@section('title','Manager View')
 
 @section('main')
 

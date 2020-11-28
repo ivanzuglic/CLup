@@ -33,7 +33,7 @@ class StoreController extends Controller
                 ->orWhere('zip_code', 'LIKE', '%' . $search_string . '%');
         })->get();
 
-        return $store->with('store_type')->get();
+        return $store->with('type')->get();
 
     }
 

@@ -40,7 +40,7 @@ class Store extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function store_type()
+    public function type()
     {
         return $this->belongsTo('App\StoreType', 'store_type');
     }

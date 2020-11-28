@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');
-Route::get('/admin/dashboard', 'Views\AdminDashboardController')->middleware('role:admin');
+Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStore')->middleware('role:admin');
+Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
 Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware('role:manager');
 
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);

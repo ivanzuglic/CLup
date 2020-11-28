@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
 
             switch ($role->role_name) {
                 case 'admin':
-                    return redirect('/admin/dashboard');
+                    return redirect('/admin/dashboard/add_store');
 
                 case 'manager':
                     return redirect('/manager/dashboard');
