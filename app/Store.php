@@ -52,4 +52,5 @@ class Store extends Model
     {
         return $this->hasMany('App\WorkingHours', 'store_id');
     }
+
 }

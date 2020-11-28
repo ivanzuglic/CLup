@@ -18,6 +18,7 @@ class StoreController extends Controller
 
     public function index()
     {
+
 //        return Store::with('store_type')->get();
 
         $search_string = isset($_GET['search_string']) ? $_GET['search_string'] : "";
@@ -33,6 +34,7 @@ class StoreController extends Controller
         })->get();
 
         return $store->with('store_type')->get();
+
     }
 
     public function create()
@@ -40,8 +42,24 @@ class StoreController extends Controller
         // return creation field
     }
 
+
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'max:1000',
+            'store_type' => 'required|integer|exists:store_types,type_id',
+            'address_line_1' => 'required|string|max:255',
+            'address_line_2' => 'string|max:255',
+            'zip_code' => 'required|string|regex:/\b\d{5}\b/',
+            'town' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'image_reference' => '',
+            'max_occupancy' => 'required|integer|min:1',
+            'current_occupancy' => 'required|integer|min:0|max:0',
+            'max_reservation_ratio' => 'required|numeric|min:0.0|max:1.0',
+        ]);
+
         return Store::create($request->all());
     }
 
@@ -57,6 +75,21 @@ class StoreController extends Controller
 
     public function update(Request $request, $store_id)
     {
+        $request->validate([
+            'name' => 'string|max:255',
+            'description' => 'max:1000',
+            'store_type' => 'integer|exists:store_types,type_id',
+            'address_line_1' => 'string|max:255',
+            'address_line_2' => 'string|max:255',
+            'zip_code' => 'string|regex:/\b\d{5}\b/',
+            'town' => 'string|max:255',
+            'country' => 'string|max:255',
+            'image_reference' => '',
+            'max_occupancy' => 'integer|min:1',
+            'current_occupancy' => 'integer|min:0',
+            'max_reservation_ratio' => 'numeric|min:0.0|max:1.0',
+        ]);
+
         $store = Store::findOrFail($store_id);
         $store->update($request->all());
 

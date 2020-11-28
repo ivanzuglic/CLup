@@ -31,6 +31,14 @@ class WorkingHoursController extends Controller
     public function store(Request $request, $store_id)
     {
         if($store_id == $request->store_id){
+
+            $request->validate([
+                'store_id' => 'required|integer|exists:stores,store_id',
+                'day' => 'required|integer|between:0,6',
+                'opening_hours' => 'required|date_format:H:i:s',
+                'closing_hours' => 'required|date_format:H:i:s',
+            ]);
+
             return WorkingHours::create($request->all());
         }
 
@@ -57,7 +65,16 @@ class WorkingHoursController extends Controller
     {
         $working_hours = WorkingHours::findOrFail($working_hours_id);
 
+
         if($working_hours->store_id == $store_id){
+
+            $request->validate([
+                'store_id' => 'integer|exists:stores,store_id',
+                'day' => 'integer|between:0,6',
+                'opening_hours' => 'date_format:H:i:s',
+                'closing_hours' => 'date_format:H:i:s',
+            ]);
+
             $working_hours->update($request->all());
 
             return $working_hours;

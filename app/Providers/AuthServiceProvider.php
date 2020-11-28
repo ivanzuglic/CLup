@@ -17,6 +17,9 @@ class AuthServiceProvider extends ServiceProvider
 
         'App\Store' => 'App\Policies\StorePolicy',
         'App\WorkingHours' => 'App\Policies\WorkingHoursPolicy',
+
+        'App\Appointment' => 'App\Policies\AppointmentPolicy',
+
     ];
 
     /**
@@ -27,7 +30,27 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerManagerPolicies();
 
-        //
+    }
+
+    /**
+     * Register authorization services for Managers.
+     *
+     * @return void
+     */
+    public function registerManagerPolicies()
+    {
+        /**
+         * Gate for Manager Registration (in ManagerRegisterController).
+         * Only Admins can register managers.
+         */
+        Gate::define('ManagerRegister', function($user) {
+            $admin_role = Roles::where('role_name', 'admin')->firstOrFail();
+            // needs merge with branch where 'Roles' is defined
+            return $user->role_id === $admin_role->id;
+        });
+
+        // other gates for Manager
     }
 }

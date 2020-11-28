@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StoreType extends Model
+class Appointment_type extends Model
 {
     public $timestamps = true;
 
-    protected $table = 'store_types';
+    protected $table = 'appointment_types';
     protected $primaryKey = 'type_id';
 
     /**
@@ -17,17 +17,13 @@ class StoreType extends Model
      * @var array
      */
     protected $fillable = [
-        'store_type'
+        'appointment_type'
     ];
 
-    /**
-     * App\Store relationship
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function stores()
-    {
-        return $this->belongsToMany(Store::class);
-    }
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
 }
