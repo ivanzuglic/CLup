@@ -18,13 +18,30 @@ class StoreController extends Controller
 
     public function index()
     {
-        return Store::all();
+
+//        return Store::with('store_type')->get();
+
+        $search_string = isset($_GET['search_string']) ? $_GET['search_string'] : "";
+        $store = (new Store)->newQuery();
+
+        //searching where name, description, country, town or zipcode contain searched string
+        $store->where(function ($query) use ($search_string) {
+            $query->where('name', 'LIKE', '%' . $search_string . '%')
+                ->orWhere('description', 'LIKE', '%' . $search_string . '%')
+                ->orWhere('town', 'LIKE', '%' . $search_string . '%')
+                ->orWhere('country', 'LIKE', '%' . $search_string . '%')
+                ->orWhere('zip_code', 'LIKE', '%' . $search_string . '%');
+        })->get();
+
+        return $store->with('store_type')->get();
+
     }
 
     public function create()
     {
         // return creation field
     }
+
 
     public function store(Request $request)
     {

@@ -34,4 +34,23 @@ class Store extends Model
         'current_occupancy' => 'integer',
         'max_reservation_ratio' => 'double'
     ];
+
+    /**
+     * App\StoreType relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function store_type()
+    {
+        return $this->belongsTo('App\StoreType', 'store_type');
+    }
+
+    /**
+     * Get the working hours for the store.
+     */
+    public function working_hours()
+    {
+        return $this->hasMany('App\WorkingHours', 'store_id');
+    }
+
 }

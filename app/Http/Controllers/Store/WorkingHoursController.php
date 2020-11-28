@@ -65,6 +65,7 @@ class WorkingHoursController extends Controller
     {
         $working_hours = WorkingHours::findOrFail($working_hours_id);
 
+
         if($working_hours->store_id == $store_id){
 
             $request->validate([
