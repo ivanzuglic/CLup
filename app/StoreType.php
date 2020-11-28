@@ -19,4 +19,14 @@ class StoreType extends Model
     protected $fillable = [
         'store_type'
     ];
+
+    /**
+     * App\Store relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class);
+    }
 }

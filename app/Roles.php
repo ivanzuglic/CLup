@@ -20,8 +20,12 @@ class Roles extends Model
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * App\User relationship
      *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
