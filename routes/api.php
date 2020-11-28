@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/appointments', 'Appointment\AppointmentController@index');
+Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment');
+Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show');
+Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update');
+Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
