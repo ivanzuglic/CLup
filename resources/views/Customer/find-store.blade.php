@@ -13,7 +13,7 @@
     </div>
 
     <div class="store-card-area">
-        @fereach ($store as $stores)
+        @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image">
                     <img src="{{ $store->img }}" alt="">
@@ -24,13 +24,16 @@
                             Store name:&nbsp;<span>{{ $store->name }}</span>
                         </li>
                         <li>
-                            Store type:&nbsp;<span>{{ $store->type }}</span>
+                            Store type:&nbsp;<span>{{ $store->store_type }}</span>
                         </li>
                         <li>
                             Work hours:&nbsp;<span>{{ $store->hours }}</span>
                         </li>
                         <li>
-                            Address:&nbsp;<span>{{ $store->address }}</span>
+                            Address:&nbsp;<span>{{ $store->address_line_1 }}</span>
+                        </li>
+                        <li>
+                            <span>{{ $store->town }}</span>
                         </li>
                     </ul>
                 </div>

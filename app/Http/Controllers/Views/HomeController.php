@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Views;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+//use App\Http\Controllers\
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        return view('home');
+        $stores = app('App\Http\Controllers\Store\StoreController')->index();
+        return view('Customer.find-store', ['stores' => $stores]);
     }
 }
