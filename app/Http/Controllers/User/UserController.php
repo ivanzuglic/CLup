@@ -37,11 +37,13 @@ class UserController extends Controller
             'phone_number' => 'required|min:8|max:14'
         ]);
 
-        $this->user->name = $request->name;
-        $this->user->email = $request->email;
-        $this->user->phone_number = $request->phone_number;
+//        $this->user->name = $request->name;
+//        $this->user->email = $request->email;
+//        $this->user->phone_number = $request->phone_number;
 
-        $this->user->save();
+//        $this->user->save();
+
+        $this->user->update($request->all());
 
         return back();
     }

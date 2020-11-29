@@ -22,8 +22,8 @@ class ManagerDashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
-        return view('temp.manager_dashboard');
+        return view('manager_view');
     }
 }

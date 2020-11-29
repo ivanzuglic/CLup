@@ -22,8 +22,15 @@ class AdminDashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function addStore()
     {
-        return view('temp.admin_dashboard');
+
+        return view('Admin View.addStore');
+    }
+
+    public function addManager()
+    {
+
+        return view('Admin View.addManager');
     }
 }
