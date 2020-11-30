@@ -50,17 +50,18 @@ class StoreController extends Controller
             'description' => 'max:1000',
             'store_type' => 'required|integer|exists:store_types,type_id',
             'address_line_1' => 'required|string|max:255',
-            'address_line_2' => 'string|max:255',
+            'address_line_2' => 'string|nullable|max:255',
             'zip_code' => 'required|string|regex:/\b\d{5}\b/',
             'town' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'image_reference' => '',
             'max_occupancy' => 'required|integer|min:1',
-            'current_occupancy' => 'required|integer|min:0|max:0',
-            'max_reservation_ratio' => 'required|numeric|min:0.0|max:1.0',
+            'current_occupancy' => 'required|integer|in:0',
+            'max_reservation_ratio' => 'numeric|min:0.0|max:1.0',
         ]);
 
-        return Store::create($request->all());
+         Store::create($request->all());
+         return back();
     }
 
     public function show($store_id)

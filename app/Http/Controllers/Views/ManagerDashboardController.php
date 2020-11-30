@@ -24,6 +24,6 @@ class ManagerDashboardController extends Controller
      */
     public function __invoke()
     {
-        return view('manager_view');
+        return view('manager_views.managerView');
     }
 }

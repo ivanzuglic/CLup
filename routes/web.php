@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -20,16 +20,18 @@ Auth::routes();
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');
 Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStore')->middleware('role:admin');
 Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
+Route::post('/admin/dashboard/add_manager', ['as' => 'manager.create', 'uses' => 'User\ManagerRegisterController@create']);
 Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware('role:manager');
 
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
 Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
 
 
+
 // StoreController CRUD routes
 Route::get('/stores', 'Store\StoreController@index');
 Route::get('/stores/create', 'Store\StoreController@create');
-Route::post('/stores', 'Store\StoreController@store');
+Route::post('/stores', ['as' => 'stores.store', 'uses' => 'Store\StoreController@store']);
 Route::get('/stores/{store_id}', 'Store\StoreController@show');
 Route::get('/stores/{store_id}/edit', 'Store\StoreController@edit');
 Route::patch('/stores/{store_id}', 'Store\StoreController@update');
