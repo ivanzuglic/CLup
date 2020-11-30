@@ -15,7 +15,7 @@
     <div class="store-card-area">
         @foreach ($stores as $store)
             <div class="store-card">
-                <div class="store-image">
+                <div class="store-image-container">
                     <img src="{{ $store->image_reference }}" class="store-image" alt="">
                 </div>
                 <div class="store-details">
@@ -28,6 +28,9 @@
                         </li>
                         <li>
                             Work hours:&nbsp;<span>{{ $store->hours }}</span>
+                        </li>
+                        <li>
+                            Occupancy:&nbsp;<span>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </span>
                         </li>
                         <li>
                             Address:&nbsp;<span>{{ $store->address_line_1 }}</span>

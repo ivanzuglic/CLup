@@ -69,7 +69,7 @@
 
         <div class="form-control">
             <button type="submit" class="btn medium">
-                <span>Add Manager</span>
+                <span>Add</span>
             </button>
 
         </div>

@@ -94,7 +94,7 @@ class StoreController extends Controller
         $store = Store::findOrFail($store_id);
         $store->update($request->all());
 
-        return $store;
+        return back();
     }
 
     public function destroy(Request $request, $store_id)

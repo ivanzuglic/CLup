@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Views;
 
+use App\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerDashboardController extends Controller
 {
@@ -24,6 +26,8 @@ class ManagerDashboardController extends Controller
      */
     public function __invoke()
     {
-        return view('manager_views.managerView');
+        $user = Auth::user();
+        $store = Store::findorfail($user->store_id);
+        return view('manager_views.managerView', compact('store'));
     }
 }

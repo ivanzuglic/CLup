@@ -64,6 +64,7 @@ class ManagerRegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'phone_number' => $data['phone_number'],
+                'store_id' => $data['store_id'],
                 'role_id' => '3',
             ]);
        }

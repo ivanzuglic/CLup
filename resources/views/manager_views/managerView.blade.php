@@ -3,13 +3,58 @@
 @section('title','Manager View')
 
 @section('main')
+<div class="form widget widget-medium">
+    <div class="widget-header title-only">
+        <h2 class="widget-title">Store Max. Occupancy and Resrevation Ratio</h2>
+    </div>
+    <form method="POST" action = "{{route('stores.update',$store->store_id)}}" class="form-inline" id="store-parameters">
+        @csrf
+        @method('PATCH')
+        <div>
+            <label for="MaxOccupancy" class="col-md-4 col-form-label text-md-right">
+                {{ __('Max Occupancy') }}:
+            </label>
+            <br/>
+            <input id="MaxOccupancy" type="text"
+                   class="form-control{{ $errors->has('MaxOccupancy') ? ' is-invalid' : '' }}" name="max_occupancy"
+                   value="{{ $store->max_occupancy }}" required>
+            @if ($errors->has('max_occupancy'))
+                <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('max_occupancy') }}</strong>
+        </span>
+            @endif
+        </div>
+
+        <div>
+            <label for="ReservationRatio" class="col-md-4 col-form-label text-md-right">
+                {{ __('Reservation Ratio') }}:
+            </label>
+            <br/>
+            <input id="ReservationRatio" type="text"
+                   class="form-control{{ $errors->has('ReservationRatio') ? ' is-invalid' : '' }}" name="max_reservation_ratio"
+                   value="{{ $store->max_reservation_ratio }}" required>
+            @if ($errors->has('max_reservation_ratio'))
+                <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('max_reservation_ratio') }}</strong>
+        </span>
+            @endif
+        </div>
+
+        <div class="form-control">
+            <button type="submit" class="btn medium">
+            <span>Submit<span>
+            </button>
+        </div>
+    </form>
+</div>
 
 <div class="form widget widget-medium">
     <div class="widget-header title-only">
         <h2 class="widget-title">Store Workhours</h2>
     </div>
     <form method="POST" class="form-inline" id="store-workhours">
-
+        @csrf
+        @method('PATCH')
         <div class="form-check">
             <input type="checkbox" class="form-check-label" id="Monday">
             <label class="form-check-label" for="Monday">Monday</label>
@@ -95,47 +140,6 @@
     </form>
 </div>
 
-<div class="form widget widget-medium">
-    <div class="widget-header title-only">
-        <h2 class="widget-title">Store Max. Occupancy and Resrevation Ratio</h2>
-    </div>
-    <form method="POST" class="form-inline" id="store-parameters">
-        <div>
-            <label for="MaxOccupancy" class="col-md-4 col-form-label text-md-right">
-                {{ __('Max Occupancy') }}:
-            </label>
-            <br/>
-            <input id="MaxOccupancy" type="text"
-                class="form-control{{ $errors->has('MaxOccupancy') ? ' is-invalid' : '' }}" name="MaxOccupancy"
-                value="{{ old('MaxOccupancy') }}" placeholder="Max Occupancy" required>
-            @if ($errors->has('MaxOccupancy'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('MaxOccupancy') }}</strong>
-            </span>
-            @endif
-        </div>
 
-        <div>
-            <label for="ReservationRatio" class="col-md-4 col-form-label text-md-right">
-                {{ __('Reservation Ratio') }}:
-            </label>
-            <br/>
-            <input id="ReservationRatio" type="text"
-                class="form-control{{ $errors->has('ReservationRatio') ? ' is-invalid' : '' }}" name="ReservationRatio"
-                value="{{ old('ReservationRatio') }}" placeholder="Reservation Ratio" required>
-            @if ($errors->has('Reservation Ratio'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('ReservationRatio') }}</strong>
-            </span>
-            @endif
-        </div>
-
-        <div class="form-control">
-            <button type="submit" class="btn medium">
-                <span>Submit<span>
-            </button>
-        </div>
-    </form>
-</div>
 
 @endsection

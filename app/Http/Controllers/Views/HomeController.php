@@ -27,6 +27,6 @@ class HomeController extends Controller
     {
 
         $stores = app('App\Http\Controllers\Store\StoreController')->index();
-        return view('Customer.find-store', ['stores' => $stores]);
+        return view('customer_views.find-store', ['stores' => $stores]);
     }
 }

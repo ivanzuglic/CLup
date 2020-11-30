@@ -35,31 +35,6 @@
                 @endif
             </div>
 
-{{--            <div>--}}
-{{--                <label for="password" class="col-md-4 col-form-label text-md-right">--}}
-{{--                    {{ __('Password') }}:</label><br />--}}
-{{--                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"--}}
-{{--                       name="password"  placeholder="Password" required>--}}
-{{--                @if ($errors->has('password'))--}}
-{{--                    <span class="invalid-feedback" role="alert">--}}
-{{--                <strong>{{ $errors->first('password') }}</strong>--}}
-{{--            </span>--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <input type="checkbox" onclick="myFunction()">Show Password--}}
-{{--            </div>--}}
-
-{{--            <div>--}}
-{{--                <label for="password_confirm" class="col-md-4 col-form-label text-md-right">--}}
-{{--                    {{ __('Confirm Password') }}:</label><br />--}}
-{{--                <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirm') ? ' is-invalid' : '' }}"--}}
-{{--                       name="password_confirmation"  placeholder="Confirm Password" required>--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <input type="checkbox" onclick="myFunction1()">Show Password--}}
-{{--            </div>--}}
-
             <div>
                 <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number:</label><br/>
                 <input id="phone_number" type="tel" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}"
@@ -74,7 +49,7 @@
 
             <div class="form-control">
                 <button type="submit" class="btn medium">
-                    <span>Send</span>
+                    <span>Update</span>
                 </button>
 
             </div>
@@ -122,7 +97,7 @@
 
             <div class="form-control">
                 <button type="submit" class="btn medium">
-                    <span>Send</span>
+                    <span>Update</span>
                 </button>
 
             </div>

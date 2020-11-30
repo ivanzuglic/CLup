@@ -39,7 +39,7 @@ Route::get('/stores/create', 'Store\StoreController@create');
 Route::post('/stores', ['as' => 'stores.store', 'uses' => 'Store\StoreController@store']);
 Route::get('/stores/{store_id}', 'Store\StoreController@show');
 Route::get('/stores/{store_id}/edit', 'Store\StoreController@edit');
-Route::patch('/stores/{store_id}', 'Store\StoreController@update');
+Route::patch('/stores/{store_id}', ['as' => 'stores.update', 'uses' => 'Store\StoreController@update']);
 Route::delete('/stores/{store_id}', 'Store\StoreController@destroy');
 
 // WorkingHoursController CRUD routes
