@@ -40,8 +40,9 @@ main {
             margin-bottom: $base-spacing*2;
             margin-right: $base-spacing;
 
-            .store-image {
+            .store-image-container {
                 width: 100%;
+                overflow: hidden;
                 height: $base-spacing*21;
                 border-radius: 8px;
                 background-color: $grey;
@@ -49,7 +50,14 @@ main {
                 background-repeat: no-repeat;
                 background-size: $base-spacing*18;
                 background-position: center;
-                border: 1px solid $grey; 
+                border: 1px solid $grey;
+
+                .store-image {
+                    margin-top: -1%;
+                    margin-left: -1%;
+                    width: 102%;
+                    height: 102%;
+                }
             }
 
             ul {

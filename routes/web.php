@@ -15,6 +15,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/test', function () {
+    return view('customer_views.find-store');
+});
+
 Auth::routes();
 
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');

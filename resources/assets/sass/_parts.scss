@@ -61,6 +61,7 @@
     overflow: hidden;
     height: auto;
     min-width: $base-spacing*24;
+    margin-bottom: $base-spacing;
 
     .widget-header {
         border-bottom: 1px solid $grey;

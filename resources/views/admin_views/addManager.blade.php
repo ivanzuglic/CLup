@@ -26,7 +26,7 @@
             <label for="Email" class="col-md-4 col-form-label text-md-right"><span
                     class="required-fields">*</span>{{ __('Email') }}:</label><br />
             <input id="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
+                name="email" value="{{ old('email') }}" placeholder="Email" required>
             @if ($errors->has('email'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('email') }}</strong>
@@ -65,18 +65,14 @@
             </div>
         </div>
 
-
-
-
-        <br>
+        <br/>
 
         <div class="form-control">
             <button type="submit" class="btn medium">
-                <span>{{ __('Register') }}</span>
+                <span>Add Manager</span>
             </button>
 
         </div>
-
     </form>
 </div>
 

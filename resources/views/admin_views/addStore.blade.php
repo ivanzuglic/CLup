@@ -43,7 +43,7 @@
                     class="required-fields">*</span>{{ __('Address Line 1') }}:</label><br />
             <input id="AddressLine1" type="text"
                 class="form-control{{ $errors->has('address_line_1') ? ' is-invalid' : '' }}" name="address_line_1"
-                value="{{ old('address_line_1') }}" placeholder="Address Line 1" required autofocus>
+                value="{{ old('address_line_1') }}" placeholder="Address Line 1" required>
 
         </div>
 
@@ -51,7 +51,7 @@
             <label for="AddressLine2" class="col-md-4 col-form-label text-md-right">{{ __('Address Line 2') }}:</label><br />
             <input id="AddressLine2" type="text"
                 class="form-control{{ $errors->has('address_line_2') ? ' is-invalid' : '' }}" name="address_line_2"
-                value="{{ old('address_line_2') }}" placeholder="Address Line 2" autofocus>
+                value="{{ old('address_line_2') }}" placeholder="Address Line 2">
 
         </div>
 
@@ -59,7 +59,7 @@
             <label for="StoreTown" class="col-md-4 col-form-label text-md-right"><span
                     class="required-fields">*</span>{{ __('Town') }}:</label><br />
             <input id="StoreTown" type="text" class="form-control{{ $errors->has('town') ? ' is-invalid' : '' }}"
-                name="town" value="{{ old('town') }}" placeholder="Town" required autofocus>
+                name="town" value="{{ old('town') }}" placeholder="Town" required>
 
         </div>
 
@@ -67,7 +67,7 @@
             <label for="StoreZip" class="col-md-4 col-form-label text-md-right"><span
                     class="required-fields">*</span>{{ __('ZIP Code') }}:</label><br />
             <input id="StoreZip" type="text" class="form-control{{ $errors->has('zip_code') ? ' is-invalid' : '' }}"
-                name="zip_code" value="{{ old('zip_code') }}" placeholder="ZIP Code" required autofocus>
+                name="zip_code" value="{{ old('zip_code') }}" placeholder="ZIP Code" required>
 
         </div>
 
@@ -76,20 +76,15 @@
                     class="required-fields">*</span>{{ __('Country') }}:</label><br />
             <input id="StoreCountry" type="text"
                 class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country"
-                value="{{ old('country') }}" placeholder="Country" required autofocus>
-
+                value="{{ old('country') }}" placeholder="Country" required>
         </div>
 
 
 
         <div>
-            <label for="StoreDescription" class="col-md-4 col-form-label text-md-right">{{ __('Store Description') }}:</label><br />
+            <label for="StoreDescription" class="col-md-4 col-form-label text-md-right">{{ __('Store Description') }}:</label><br/>
             <textarea id="StoreDescription" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-            name="description" placeholder="Store Description"  autofocus>{{ old('description') }}</textarea>
-{{--            <input id="StoreDescription" type="text"--}}
-{{--                class="form-control{{ $errors->has('StoreDescription') ? ' is-invalid' : '' }}" name="StoreDescription"--}}
-{{--                value="{{ old('StoreDescription') }}" placeholder="Store Description" required autofocus>--}}
-
+            name="description" placeholder="Store Description">{{ old('description') }}</textarea>
         </div>
 
         <div>
@@ -97,20 +92,17 @@
                     class="required-fields">*</span>{{ __('Max Occupancy') }}:</label><br />
             <input id="StoreMaxOccupancy" type="text"
                 class="form-control{{ $errors->has('max_occupancy') ? ' is-invalid' : '' }}"
-                name="max_occupancy" value="{{ old('max_occupancy') }}" placeholder="Max Occupancy" required
-                autofocus>
-
+                name="max_occupancy" value="{{ old('max_occupancy') }}" placeholder="Max Occupancy" required>
         </div>
 
         <input type="hidden" name="current_occupancy" value="0">
 
-        <br>
+        <br/>
 
         <div class="form-control">
             <button type="submit" class="btn medium">
-                <span>{{ __('Register') }}</span>
+                <span>Add Store</span>
             </button>
-
         </div>
     </form>
 </div>
