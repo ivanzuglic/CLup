@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -34,6 +35,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'email|string|max:255|required|unique:users,email,'.$this->user->id,
+         //   'password' => 'string|min:6|confirmed',
             'phone_number' => 'required|min:8|max:14'
         ]);
 
@@ -42,7 +44,25 @@ class UserController extends Controller
 //        $this->user->phone_number = $request->phone_number;
 
 //        $this->user->save();
+    //    $request['password'] = Hash::make($request['password']);
+        $this->user->update($request->all());
 
+        return back();
+    }
+
+    public function updatePass(Request $request)
+    {
+
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+//        $this->user->name = $request->name;
+//        $this->user->email = $request->email;
+//        $this->user->phone_number = $request->phone_number;
+
+//        $this->user->save();
+        $request['password'] = Hash::make($request['password']);
         $this->user->update($request->all());
 
         return back();

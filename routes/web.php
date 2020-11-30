@@ -25,6 +25,7 @@ Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware
 
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
 Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
+Route::patch('/user_profile/update/pass', ['as' => 'user_profile.updatePass', 'uses' => 'User\UserController@updatePass']);
 
 
 
