@@ -11,11 +11,17 @@ class StoresTypesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('store_types')->insert([
-            'store_type' => 'Market',
-        ]);
-        DB::table('store_types')->insert([
-            'store_type' => 'Pharmacy',
-        ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('stores')->truncate();
+        DB::table('store_types')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        $types = [
+            ['store_type' => 'Market'],
+            ['store_type' => 'Pharmacy'],
+        ];
+
+        foreach ($types as $type)
+            DB::table('store_types')->insert($type);
     }
 }

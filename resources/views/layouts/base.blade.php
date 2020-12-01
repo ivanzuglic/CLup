@@ -21,7 +21,9 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        
     </head>
 
     <body>
@@ -35,7 +37,7 @@
                     <div class="user-info">
                         <div class="user-image"></div>
                         <h2 class="user-name">
-                            Username
+                            {{Auth::user()->name}}
                         </h2>
                     </div>
                 @endif
@@ -46,17 +48,47 @@
             @if (Auth::check())
                 <nav id="nav">
                     <ul class="nav-container">
+                        @if (Auth::user()->role_id == 2)
+                            <li class="nav-option">
+                                    <a id="find-store" href="\home">Find store</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="placaments" href="">My placements</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->role_id == 3)
+                            <li class="nav-option">
+                                    <a id="store-parameters" href="\manager\dashboard">Store parameters</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="print-tickets" href="">Print tickets</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="store-statistics" href="">Store statistics</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->role_id == 1)
+                            <li class="nav-option">
+                                    <a id="add-store" href="\admin\dashboard\add_store">Add store</a>
+                            </li>
+                            <li class="nav-option">
+                                    <a id="add-managers" href="\admin\dashboard\add_manager">Add managers</a>
+                            </li>
+                        @endif
                         <li class="nav-option">
-                                <a id="find-store" href="">Find store</a>
+                                <a id="settings" href="\user_profile\edit">Settings</a>
                         </li>
                         <li class="nav-option">
-                                <a id="placaments" href="">My Placaments</a>
-                        </li>
-                        <li class="nav-option">
-                                <a id="settings" href="">Settings</a>
-                        </li>
-                        <li class="nav-option">
-                                <a id="logout" href="">Logout</a>
+                            <a id="logout" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
                         </li>
                     </ul>
                 </nav>
@@ -67,6 +99,8 @@
             @yield('main')
         </main>
 
-        @yield('javascripts')
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

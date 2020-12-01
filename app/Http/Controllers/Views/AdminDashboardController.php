@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Views;
 
+use App\Store;
+use App\StoreType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,8 +24,15 @@ class AdminDashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function addStore()
     {
-        return view('temp.admin_dashboard');
+        $store_types = StoreType::all();
+        return view('admin_views.addStore', compact('store_types'));
+    }
+
+    public function addManager()
+    {
+        $stores = Store::all();
+        return view('admin_views.addManager', compact('stores'));
     }
 }

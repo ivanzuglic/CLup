@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Roles;
 use Illuminate\Support\Facades\Auth;
 
 class Role
@@ -10,15 +11,17 @@ class Role
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param $role_string
      * @return mixed
      */
-    public function handle($request, Closure $next, int $role_id)
+    public function handle($request, Closure $next, $role_string)
     {
         $user = Auth::user();
+        $role = Roles::where('role_name', $role_string)->firstOrFail();
 
-        if($user->role_id == $role_id)
+        if($user->role_id == $role->id)
         {
             return $next($request);
         }

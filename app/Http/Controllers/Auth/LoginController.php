@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Roles;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,18 +32,18 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         $role_id = Auth::user()->role_id;
-        switch ($role_id) {
-            case '1':
-                return '/admin/dashboard';
-                break;
 
-            case '3':
+        $role = Roles::where('id', $role_id)->firstOrFail();
+
+        switch ($role->role_name) {
+            case 'admin':
+                return '/admin/dashboard/add_store';
+
+            case 'manager':
                 return '/manager/dashboard';
-                break;
 
             default:
                 return '/home';
-                break;
         }
     }
 

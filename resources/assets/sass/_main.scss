@@ -1,12 +1,13 @@
 // Stylizes the central portion of the webpage
 
 main {
-    width: 100%;
-    // width: calc(100% - #{$nav-width});
-    // margin-left: $nav-width;
+    //width: 100%;
+    width: calc(100% - #{$nav-width});
+    margin-left: $nav-width;
     padding: $base-spacing*2 $base-spacing*2 $base-spacing*2 $base-spacing*2;
     position: relative;
     display: flex;
+    flex-direction: column;
 
     > * {
         margin-left: auto;
@@ -18,9 +19,131 @@ main {
         margin-left: $nav-width;
     }
 
+    .store-card-area {
+        min-width: 90%;
+        margin-top: $base-spacing;
+        margin-right: 0;
+        margin-bottom: $base-spacing;
+        margin-left: $base-spacing;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+
+        .store-card {
+            background-color: $white;
+            border-radius: 6px;
+            box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
+            display: flex;
+            flex-direction: column;
+            width: $base-spacing*21;
+            padding: $base-spacing;
+            margin-bottom: $base-spacing*2;
+            margin-right: $base-spacing;
+
+            .store-image-container {
+                width: 100%;
+                overflow: hidden;
+                height: $base-spacing*21;
+                border-radius: 8px;
+                background-color: $grey;
+                background-image: url('/images/shopping-basket-solid.svg');
+                background-repeat: no-repeat;
+                background-size: $base-spacing*18;
+                background-position: center;
+                border: 1px solid $grey;
+
+                .store-image {
+                    margin-top: -1%;
+                    margin-left: -1%;
+                    width: 102%;
+                    height: 102%;
+                }
+            }
+
+            ul {
+                padding-left: 0;
+                li {
+                    font-size: 1.1rem;
+                    line-height: 1.6rem;
+                    font-weight: bold;
+                    overflow-wrap: wrap;
+                    span {
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            .store-card-actions {
+                width: 100%;
+            }
+        }
+        @include media('<=desktop') {
+            justify-content: space-evenly;
+        }
+    }
+
+    .search-bar {
+        background-color: $white;
+        min-width: 90%;
+        margin: $base-spacing;
+        border-radius: 8px;
+        box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
+        display: flex;
+        flex-direction: row;
+
+        .search-input {
+            margin-left: $base-spacing;
+            border: none;
+            flex: 1 6 0px;
+            margin-right: $base-spacing;
+            max-width: 100%;
+            overflow: hidden;
+            height: $base-spacing*3;
+            border-radius: inherit;
+            position: relative;
+            font-size: 1rem;
+            background-color: $white;
+        }
+        .search-actions {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            margin-right: $base-spacing*.5;
+        }
+
+        &:before {
+            content: '';
+            z-index: 7;
+            position: relative;
+            background-size: $base-spacing*1.5 $base-spacing*1.5;
+            width: $base-spacing*2;
+            height: $base-spacing*2;
+            opacity: .5;
+            background-image: url('/images/search-solid.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            transform: translate($base-spacing*.5, $base-spacing*.5);
+        }
+    }
+
     div.form {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    @include media('<=desktop') {
+        width: 100%;
+        margin-left: 0;
+        .nav-active & {
+            pointer-events: none;
+            &:after {
+                @include pseudo;
+                @include fill-parent;
+                background-color: rgba($text-color, 0.35);
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     }
 }
