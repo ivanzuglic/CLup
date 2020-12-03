@@ -94,6 +94,12 @@ class StoreController extends Controller
         $store = Store::findOrFail($store_id);
         $store->update($request->all());
 
+        if($request->hasFile('image_reference')) {
+           $filename = $request->image_reference->getClientOriginalName();
+           $request->image_reference->storeAs('images',  $filename, 'public');
+           $store->update(['image_reference'=>$filename]);
+        }
+
         return back();
     }
 

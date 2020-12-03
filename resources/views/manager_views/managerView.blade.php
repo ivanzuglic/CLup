@@ -5,9 +5,9 @@
 @section('main')
 <div class="form widget widget-medium">
     <div class="widget-header title-only">
-        <h2 class="widget-title">Store Max. Occupancy and Resrevation Ratio</h2>
+        <h2 class="widget-title">Store Max. Occupancy and Reservation Ratio</h2>
     </div>
-    <form method="POST" action = "{{route('stores.update',$store->store_id)}}" class="form-inline" id="store-parameters">
+    <form method="POST" action = "{{route('stores.update',$store->store_id)}}" enctype="multipart/form-data" class="form-inline" id="store-parameters">
         @csrf
         @method('PATCH')
         <div>
@@ -36,6 +36,20 @@
             @if ($errors->has('max_reservation_ratio'))
                 <span class="invalid-feedback" role="alert">
             <strong>{{ $errors->first('max_reservation_ratio') }}</strong>
+        </span>
+            @endif
+        </div>
+
+        <div>
+            <label for="Image" class="col-md-4 col-form-label text-md-right">
+                {{ __('Upload Image') }}:
+            </label>
+            <br/>
+            <input id="Image" type="file"
+                   class="form-control{{ $errors->has('Image') ? ' is-invalid' : '' }}" name="image_reference">
+            @if ($errors->has('image_reference'))
+                <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('image_reference') }}</strong>
         </span>
             @endif
         </div>

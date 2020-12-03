@@ -16,7 +16,7 @@
         @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image-container">
-                    <img src="{{ $store->image_reference }}" class="store-image" alt="">
+                    <img  src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image" alt="">
                 </div>
                 <div class="store-details">
                     <ul>
