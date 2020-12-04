@@ -244,7 +244,7 @@ header .logo {
   margin-top: 12px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   header .logo {
     padding-left: 48px;
   }
@@ -388,7 +388,7 @@ main .store-card-area .store-card .store-card-actions {
   width: 100%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   main .store-card-area {
     -webkit-box-pack: space-evenly;
         -ms-flex-pack: space-evenly;
@@ -469,7 +469,7 @@ main div.form {
           align-items: center;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   main {
     width: 100%;
     margin-left: 0;
@@ -609,7 +609,7 @@ main div.form {
   outline: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   #nav {
     position: fixed;
     -webkit-box-shadow: 0 2px 4px 0 rgba(11, 48, 59, 0.12);
