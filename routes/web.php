@@ -34,7 +34,7 @@ Route::patch('/user_profile/update/pass', ['as' => 'user_profile.updatePass', 'u
 
 
 // StoreController CRUD routes
-Route::get('/stores', 'Store\StoreController@index');
+Route::get('/stores', ['as' => 'stores.search', 'uses' => 'Store\StoreController@index']);
 Route::get('/stores/create', 'Store\StoreController@create');
 Route::post('/stores', ['as' => 'stores.store', 'uses' => 'Store\StoreController@store']);
 Route::get('/stores/{store_id}', 'Store\StoreController@show');

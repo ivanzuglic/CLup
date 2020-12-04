@@ -5,12 +5,16 @@
 @section('title', 'Find Store')
 
 @section('main')
-    <div class="search-bar">
-        <input class="search-input" type="text" placeholder="Search stores"  name="server-search">
-        <div class="search-actions">
-            <button class="btn medium" type="submit"><span>Search<span></button>
+
+    <form method="get" action="{{route('stores.search')}}">
+        <div class="search-bar">
+            <input class="search-input" type="text" placeholder="Search stores"  name="search_string">
+            <div class="search-actions">
+                <button class="btn medium" type="submit"><span>Search</span></button>
+            </div>
         </div>
-    </div>
+    </form>
+
 
     <div class="store-card-area">
         @foreach ($stores as $store)
