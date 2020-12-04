@@ -16,7 +16,9 @@
         @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image-container">
-                    <img src="{{ $store->image_reference }}" class="store-image" alt="">
+                    @isset($store->image_reference)
+                        <img src="{{ $store->image_reference }}" class="store-image" alt="">
+                    @endisset
                 </div>
                 <div class="store-details">
                     <ul>
