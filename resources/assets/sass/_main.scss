@@ -82,6 +82,13 @@ main {
         }
     }
 
+    span {
+        &.invalid-feedback {
+            color: $alert-red;
+            margin-top: $base-spacing;
+            display: block;
+        }
+    }
     .search-bar {
         background-color: $white;
         min-width: 90%;

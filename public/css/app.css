@@ -396,6 +396,12 @@ main .store-card-area .store-card .store-card-actions {
   }
 }
 
+main span.invalid-feedback {
+  color: #ff0f0f;
+  margin-top: 16px;
+  display: block;
+}
+
 main .search-bar {
   background-color: #fafafa;
   min-width: 90%;
