@@ -17,8 +17,7 @@ class AppointmentsTableSeeder extends Seeder
             'appointment_type' => '1',
             'start_time' => '08:00',
             'end_time' => '09:00',
-            'in_store' => '0',
-            'done' => '0',
+            'status' => 'waiting',
             'lane' => '1',
         ]);
     }
