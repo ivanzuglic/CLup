@@ -60,3 +60,6 @@ Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentContro
 Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update');
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
 
+Route::get('/queue', 'Appointment\QueueController@index');
+
+

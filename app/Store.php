@@ -53,4 +53,52 @@ class Store extends Model
         return $this->hasMany('App\WorkingHours', 'store_id');
     }
 
+    /**
+     * Get all appointements for the store.
+     *
+     * @return array
+     */
+    public function getAllAppointments($max_occupancy)
+    {
+        $lanes = [];
+        for ($i = 1; $i <= $max_occupancy; $i++){
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time')->get();
+        }
+        return $lanes;
+    }
+
+    /**
+     * Get the appointements from specific lane for the store.
+     *
+     */
+    public function getAppointmentsInLane($lane)
+    {
+        return $this->hasMany('App\Appointment', 'store_id')->where('lane', $lane)->orderBy('start_time')->get();
+    }
+
+    /**
+     * Get the appointements from specific lane for the store.
+     *
+     */
+    public function getLaneHeads($max_occupancy)
+    {
+        $lanes = [];
+        for ($i = 1; $i <= $max_occupancy; $i++){
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time')->first();
+        }
+        return $lanes;
+    }
+
+    /**
+     * Get the appointements from specific lane for the store.
+     *
+     */
+    public function getLaneEnds($max_occupancy)
+    {
+        $lanes = [];
+        for ($i = 1; $i <= $max_occupancy; $i++){
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time', 'desc')->first();
+        }
+        return $lanes;
+    }
 }
