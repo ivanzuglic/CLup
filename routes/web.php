@@ -43,13 +43,15 @@ Route::patch('/stores/{store_id}', ['as' => 'stores.update', 'uses' => 'Store\St
 Route::delete('/stores/{store_id}', 'Store\StoreController@destroy');
 
 // WorkingHoursController CRUD routes
-Route::get('stores/{store_id}/working_hours', 'Store\WorkingHoursController@index');
+Route::get('stores/{store_id}/working_hours', ['as' => 'working_hours.index', 'uses' => 'Store\WorkingHoursController@index']);
 Route::get('stores/{store_id}/working_hours/create', 'Store\WorkingHoursController@create');
 Route::post('/stores/{store_id}/working_hours', 'Store\WorkingHoursController@store');
 Route::get('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@show');
 Route::get('/stores/{store_id}/working_hours/{working_hours_id}/edit', 'Store\WorkingHoursController@edit');
 Route::patch('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@update');
 Route::delete('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@destroy');
+// WorkingHours manager routes
+Route::post('stores/{store_id}/working_hours/manager', ['as' => 'working_hours.bulk_CUD', 'uses' => 'Store\WorkingHoursController@bulk_CUD']);
 
 // AppointmentController and QueueController CRUD routes
 Route::get('/appointments', 'Appointment\AppointmentController@index');
