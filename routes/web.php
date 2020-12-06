@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('customer_views.find-store');
+    return view('customer_views.store-details');
 });
 
 Auth::routes();

@@ -1,4 +1,4 @@
-<!-- Markup for the application's login page -->
+<!-- Markup for the application's find store page -->
 
 @extends('layouts.base')
 
