@@ -474,7 +474,7 @@ main .store-details-widget .store-home .store-details-text-area ul li section {
           hyphens: auto;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   main .store-details-widget .store-home {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

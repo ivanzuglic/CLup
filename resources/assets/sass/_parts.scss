@@ -82,6 +82,15 @@
             align-items: center;
             text-align: center;
         }
+
+        .widget-title {
+            &.success-title {
+                color: $success-green;
+            }
+            &.error-title {
+                color: $alert-red;
+            }
+        }
     }
 
     &.widget-small {
