@@ -648,6 +648,7 @@ main span.invalid-feedback {
 main .search-bar {
   background-color: #fafafa;
   min-width: 90%;
+  padding: 4px;
   margin: 16px;
   border-radius: 8px;
   -webkit-box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
