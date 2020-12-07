@@ -15,9 +15,6 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/test', function () {
-    return view('customer_views.store-details');
-});
 
 Auth::routes();
 
