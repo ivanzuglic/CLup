@@ -40,9 +40,11 @@
         font-size: 1.2rem;
     }
     &.large {
-        width: $base-spacing*12.5;
-        height: $base-spacing*3;
-        padding: $base-spacing;
+        width: $base-spacing*10;
+        height: $base-spacing*2.5;
+        padding: $base-spacing*.5;
+        line-height: 1.6rem;
+        font-size: 1.2rem;
     }
     &.long {
         width: 95%;
@@ -90,7 +92,7 @@
         width: $base-spacing*30;
     }
     &.widget-large {
-        width: 100%;
+        width: 65%;
     }
 
     &.form {
