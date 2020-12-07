@@ -41,7 +41,7 @@
                     </ul>
                 </div>
                 <div class="store-card-actions">
-                    <a href="Placeholder" class="btn long"><span>More details</span></a>
+                    <a href="/stores/{{$store->store_id}}/details" class="btn long"><span>More details</span></a>
                 </div>
             </div>
         @endforeach

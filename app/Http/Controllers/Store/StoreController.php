@@ -69,6 +69,13 @@ class StoreController extends Controller
         return Store::findOrFail($store_id);
     }
 
+    public function show_details($store_id)
+    {
+        $store = Store::findOrFail($store_id);
+
+        return view('customer_views.store-details', array('store' => $store));
+    }
+
     public function edit()
     {
         // return edit field

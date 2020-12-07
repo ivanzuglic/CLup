@@ -5,7 +5,6 @@
 @section('title', 'Find Store')
 
 @section('main')
-        @foreach ($stores as $store)
             <div class="widget widget-large store-details-widget">
                 <div class="store-home">
                     <div class="store-image-area">
@@ -73,6 +72,4 @@
                     </form>
                 </div>
             </div>
-            @break
-        @endforeach
 @endsection
