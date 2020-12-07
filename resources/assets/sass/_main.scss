@@ -85,6 +85,7 @@ main {
     .search-bar {
         background-color: $white;
         min-width: 90%;
+        padding: $base-spacing*.25;
         margin: $base-spacing;
         border-radius: 8px;
         box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
