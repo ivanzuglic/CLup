@@ -1,4 +1,4 @@
-<!-- Markup for the application's login page -->
+<!-- Markup for the application's find store page -->
 
 @extends('layouts.base')
 
@@ -16,9 +16,9 @@
         @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image-container">
-                    @isset($store->image_reference)
-                        <img src="{{ $store->image_reference }}" class="store-image" alt="">
-                    @endisset
+
+                    <img  src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image" alt="">
+
                 </div>
                 <div class="store-details">
                     <ul>
@@ -43,7 +43,7 @@
                     </ul>
                 </div>
                 <div class="store-card-actions">
-                    <a href="Placeholder" class="btn long"><span>More details</span></a>
+                    <a href="/stores/{{$store->store_id}}/details" class="btn long"><span>More details</span></a>
                 </div>
             </div>
         @endforeach

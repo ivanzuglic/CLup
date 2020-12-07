@@ -19,6 +19,134 @@ main {
         margin-left: $nav-width;
     }
 
+    .store-details-widget {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        >div {
+            border-bottom: 1px solid $grey;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        .store-home {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            padding: $base-spacing;
+
+            .store-image-area {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex-grow: 1;
+                .store-image-container {
+                    width: $base-spacing*21;
+                    overflow: hidden;
+                    height: $base-spacing*21;
+                    border-radius: 8px;
+                    background-color: $grey;
+                    background-image: url('/images/shopping-basket-solid.svg');
+                    background-repeat: no-repeat;
+                    background-size: $base-spacing*18;
+                    background-position: center;
+                    border: 1px solid $grey;
+                    flex-shrink: 0;
+        
+                    .store-image {
+                        margin-top: -1%;
+                        margin-left: -1%;
+                        width: 102%;
+                        height: 102%;
+                    }
+                }
+            }
+    
+            .store-details-text-area {
+                margin: $base-spacing;
+                flex-grow: 10;
+                ul {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    padding-left: 0;
+                    li {
+                        display: flex;
+                        flex-direction: row;
+                        flex-flow: row wrap;
+                        font-size: 1.4rem;
+                        line-height: 2.8rem;
+                        font-weight: bold;
+                        overflow-wrap: wrap;
+                        word-wrap: break-word;
+                        section {
+                            font-weight: normal;
+                            overflow-wrap: break-word;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            word-break: break-word;
+                            hyphens: auto;
+                        }
+                    }
+                }
+            }
+
+            @include media('<=desktop') {
+                flex-flow: column wrap;
+                justify-content: center;
+
+                .store-image-container {
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        }
+
+        .store-interactions {
+            padding: $base-spacing;
+            display: flex;
+            flex-direction: row;
+
+            .store-interactions-div {
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+                font-weight: bold;
+                margin-bottom: $base-spacing*.5;
+                line-height: 2.5rem;
+                font-size: 1.2rem;
+                span {
+                    font-weight: normal;
+                }
+            }
+
+            .queue-form-input {
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-left: 0;
+                label {
+                    flex-shrink: 0;
+                }
+                input {
+                    flex-shrink: 0;
+                    margin-left: $base-spacing*.5;
+                    margin-right: $base-spacing*.5;
+                    max-width: $base-spacing*4.5;
+                    height: $base-spacing*2.25;
+                    margin-bottom: $base-spacing*.5;
+                }
+    
+                button {
+                    flex-shrink: 0;
+                    margin-bottom: $base-spacing*.5;
+                }
+            }
+        }
+    }
+
     .store-card-area {
         min-width: 90%;
         margin-top: $base-spacing;

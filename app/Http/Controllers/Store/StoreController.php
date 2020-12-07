@@ -69,6 +69,13 @@ class StoreController extends Controller
         return Store::findOrFail($store_id);
     }
 
+    public function show_details($store_id)
+    {
+        $store = Store::findOrFail($store_id);
+
+        return view('customer_views.store-details', array('store' => $store));
+    }
+
     public function edit()
     {
         // return edit field
@@ -93,6 +100,12 @@ class StoreController extends Controller
 
         $store = Store::findOrFail($store_id);
         $store->update($request->all());
+
+        if($request->hasFile('image_reference')) {
+           $filename = $request->image_reference->getClientOriginalName();
+           $request->image_reference->storeAs('images',  $filename, 'public');
+           $store->update(['image_reference'=>$filename]);
+        }
 
         return back();
     }
