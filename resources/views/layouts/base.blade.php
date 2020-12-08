@@ -29,7 +29,9 @@
     <body>
         @section('header')
             <header>
-                <button id="toggle-nav" class="toggle-nav-btn" type="button"></button>
+                @if (Auth::check())
+                    <button id="toggle-nav" class="toggle-nav-btn" type="button"></button>
+                @endif
                 <div class="logo">
                     <img src="{{ asset('images/CLupLogoFinal.png') }}" alt="CLup">
                 </div>
@@ -95,7 +97,11 @@
             @endif
         @show
 
-        <main>
+        @if(Auth::check())
+            <main>
+        @else
+            <main class="no-nav">
+        @endif
             @yield('main')
         </main>
 

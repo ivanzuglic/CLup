@@ -1,19 +1,19 @@
-<!-- Markup for the application's login page -->
+<!-- Markup for the application's success messages -->
 
 @extends('layouts.base')
 
-@section('title', 'Login')
+@section('title', 'Success')
 
 @section('main')
-    <div class="form widget widget-large">
+    <div class="widget widget-medium information-widget">
         <div class="widget-header title-only">
             <h2 class="widget-title success-title">SUCCESS!</h2>
         </div>
-        <div class="success-msg">
-            <div class="success-img">
+        <div class="widget-content">
+            <div class="information-img">
                 <img src="/images/thumbs-up-solid.svg" placeholder="Thumbs Up!">
             </div>
-            <div class="success-msg">
+            <div class="information-msg">
                 The client may enter the store!
             </div>
         </div>
