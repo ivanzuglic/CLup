@@ -18,10 +18,19 @@ class UserTest extends TestCase
      */
     use RefreshDatabase;
 
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+
+    }
+
+
     /** @test */
     public function only_logged_in_customer_can_see_home_page()
     {
-        $this->seed();
         $response = $this->get('/home')
             ->assertRedirect('/login');
 
@@ -30,8 +39,7 @@ class UserTest extends TestCase
     /** @test */
     public function authenticated_customer_can_edit_their_profile()
     {
-        $this->seed();
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAsCustomer();
 
         $response = $this->get('/user_profile/edit')
             ->assertOk();
@@ -41,19 +49,12 @@ class UserTest extends TestCase
     /** @test */
     public function authenticated_customer_can_update_their_profile()
     {
-        $this->seed();
         //$this->withoutExceptionHandling();
-        $user = factory(User::class)->create([
-            'name' => 'Test User'
-        ]);
 
-        $this->actingAs($user);
+        $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', [
-           'name' => 'Test User',
-           'email' => 'test@test.com',
-           'phone_number' => '87654321'
-        ])->assertRedirect('/');
+        $response = $this->patch('/user_profile/update', $this->data())
+            ->assertRedirect('/');
 
       //  $this->assertCount(3, User::all());
 
@@ -62,14 +63,9 @@ class UserTest extends TestCase
     /** @test */
     public function authenticated_customer_can_update_their_password()
     {
-        $this->seed();
         //$this->withoutExceptionHandling();    // use when you want more details of error (only when test fails)
-        $user = factory(User::class)->create([
-            'name' => 'Test User',
-            'email' => 'test@test.com'
-        ]);
 
-        $this->actingAs($user);
+        $this->actingAsCustomer();
 
         $response = $this->patch('/user_profile/update/pass', [
             'password' => 'test321',
@@ -78,6 +74,101 @@ class UserTest extends TestCase
 
         //  $this->assertCount(3, User::all());
 
+    }
+
+    /*
+     *  Tests for validations
+     *
+     */
+    /** @test */
+    public function a_name_is_required()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['name' => '']));
+        $response->assertSessionHasErrors('name');
+    }
+
+
+    /** @test */
+    public function an_email_is_required()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['email' => '']));
+        $response->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    public function a_valid_email_is_required()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['email' => 'test_test']));
+        $response->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    public function a_phone_number_is_required()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '']));
+        $response->assertSessionHasErrors('phone_number');
+    }
+
+    /** @test */
+    public function a_phone_number_must_be_at_least_8_characters()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '123']));
+        $response->assertSessionHasErrors('phone_number');
+    }
+
+    /** @test */
+    public function a_phone_number_must_be_max_16_characters()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+
+        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '12345678901234567']));
+        $response->assertSessionHasErrors('phone_number');
+    }
+
+
+
+    /*
+     * Private functions
+     */
+    private function actingAsCustomer()
+    {
+        $this->actingAs(factory(User::class)->create([
+            'role_id' => '2',
+        ]));
+    }
+
+    /*
+     * Function that returns data that we want to edit
+     */
+    private function data()
+    {
+        return [
+            'name' => 'Test Customer',
+            'email' => 'test@test.com',
+            'phone_number' => '87654321'
+        ];
     }
 
 }
