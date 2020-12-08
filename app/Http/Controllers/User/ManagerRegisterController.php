@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -51,12 +52,14 @@ class ManagerRegisterController extends Controller
     protected function create(Request $data)
     {
 
-       if (Gate::allows('ManagerRegister')) {
+       if (Gate::allows('ManagerRegister', Auth::user())) {
           $data->validate([
               'name' => 'required|string|max:255',
               'email' => 'required|string|email|max:255|unique:users',
               'password' => 'required|string|min:6|confirmed',
-              'phone_number' => 'string|min:8|max:14'
+              'password_confirmation' => 'required|string|min:6|same:password',
+              'phone_number' => 'string|min:8|max:14',
+              'store_id' => 'required|integer|exists:stores,store_id'
           ]);
 
            User::create([

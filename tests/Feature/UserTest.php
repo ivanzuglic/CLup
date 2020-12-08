@@ -37,6 +37,15 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function authenticated_customer_can_see_store_list()
+    {
+        $this->actingAsCustomer();
+        $response = $this->get('/home')
+            ->assertOk();
+
+    }
+
+    /** @test */
     public function authenticated_customer_can_edit_their_profile()
     {
         $this->actingAsCustomer();
