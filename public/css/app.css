@@ -350,6 +350,11 @@ main {
           flex-direction: column;
 }
 
+main.no-nav {
+  width: 100%;
+  margin-left: 0;
+}
+
 main > * {
   margin-left: auto;
   margin-right: auto;
@@ -358,6 +363,41 @@ main > * {
 main.active-nav {
   width: calc(100% - 280px);
   margin-left: 280px;
+}
+
+main .information-widget .success-title {
+  color: #20f000;
+  font-size: 1.5rem;
+}
+
+main .information-widget .warning-title {
+  color: #ffd505;
+  font-size: 1.5rem;
+}
+
+main .information-widget .error-title {
+  color: #ff0f0f;
+  font-size: 1.5rem;
+}
+
+main .information-widget .widget-content .information-img {
+  padding: 48px 80px;
+}
+
+main .information-widget .widget-content .information-msg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding-bottom: 24px;
 }
 
 main .store-details-widget {
@@ -474,7 +514,7 @@ main .store-details-widget .store-home .store-details-text-area ul li section {
           hyphens: auto;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1144px) {
   main .store-details-widget .store-home {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -966,6 +1006,10 @@ main div.form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   overflow: hidden;
   height: auto;
   min-width: 384px;

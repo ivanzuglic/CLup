@@ -15,7 +15,6 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-
 Auth::routes();
 
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');
