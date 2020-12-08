@@ -147,6 +147,20 @@ class UserTest extends TestCase
         $response->assertSessionHasErrors('phone_number');
     }
 
+    /** @test */
+    public function a_password_must_be_at_least_6_characters_and_confirmed()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsCustomer();
+        $response = $this->patch('/user_profile/update/pass', [
+            'password' => 'test32',
+            'password_confirmation' => 'test3'
+        ]);
+        $response->assertSessionHasErrors('password');                  // throws errors (password not long enough)
+        $response->assertSessionHasErrors('password_confirmation');     // throws errors (password not confirmed)
+
+    }
 
 
     /*
