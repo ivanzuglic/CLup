@@ -37,7 +37,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'email|string|max:255|required|unique:users,email,'.$this->user->id,
-            'phone_number' => 'required|min:8|max:14'
+            'phone_number' => 'min:8|max:14'
         ]);
 
         $this->user->update($request->all());
