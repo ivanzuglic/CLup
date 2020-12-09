@@ -43,6 +43,7 @@ class UserRegisteredNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->from('administration@clup.com', 'CLup')
                     ->greeting("Hello {$this->user->name}!")
                     ->line("Registration successful!")
                     ->action('Start using CLup!', url('/home'))

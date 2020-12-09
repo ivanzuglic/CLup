@@ -16,14 +16,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegisteredEvent' => [
             'App\Listeners\UserRegisteredListener',
         ],
-
         'App\Events\UserCredentialsUpdateEvent' => [
             'App\Listeners\UserCredentialsUpdateListener',
         ],
-
         'App\Events\UserPasswordUpdateEvent' => [
             'App\Listeners\UserPasswordUpdateListener',
         ]
+        'App\Events\ManagerCreatedEvent' => [
+            'App\Listeners\ManagerCreatedListener',
+        ],
     ];
 
     /**
