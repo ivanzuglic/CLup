@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\UserCredentialsUpdateEvent;
+use App\Events\UserPasswordUpdateEvent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -35,17 +37,12 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'email|string|max:255|required|unique:users,email,'.$this->user->id,
-         //   'password' => 'string|min:6|confirmed',
             'phone_number' => 'required|min:8|max:14'
         ]);
 
-//        $this->user->name = $request->name;
-//        $this->user->email = $request->email;
-//        $this->user->phone_number = $request->phone_number;
-
-//        $this->user->save();
-    //    $request['password'] = Hash::make($request['password']);
         $this->user->update($request->all());
+
+        event(new UserCredentialsUpdateEvent($this->user));
 
         return back();
     }
@@ -58,13 +55,10 @@ class UserController extends Controller
             'password_confirmation' => 'required|string|min:6|same:password'
         ]);
 
-//        $this->user->name = $request->name;
-//        $this->user->email = $request->email;
-//        $this->user->phone_number = $request->phone_number;
-
-//        $this->user->save();
         $request['password'] = Hash::make($request['password']);
         $this->user->update($request->all());
+
+        event(new UserPasswordUpdateEvent($this->user));
 
         return back();
     }
