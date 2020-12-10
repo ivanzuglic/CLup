@@ -68,6 +68,40 @@ class Store extends Model
     }
 
     /**
+     * Get all appointements for the store at a specific date.
+     *
+     * @return array
+     */
+    public function getAllOverlappingAppointments($max_occupancy, $date, $start_time, $end_time)
+    {
+        $overlapping_appointments = [];
+        for ($i = 1; $i <= $max_occupancy; $i++){
+            $overlapping_appointments[$i] = $this->hasMany('App\Appointment', 'store_id')->where([
+                ['lane', '=', $i],
+                ['date', '=', $date],
+                ['start_time', '>', $start_time],
+                ['end_time', '<', $end_time],
+            ])->orWhere([
+                ['lane', '=', $i],
+                ['date', '=', $date],
+                ['start_time', '<', $start_time],
+                ['end_time', '>', $end_time],
+            ])->orWhere([
+                ['lane', '=', $i],
+                ['date', '=', $date],
+                ['start_time', '>', $start_time],
+                ['start_time', '<', $end_time],
+            ])->orWhere([
+                ['lane', '=', $i],
+                ['date', '=', $date],
+                ['end_time', '>', $start_time],
+                ['end_time', '<', $end_time],
+            ])->orderBy('start_time')->get();
+        }
+        return $overlapping_appointments;
+    }
+
+    /**
      * Get the appointements from specific lane for the store.
      *
      */

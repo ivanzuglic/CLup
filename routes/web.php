@@ -62,4 +62,7 @@ Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentControll
 
 Route::get('/queue', 'Appointment\QueueController@index');
 
+// Adding reservation route
+Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation']);
+
 

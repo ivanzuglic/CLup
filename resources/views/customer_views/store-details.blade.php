@@ -53,16 +53,18 @@
                     <div class="reservation-display">
                         <!-- A display that shows what timeslots are available -->
                     </div>
-                    <form class="row-form">
+                    <form class="row-form" method="post" action="{{route('appointment.addReservation')}}">
+                        @csrf
+                        <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                         <div class="store-interactions-div">
-                            <label for="reservation-date" class="">Select Date:&nbsp;</label>
-                            <input type="date" id="reservation-date" name="reservation-date" class="form-control">
+                            <label for="reservation_date" class="">Select Date:&nbsp;</label>
+                            <input type="date" id="reservation_date" name="reservation_date" class="form-control">
                         </div>
                         <div class="store-interactions-div">
-                            <label for="reservation-start-time" class="">Select Timeframe:&nbsp;</label>
-                            <input type="time" id="reservation-start-time" name="reservation-start-time" class="form-control">
+                            <label for="reservation_start_time" class="">Select Timeframe:&nbsp;</label>
+                            <input type="time" id="reservation_start_time" name="reservation_start_time" class="form-control">
                             <h3>&nbsp;to&nbsp;</h3>
-                            <input type="time" id="reservation-end-time" name="reservation-end-time" class="form-control">
+                            <input type="time" id="reservation_end_time" name="reservation_end_time" class="form-control">
                         </div>
                         <div class="store-interactions-div">
                             <button type="submit" class="btn large">
