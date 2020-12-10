@@ -97,7 +97,9 @@ class QueueController extends AppointmentController
             'appointment_type' => '2',
             'start_time' => $min,
             'end_time' => $end_time,
+            'date' => date('Y-m-d'),
             'status' => 'waiting',
+            'active' => '1',
             'lane' => $lane,
         ];
 
@@ -105,7 +107,9 @@ class QueueController extends AppointmentController
             'appointment_type' => 'required|integer|exists:appointment_types,type_id',
             'start_time' => 'required|date_format:H:i:s',
             'end_time' => 'required|date_format:H:i:s|after:start_time',
+            'date' => 'required|date',
             'in_store' => 'required|integer|min:0|max:1',
+            'active' => 'required|boolean',
             'done' => 'required|integer|min:0|max:1',
             'lane' => 'required|integer|min:1'
         ]);
@@ -118,5 +122,44 @@ class QueueController extends AppointmentController
         Appointment::create($appointment);
 
         return back();
+    }
+
+    public function removeUserFromQueue(Request $request, $appointment_id)
+    {
+        $appointment = Appointment::findOrFail($appointment_id);
+        $appointment->active = 0;
+        $appointment->update();
+    }
+
+    public function rebalanceProxyUsers(int $store_id, Appointment $canceled_appointment)
+    {
+        $proxyCustomers = Store::find($store_id)->getProxyCustomers();
+        $proxyCustomers = $proxyCustomers->where('start_time', '>=', $canceled_appointment->start_time)->orderBy('start_time', 'desc')->get();
+
+        for($i=0; $i<count($proxyCustomers); $i++)
+        {
+            if($i<count($proxyCustomers)-1) {
+                $planned_time = strtotime($proxyCustomers[$i]->end_time) - strtotime($proxyCustomers[$i]->start_time);
+
+                $proxyCustomers[$i]->start_time = $proxyCustomers[$i + 1]->start_time;
+                $end_time = strtotime($proxyCustomers[$i]->start_time) + $planned_time;
+                $end_time = date('H:i:s', $end_time);
+                $proxyCustomers[$i]->end_time = $end_time;
+                $proxyCustomers[$i]->lane = $proxyCustomers[$i + 1]->lane;
+
+                $proxyCustomers[$i]->update();
+            }
+            else {
+                $planned_time = strtotime($proxyCustomers[$i]->end_time) - strtotime($proxyCustomers[$i]->start_time);
+
+                $proxyCustomers[$i]->start_time = $canceled_appointment->start_time;
+                $end_time = strtotime($proxyCustomers[$i]->start_time) + $planned_time;
+                $end_time = date('H:i:s', $end_time);
+                $proxyCustomers[$i]->end_time = $end_time;
+                $proxyCustomers[$i]->lane = $canceled_appointment->lane;
+
+                $proxyCustomers[$i]->update();
+            }
+        }
     }
 }

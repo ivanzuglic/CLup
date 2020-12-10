@@ -101,4 +101,9 @@ class Store extends Model
         }
         return $lanes;
     }
+
+    public function getProxyCustomers($store_id)
+    {
+        return $this->hasMany('App\Appointment', 'store_id')->where('appointment_type',3)->orderBy('start_time')->first();
+    }
 }
