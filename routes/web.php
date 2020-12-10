@@ -61,5 +61,6 @@ Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentControlle
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
 
 Route::get('/queue', 'Appointment\QueueController@index');
+Route::post('/addToQueue', ['as' => 'addToQueue', 'uses' => 'Appointment\QueueController@addUserToQueue']);
 
 
