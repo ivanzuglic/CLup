@@ -62,7 +62,7 @@ class Store extends Model
     {
         $lanes = [];
         for ($i = 1; $i <= $max_occupancy; $i++){
-            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time')->get();
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->get();
         }
         return $lanes;
     }
@@ -73,7 +73,7 @@ class Store extends Model
      */
     public function getAppointmentsInLane($lane)
     {
-        return $this->hasMany('App\Appointment', 'store_id')->where('lane', $lane)->orderBy('start_time')->get();
+        return $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $lane)->orderBy('start_time')->get();
     }
 
     /**
@@ -84,7 +84,7 @@ class Store extends Model
     {
         $lanes = [];
         for ($i = 1; $i <= $max_occupancy; $i++){
-            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time')->first();
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->first();
         }
         return $lanes;
     }
@@ -97,13 +97,45 @@ class Store extends Model
     {
         $lanes = [];
         for ($i = 1; $i <= $max_occupancy; $i++){
-            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('lane', $i)->orderBy('start_time', 'desc')->first();
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time', 'desc')->first();
         }
         return $lanes;
     }
 
-    public function getProxyCustomers($store_id)
+    public function getProxyCustomersAfterTime($start_time)
     {
-        return $this->hasMany('App\Appointment', 'store_id')->where('appointment_type',3)->orderBy('start_time')->first();
+        return $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('appointment_type',3)->where('start_time', '>', $start_time)->orderBy('start_time')->get();
+    }
+
+    public function getEmptyTimeslots($max_occupancy, $start_working_time, $end_working_time)
+    {
+        $lanes = [];
+        for ($i = 1; $i <= $max_occupancy; $i++){
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->get();
+        }
+        $empty_time_slots=[];
+        $lane_no = 1;
+        foreach ($lanes as $lane) {
+            $empty = [];
+            if(sizeof($lane) == 0)
+                array_push($empty, ['start' => $start_working_time, 'end' => $end_working_time]);
+            else {
+                for ($i = 0; $i < sizeof($lane); $i++) {
+                    if($i == 0){
+                        if(strtotime($lane[$i]->start_time) > strtotime($start_working_time))
+                            array_push($empty, ['start' => $start_working_time, 'end' => $lane[$i]->start_time]);
+                    }
+                    if ($i < sizeof($lane) - 1) {
+                        if ((strtotime($lane[$i + 1]->start_time) - strtotime($lane[$i]->end_time)) > 0) {
+                            array_push($empty, ['start' => $lane[$i]->end_time, 'end' => $lane[$i + 1]->start_time]);
+                        }
+                    }
+                }
+            }
+            $empty_time_slots[$lane_no] = $empty;
+            $lane_no++;
+        }
+        return $empty_time_slots;
+
     }
 }

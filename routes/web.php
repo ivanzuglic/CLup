@@ -62,5 +62,6 @@ Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentControll
 
 Route::get('/queue', 'Appointment\QueueController@index');
 Route::post('/addToQueue', ['as' => 'addToQueue', 'uses' => 'Appointment\QueueController@addUserToQueue']);
+Route::get('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'uses' => 'Appointment\QueueController@removeUserFromQueue']);
 
 

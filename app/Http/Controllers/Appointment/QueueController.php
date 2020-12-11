@@ -21,12 +21,13 @@ class QueueController extends AppointmentController
         $store = Store::where('store_id', 1)->first();
 
 //        return $store->getAllAppointments($store->max_occupancy);
+        return $store->getEmptyTimeslots($store->max_occupancy);
 //        return $store->getAppointmentsInLane(1);
 //        return $store->getLaneHeads($store->max_occupancy);
 //        return $store->getLaneEnds($store->max_occupancy);
 
         //moving each appointment in lane 1 for 10 minutes
-        foreach ($store->getAppointmentsInLane(1) as $appointment){
+        foreach ($store->getAppointmentsInLane(1) as $appointment) {
             $start_time = strtotime($appointment->start_time) + 600;
             $end_time = strtotime($appointment->end_time) + 600;
             $appointment->start_time = date('h:i:s', $start_time);
@@ -43,13 +44,9 @@ class QueueController extends AppointmentController
             'store_id' => 'required|integer|exists:stores,store_id'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             //return view();
-        }
-
-        else
-        {
+        } else {
             return $this->store($request);
         }
 
@@ -62,33 +59,31 @@ class QueueController extends AppointmentController
         $queue_ends = $store->getLaneEnds($store->max_occupancy);
 
         $working_hours = $store->working_hours;
-        $today_working_hours = $working_hours->where('day', date('w')-1)->first();
+        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
         $min = $today_working_hours->closing_hours;
         $lane = 1;
-        $min_start_time = $request->travel_time*60 + strtotime(date('H:i:s'));
+        $min_start_time = $request->travel_time * 60 + strtotime(date('H:i:s'));
 
 
-        for($i=1; $i<=$store->max_occupancy; $i++)
-        {
+        for ($i = 1; $i <= $store->max_occupancy; $i++) {
             $end = $queue_ends[$i];
-           if($end != NULL) {
-               if (strtotime($end->end_time) < strtotime($min)) {
-                   if (strtotime($end->end_time) >= $min_start_time) {
-                       $min = $end->end_time;
-                       $lane = $end->lane;
-                   }
-               }
-           }
-           else
-               {
-                   $min = date('H:i:s',$min_start_time);
-                   $lane = $queue_ends[$i-1]->lane;
-                   $lane++;
-                   break;
-               }
+
+            if ($end != NULL) {
+                if (strtotime($end->end_time) < strtotime($min)) {
+                    if (strtotime($end->end_time) >= $min_start_time) {
+                        $min = $end->end_time;
+                        $lane = $end->lane;
+                    }
+                }
+            } else {
+                $min = date('H:i:s', $min_start_time);
+                $lane = $queue_ends[$i - 1]->lane;
+                $lane++;
+                break;
+            }
         }
 
-        $end_time = strtotime($min) + $request->planned_stay_time*60;
+        $end_time = strtotime($min) + $request->planned_stay_time * 60;
         $end_time = date('H:i:s', $end_time);
 
         $appointment = [
@@ -114,8 +109,7 @@ class QueueController extends AppointmentController
             'lane' => 'required|integer|min:1'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             //return view();
         }
 
@@ -124,41 +118,83 @@ class QueueController extends AppointmentController
         return back();
     }
 
-    public function removeUserFromQueue(Request $request, $appointment_id)
+    public function removeUserFromQueue($appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
         $appointment->active = 0;
-        $appointment->update();
+        $appointment->save();
+
+        $store_id = $appointment->store_id;
+        $store = Store::find($store_id);
+
+        $proxyCustomers = $store->getProxyCustomersAfterTime($appointment->start_time);
+        if ($proxyCustomers == null) {
+            return back();
+        }
+        $canceled_timeslot = strtotime($appointment->end_time) - strtotime($appointment->start_time);
+
+        foreach ($proxyCustomers as $customer) {
+            $proxy_timeslot = strtotime($customer->end_time) - strtotime($customer->start_time);
+
+            if ($proxy_timeslot <= $canceled_timeslot) {
+                $customer->start_time = $appointment->start_time;
+                $end_time = strtotime($customer->start_time) + $proxy_timeslot;
+                $customer->end_time = date('H:i:s', $end_time);
+                $customer->lane = $appointment->lane;
+                $customer->save();
+                break;
+            }
+        }
+        return $this->rebalanceProxyUsers($store_id, $appointment);
+
     }
 
     public function rebalanceProxyUsers(int $store_id, Appointment $canceled_appointment)
     {
-        $proxyCustomers = Store::find($store_id)->getProxyCustomers();
-        $proxyCustomers = $proxyCustomers->where('start_time', '>=', $canceled_appointment->start_time)->orderBy('start_time', 'desc')->get();
+        $store = Store::find($store_id);
+        $working_hours = $store->working_hours;
+        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
 
-        for($i=0; $i<count($proxyCustomers); $i++)
-        {
-            if($i<count($proxyCustomers)-1) {
-                $planned_time = strtotime($proxyCustomers[$i]->end_time) - strtotime($proxyCustomers[$i]->start_time);
+        $proxyCustomers = $store->getProxyCustomersAfterTime($canceled_appointment->start_time);
 
-                $proxyCustomers[$i]->start_time = $proxyCustomers[$i + 1]->start_time;
-                $end_time = strtotime($proxyCustomers[$i]->start_time) + $planned_time;
-                $end_time = date('H:i:s', $end_time);
-                $proxyCustomers[$i]->end_time = $end_time;
-                $proxyCustomers[$i]->lane = $proxyCustomers[$i + 1]->lane;
+        foreach ($proxyCustomers as $customer) {
+            $planned_stay = strtotime($customer->end_time) - strtotime($customer->start_time);
 
-                $proxyCustomers[$i]->update();
+            $empty_timeslots_in_lanes = $store->getEmptyTimeslots($store->max_occupancy, $today_working_hours->opening_hours, $today_working_hours->closing_hours);
+            $first_empty_in_lanes = [];
+            for ($i = 1; $i <= sizeof($empty_timeslots_in_lanes); $i++) {
+                $lane = $empty_timeslots_in_lanes[$i];
+
+                for ($j = 0; $j < sizeof($lane); $j++) {
+                    if (strtotime($lane[$j]['end']) > strtotime(date('H:i:s'))) {
+                        if (strtotime($lane[$j]['start']) <= strtotime(date('H:i:s')))
+                            $lane[$j]['start'] = date('H:i:s');
+                        $slot_duration = strtotime($lane[$j]['end']) - strtotime($lane[$j]['start']);
+
+                        if ($slot_duration >= $planned_stay) {
+                            $first_empty_in_lanes[$i] = $lane[$j];
+                            break;
+                        }
+
+                    }
+                }
             }
-            else {
-                $planned_time = strtotime($proxyCustomers[$i]->end_time) - strtotime($proxyCustomers[$i]->start_time);
+            if ($first_empty_in_lanes != null) {
+                $min = $customer->start_time;
+                $lane_no = $customer->lane;
 
-                $proxyCustomers[$i]->start_time = $canceled_appointment->start_time;
-                $end_time = strtotime($proxyCustomers[$i]->start_time) + $planned_time;
-                $end_time = date('H:i:s', $end_time);
-                $proxyCustomers[$i]->end_time = $end_time;
-                $proxyCustomers[$i]->lane = $canceled_appointment->lane;
+                foreach ($first_empty_in_lanes as $key => $lane) {
+                    if (strtotime($lane['start']) < strtotime($min)) {
+                        $min = $lane['start'];
+                        $lane_no = $key;
+                    }
+                }
 
-                $proxyCustomers[$i]->update();
+                $customer->start_time = $min;
+                $end_time = strtotime($min) + $planned_stay;
+                $customer->end_time = date('H:i:s', $end_time);
+                $customer->lane = $lane_no;
+                $customer->save();
             }
         }
     }
