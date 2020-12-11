@@ -51,13 +51,51 @@ class QueueController extends AppointmentController
 
     }
 
+    /**
+     * @param Request $request
+     */
     public function addReservation(Request $request)
     {
 
+        // Validate request
+        $request->validate([
+            'reservation_start_time' => 'required',
+            'reservation_end_time' => 'required|after:reservation_start_time',
+            'reservation_date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'store_id' => 'required|exists:stores,store_id',
+        ]);
+
+        // Check reservation criteria to determine validity
         $reservation_valid = $this->checkReservationCriteria($request);
-        dd($reservation_valid);
+
+        // If reservation is valid, create an appointment
+        if($reservation_valid["valid"] == true)
+        {
+            $appointment = [
+                'user_id' => Auth::user()->id,
+                'store_id' => $request->store_id,
+                'appointment_type' => '1',
+                'start_time' => $request->reservation_start_time,
+                'end_time' => $request->reservation_end_time,
+                'date' => $request->reservation_date,
+                'status' => 'waiting',
+                'lane' => $reservation_valid["lane"],
+            ];
+
+            Appointment::create($appointment);
+
+            // return view
+        }
+        else
+        {
+            // return view
+        }
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     private function checkReservationCriteria(Request $request)
     {
         // If 0 -> reservation criteria not fulfilled
@@ -80,7 +118,7 @@ class QueueController extends AppointmentController
 
         // Fetching store from DB
         $store = Store::where('store_id', $store_id)->first();
-        // Geting Working Hours collection
+        // Getting Working Hours collection
         $working_hours_col = $store->working_hours;
 
         // Check whether reservation date is valid (today or after)
@@ -101,9 +139,10 @@ class QueueController extends AppointmentController
                 if((strtotime($start_time) >= strtotime($working_hours->opening_hours))
                     && (strtotime($end_time) <= strtotime($working_hours->closing_hours)))
                 {
-                    //Check whether reservation start time is in the future (if the requested day is today)
+                    // If the requested day is today
                     if($date == date("Y-m-d"))
                     {
+                        // Check whether reservation start time is in the future
                         if(strtotime($start_time) < strtotime(date('H:i:s')))
                         {
                             return array("valid"  => false, "lane" => $return_lane);
@@ -140,8 +179,6 @@ class QueueController extends AppointmentController
                             }
                         }
                     }
-
-                    //dd([$empty_lines, $filled_lines, $reservations]);
 
                     $reservation_ratio = ($reservations + 1) / $store->max_occupancy;
 
