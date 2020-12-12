@@ -206,4 +206,20 @@ class QueueController extends AppointmentController
             return array("valid"  => false, "lane" => $return_lane);
         }
     }
+
+    public function removeReservation(Request $request, $appointment_id)
+    {
+        $appointment = Appointment::findOrFail($appointment_id);
+        $appointment->active = 0;
+        Appointment::update($appointment);
+
+        for ($i = 1; $i <= $max_occupancy; $i++){
+                $overlapping_appointments[$i] = $this->hasMany('App\Appointment', 'store_id')->where([
+                    ['lane', '=', $i],
+                    ['date', '=', $date],
+                    ['start_time', '>=', $start_time],
+                    ['end_time', '<=', $end_time],
+                ]);
+        }
+    }
 }
