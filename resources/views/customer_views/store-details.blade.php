@@ -9,7 +9,7 @@
                 <div class="store-home">
                     <div class="store-image-area">
                         <div class="store-image-container">
-                            <img src="{{ $store->image_reference }}" class="store-image" alt="">
+                            <img src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image" alt="">
                         </div>
                     </div>
                     <div class="store-details-text-area">
