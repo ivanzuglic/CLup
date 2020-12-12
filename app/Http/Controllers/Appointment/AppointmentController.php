@@ -129,7 +129,5 @@ class AppointmentController extends Controller
         $reservations = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 1)->with('store')->where('active', 1)->get();
 
         return view('customer_views.placement-view', compact('queues', 'reservations'));
-
     }
-
 }

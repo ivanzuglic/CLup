@@ -36,7 +36,7 @@
     </div>
     <div class="placement-container">
         @foreach($reservations as $reservation)
-            <div class="placement new-placament">
+            <div class="placement @if((strtotime("now") - strtotime($reservation->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
                         Store name:&nbsp;<span>{{ $reservation->store->name }}[{{ $reservation->store_id }}]</span>

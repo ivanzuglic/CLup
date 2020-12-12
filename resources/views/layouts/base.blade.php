@@ -55,7 +55,7 @@
                                     <a id="find-store" href="\home">Find store</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="placaments" href="\placements">My placements</a>
+                                    <a id="placaments" href="\user\{{ Auth::id() }}\placements">My placements</a>
                             </li>
                         @endif
                         @if (Auth::user()->role_id == 3)
