@@ -46,7 +46,7 @@
                             <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                             <input id="travel-time" type="text" class="" name="travel_time" placeholder="Travel Time" required autofocus>
                             <label for="planned-stay-time" class="">Planned stay time (mins.):</label>
-                            <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Planned stay time" required autofocus>
+                            <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required autofocus>
                             <button type="submit" class="btn medium">
                                 <span>Queue Up!</span>
                             </button>

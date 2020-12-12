@@ -51,6 +51,51 @@ main {
         }
     }
 
+    .placement-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+
+        .placement {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: $base-spacing*.5 0;
+            flex-wrap: wrap;
+            border-bottom: 1px solid $grey;;
+
+            .placement-details {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                font-size: 1.2rem;
+                line-height: 3.4rem;
+                font-weight: bold;
+                flex-wrap: wrap;
+
+                span {
+                    font-weight: normal;
+                }
+
+                >* {
+                    margin: 0 $base-spacing*.5;
+                }
+            }
+
+            .placement-actions {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                >* {
+                    margin: 0 $base-spacing*.5;
+                }
+            }
+        }
+    }
+
     .store-details-widget {
         display: flex;
         flex-direction: column;

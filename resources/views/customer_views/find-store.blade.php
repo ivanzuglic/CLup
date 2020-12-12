@@ -20,9 +20,9 @@
         @foreach ($stores as $store)
             <div class="store-card">
                 <div class="store-image-container">
-
-                    <img  src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image" alt="">
-
+                    @isset($store->image_reference)
+                        <img  src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image">
+                    @endisset
                 </div>
                 <div class="store-details">
                     <ul>
