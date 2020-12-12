@@ -33,16 +33,20 @@
                     </div>
                 </div>
                 <div class="store-interactions">
-                    <form class="row-form">
+                    <form class="row-form" method="post" action="{{route('addToQueue')}}">
+                        @csrf
                         <div class="store-interactions-div">
-                            Queue Duration:<span>&nbsp;10min</span>
+                            Queue Duration:<span>&nbsp;10min </span>
                         </div>
                         <div class="store-interactions-div">
                             People Currently in Queue:<span>&nbsp;7</span>
                         </div>
                         <div class="queue-form-input">
                             <label for="travel-time" class="">Required Travel Time (mins.):</label>
-                            <input id="travel-time" type="text" class="" name="travel-time" placeholder="Travel Time" required autofocus>
+                            <input type="hidden" name="store_id" value="{{$store->store_id}}" />
+                            <input id="travel-time" type="text" class="" name="travel_time" placeholder="Travel Time" required autofocus>
+                            <label for="planned-stay-time" class="">Planned stay time (mins.):</label>
+                            <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Planned stay time" required autofocus>
                             <button type="submit" class="btn medium">
                                 <span>Queue Up!</span>
                             </button>

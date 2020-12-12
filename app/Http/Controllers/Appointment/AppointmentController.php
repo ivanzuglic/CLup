@@ -49,7 +49,9 @@ class AppointmentController extends Controller
             'appointment_type' => 'required|integer|exists:appointment_types,type_id',
             'start_time' => 'required|date_format:H:i:s',
             'end_time' => 'required|date_format:H:i:s|after:start_time',
+            'date' => 'required|date',
             'in_store' => 'required|integer|min:0|max:1',
+            'active' => 'required|boolean',
             'done' => 'required|integer|min:0|max:1',
             'lane' => 'required|integer|min:1'
         ]);
@@ -95,6 +97,7 @@ class AppointmentController extends Controller
             'start_time' => 'date_format:H:i:s',
             'end_time' => 'date_format:H:i:s|after:start_time',
             'in_store' => 'min:0|max:1',
+            'active' => 'boolean',
             'done' => 'min:0|max:1',
             'lane' => 'integer|min:1'
         ]);
