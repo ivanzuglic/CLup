@@ -53,6 +53,7 @@ Route::post('stores/{store_id}/working_hours/manager', ['as' => 'working_hours.b
 
 // AppointmentController and QueueController CRUD routes
 Route::get('/appointments', 'Appointment\AppointmentController@index');
+Route::get('/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser']);
 Route::get('/appointments/create', 'Appointment\AppointmentController@create');
 Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment');
 Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show');
@@ -67,5 +68,7 @@ Route::get('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'use
 // Adding reservation route
 Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation']);
 Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation']);
+
+//
 
 

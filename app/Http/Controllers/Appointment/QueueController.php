@@ -215,14 +215,8 @@ class QueueController extends AppointmentController
         $appointment->active = 0;
         Appointment::update($appointment);
 
-        for ($i = 1; $i <= $max_occupancy; $i++){
-                $overlapping_appointments[$i] = $this->hasMany('App\Appointment', 'store_id')->where([
-                    ['lane', '=', $i],
-                    ['date', '=', $date],
-                    ['start_time', '>=', $start_time],
-                    ['end_time', '<=', $end_time],
-                ]);
-
+    }
+    
     public function addUserToQueue(Request $request)
     {
 
