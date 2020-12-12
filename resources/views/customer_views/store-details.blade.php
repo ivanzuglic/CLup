@@ -21,7 +21,11 @@
                                 Store type:&nbsp;<section>{{ $store->type->store_type }}</section>
                             </li>
                             <li>
-                                Work hours:&nbsp;<section>{{ $store->hours }}</section>
+                                @if($store->working_hours->isEmpty())
+                                    Work hours:&nbsp;<section>Closed Today</section>
+                                @else
+                                    Work hours:&nbsp;<section>{{ date('H:i', strtotime($store->working_hours[0]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[0]->closing_hours)) }}</section>
+                                @endif
                             </li>
                             <li>
                                 Occupancy:&nbsp;<section>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </section>

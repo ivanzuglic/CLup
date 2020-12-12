@@ -33,7 +33,11 @@
                             Store type:&nbsp;<span>{{ $store->type->store_type }}</span>
                         </li>
                         <li>
-                            Work hours:&nbsp;<span>{{ $store->hours }}</span>
+                            @if($store->working_hours->isEmpty())
+                                Work hours:&nbsp;<span>Closed Today</span>
+                            @else
+                                Work hours:&nbsp;<span>{{ date('H:i', strtotime($store->working_hours[0]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[0]->closing_hours)) }}</span>
+                            @endif
                         </li>
                         <li>
                             Occupancy:&nbsp;<span>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </span>

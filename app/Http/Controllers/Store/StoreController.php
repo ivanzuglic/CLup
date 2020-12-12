@@ -33,7 +33,19 @@ class StoreController extends Controller
                 ->orWhere('zip_code', 'LIKE', '%' . $search_string . '%');
         })->get();
 
-        $stores = $store->with('type')->get();
+        $stores = $store->with('type')->with(['working_hours' => function ($query) {
+            if(date('w') == 0)
+            {
+                $day_of_week = 6;
+            }
+            else
+            {
+                $day_of_week = date('w') - 1;
+            }
+
+            $query->where('day', '=', $day_of_week);
+        }])->get();
+
         return view('customer_views.find-store',compact('stores'));
 
     }
@@ -72,7 +84,18 @@ class StoreController extends Controller
 
     public function show_details($store_id)
     {
-        $store = Store::findOrFail($store_id);
+        $store = Store::where('store_id', $store_id)->with('type')->with(['working_hours' => function ($query) {
+            if(date('w') == 0)
+            {
+                $day_of_week = 6;
+            }
+            else
+            {
+                $day_of_week = date('w') - 1;
+            }
+
+            $query->where('day', '=', $day_of_week);
+        }])->first();
 
         return view('customer_views.store-details', array('store' => $store));
     }
