@@ -57,13 +57,35 @@ main {
         justify-content: center;
         width: 100%;
 
+        .divider {
+            width: 100%;
+            border-bottom: 1px solid $grey;
+
+            &:last-of-type {
+                opacity: 0;
+            }
+        }
+
         .placement {
             display: flex;
+            border-radius: 8px;
             flex-direction: row;
             justify-content: space-between;
             padding: $base-spacing*.5 0;
             flex-wrap: wrap;
-            border-bottom: 1px solid $grey;;
+            // border-bottom: 1px solid $grey;
+            margin: $base-spacing*.5;
+
+            &.new-placament {
+                animation: blinker 1s linear infinite;
+                animation-iteration-count: 5;
+            }
+
+            @keyframes blinker {
+                50% {
+                    background-color: rgba($highlight-cerulean, .7);
+                }
+            }
 
             .placement-details {
                 display: flex;
@@ -88,6 +110,12 @@ main {
                 flex-direction: row;
                 justify-content: flex-start;
                 flex-wrap: wrap;
+
+                form {
+                    flex-direction: row;
+                    align-items: flex-start;
+                    width: $base-spacing*7;
+                }
 
                 >* {
                     margin: 0 $base-spacing*.5;
