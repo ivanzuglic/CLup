@@ -3,6 +3,7 @@
 @section('title','Placement View')
 
 @section('main')
+    
 <div class="form widget widget-large">
     <div class="widget-header title-only">
         <h2 class="widget-title">Queue Placements</h2>
@@ -49,8 +50,12 @@
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <a href="" class="btn medium"><span>View</span></a>
-                    <a href="/appointments/reservations/{{ $reservation->appointment_id }}" class="btn medium" ><span>Delete</span></a>
+                    <button href="" class="btn medium"><span>View</span></button>
+                    <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn medium" ><span>Delete</span></button>
+                    </form>
                 </div>
             </div>
         @endforeach
