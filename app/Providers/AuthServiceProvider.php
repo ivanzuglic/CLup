@@ -48,7 +48,6 @@ class AuthServiceProvider extends ServiceProvider
          */
         Gate::define('ManagerRegister', function($user) {
             $admin_role = Roles::where('role_name', 'admin')->firstOrFail();
-            // needs merge with branch where 'Roles' is defined
             return $user->role_id === $admin_role->id;
         });
 

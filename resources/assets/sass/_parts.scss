@@ -40,9 +40,11 @@
         font-size: 1.2rem;
     }
     &.large {
-        width: $base-spacing*12.5;
-        height: $base-spacing*3;
-        padding: $base-spacing;
+        width: $base-spacing*10;
+        height: $base-spacing*2.5;
+        padding: $base-spacing*.5;
+        line-height: 1.6rem;
+        font-size: 1.2rem;
     }
     &.long {
         width: 95%;
@@ -58,6 +60,7 @@
     border-radius: 8px;
     box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
     display: flex;
+    flex-direction: column;
     overflow: hidden;
     height: auto;
     min-width: $base-spacing*24;
@@ -90,6 +93,9 @@
         width: $base-spacing*30;
     }
     &.widget-large {
+        width: 65%;
+    }
+    &.widget-extra-large {
         width: 100%;
     }
 

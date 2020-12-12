@@ -1,13 +1,17 @@
 // Stylizes the central portion of the webpage
 
 main {
-    //width: 100%;
     width: calc(100% - #{$nav-width});
     margin-left: $nav-width;
     padding: $base-spacing*2 $base-spacing*2 $base-spacing*2 $base-spacing*2;
     position: relative;
     display: flex;
     flex-direction: column;
+
+    &.no-nav {
+        width: 100%;
+        margin-left: 0;
+    }
 
     > * {
         margin-left: auto;
@@ -17,6 +21,235 @@ main {
     &.active-nav {
         width: calc(100% - #{$nav-width});
         margin-left: $nav-width;
+    }
+
+    .information-widget {
+        .success-title {
+            color: $success-green;
+            font-size: 1.5rem;
+        }
+        .warning-title {
+            color: $warning-yellow;
+            font-size: 1.5rem;
+        }
+        .error-title {
+            color: $alert-red;
+            font-size: 1.5rem;
+        }
+        .widget-content {
+            .information-img {
+                padding: $base-spacing*3 $base-spacing*5;
+            }
+            .information-msg {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                font-size: 1.4rem;
+                font-weight: bold;
+                padding-bottom: $base-spacing*1.5;
+            }
+        }
+    }
+
+    .placement-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+
+        .divider {
+            width: 100%;
+            border-bottom: 1px solid $grey;
+
+            &:last-of-type {
+                opacity: 0;
+            }
+        }
+
+        .placement {
+            display: flex;
+            border-radius: 8px;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: $base-spacing*.5 0;
+            flex-wrap: wrap;
+            // border-bottom: 1px solid $grey;
+            margin: $base-spacing*.5;
+
+            &.new-placament {
+                animation: blinker 1s linear infinite;
+                animation-iteration-count: 5;
+            }
+
+            @keyframes blinker {
+                50% {
+                    background-color: rgba($highlight-cerulean, .7);
+                }
+            }
+
+            .placement-details {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                font-size: 1.2rem;
+                line-height: 3.4rem;
+                font-weight: bold;
+                flex-wrap: wrap;
+
+                span {
+                    font-weight: normal;
+                }
+
+                >* {
+                    margin: 0 $base-spacing*.5;
+                }
+            }
+
+            .placement-actions {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                form {
+                    flex-direction: row;
+                    align-items: flex-start;
+                    width: $base-spacing*7;
+                }
+
+                >* {
+                    margin: 0 $base-spacing*.5;
+                }
+            }
+        }
+    }
+
+    .store-details-widget {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        >div {
+            border-bottom: 1px solid $grey;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        .store-home {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            padding: $base-spacing;
+
+            .store-image-area {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex-grow: 1;
+                .store-image-container {
+                    width: $base-spacing*21;
+                    overflow: hidden;
+                    height: $base-spacing*21;
+                    border-radius: 8px;
+                    background-color: $grey;
+                    background-image: url('/images/shopping-basket-solid.svg');
+                    background-repeat: no-repeat;
+                    background-size: $base-spacing*18;
+                    background-position: center;
+                    border: 1px solid $grey;
+                    flex-shrink: 0;
+        
+                    .store-image {
+                        margin-top: -1%;
+                        margin-left: -1%;
+                        width: 102%;
+                        height: 102%;
+                    }
+                }
+            }
+    
+            .store-details-text-area {
+                margin: $base-spacing;
+                flex-grow: 10;
+                ul {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    padding-left: 0;
+                    li {
+                        display: flex;
+                        flex-direction: row;
+                        flex-flow: row wrap;
+                        font-size: 1.4rem;
+                        line-height: 2.8rem;
+                        font-weight: bold;
+                        overflow-wrap: wrap;
+                        word-wrap: break-word;
+                        section {
+                            font-weight: normal;
+                            overflow-wrap: break-word;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            word-break: break-word;
+                            hyphens: auto;
+                        }
+                    }
+                }
+            }
+
+            @include media('<=desktop') {
+                flex-flow: column wrap;
+                justify-content: center;
+
+                .store-image-container {
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        }
+
+        .store-interactions {
+            padding: $base-spacing;
+            display: flex;
+            flex-direction: row;
+
+            .store-interactions-div {
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+                font-weight: bold;
+                margin-bottom: $base-spacing*.5;
+                line-height: 2.5rem;
+                font-size: 1.2rem;
+                span {
+                    font-weight: normal;
+                }
+            }
+
+            .queue-form-input {
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-left: 0;
+                label {
+                    flex-shrink: 0;
+                }
+                input {
+                    flex-shrink: 0;
+                    margin-left: $base-spacing*.5;
+                    margin-right: $base-spacing*.5;
+                    max-width: $base-spacing*4.5;
+                    height: $base-spacing*2.25;
+                    margin-bottom: $base-spacing*.5;
+                }
+    
+                button {
+                    flex-shrink: 0;
+                    margin-bottom: $base-spacing*.5;
+                }
+            }
+        }
     }
 
     .store-card-area {
@@ -82,9 +315,17 @@ main {
         }
     }
 
+    span {
+        &.invalid-feedback {
+            color: $alert-red;
+            margin-top: $base-spacing;
+            display: block;
+        }
+    }
     .search-bar {
         background-color: $white;
         min-width: 90%;
+        padding: $base-spacing*.25;
         margin: $base-spacing;
         border-radius: 8px;
         box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);

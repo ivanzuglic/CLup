@@ -83,7 +83,7 @@
             <div>
                 <label for="password_confirm" class="col-md-4 col-form-label text-md-right">
                     {{ __('Confirm Password') }}:</label><br />
-                <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirm') ? ' is-invalid' : '' }}"
+                <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
                        name="password_confirmation"  placeholder="Confirm Password" required>
             </div>
             <div>

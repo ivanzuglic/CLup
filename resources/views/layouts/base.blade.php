@@ -21,15 +21,17 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Styles -->
-        
+
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        
+
     </head>
 
     <body>
         @section('header')
             <header>
-                <button id="toggle-nav" class="toggle-nav-btn" type="button"></button>
+                @if (Auth::check())
+                    <button id="toggle-nav" class="toggle-nav-btn" type="button"></button>
+                @endif
                 <div class="logo">
                     <img src="{{ asset('images/CLupLogoFinal.png') }}" alt="CLup">
                 </div>
@@ -53,7 +55,7 @@
                                     <a id="find-store" href="\home">Find store</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="placaments" href="">My placements</a>
+                                    <a id="placaments" href="\placements">My placements</a>
                             </li>
                         @endif
                         @if (Auth::user()->role_id == 3)
@@ -95,7 +97,11 @@
             @endif
         @show
 
-        <main>
+        @if(Auth::check())
+            <main>
+        @else
+            <main class="no-nav">
+        @endif
             @yield('main')
         </main>
 

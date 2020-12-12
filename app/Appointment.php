@@ -18,7 +18,7 @@ class Appointment extends Model
      */
     protected $fillable = [
         'user_id', 'store_id', 'appointment_type',
-        'start_time', 'end_time', 'in_store', 'done',
+        'start_time', 'end_time', 'active', 'in_store', 'date', 'done',
         'lane'
     ];
 
@@ -37,5 +37,10 @@ class Appointment extends Model
      *
      * @var array
      */
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store', 'store_id');
+    }
 }
 
