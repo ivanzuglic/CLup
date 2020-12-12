@@ -3,7 +3,7 @@
 @section('title','Placement View')
 
 @section('main')
-<div class="form widget widget-large">
+<div class="form widget widget-extra-large">
     <div class="widget-header title-only">
         <h2 class="widget-title">Queue Placements</h2>
     </div>
@@ -30,13 +30,13 @@
     </div>
 </div>
 
-<div class="form widget widget-large">
+<div class="form widget widget-extra-large">
     <div class="widget-header title-only">
         <h2 class="widget-title">Reservations</h2>
     </div>
     <div class="placement-container">
         @foreach($reservations as $reservation)
-            <div class="placement">
+            <div class="placement new-placament">
                 <div class="placement-details">
                     <section class="store-name">
                         Store name:&nbsp;<span>{{ $reservation->store->name }}[{{ $reservation->store_id }}]</span>
@@ -53,6 +53,7 @@
                     <a href="/appointments/reservations/{{ $reservation->appointment_id }}" class="btn medium" ><span>Delete</span></a>
                 </div>
             </div>
+            <div class="divider"></div>
         @endforeach
     </div>
 </div>

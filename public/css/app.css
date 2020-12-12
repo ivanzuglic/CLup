@@ -414,10 +414,20 @@ main .placement-container {
   width: 100%;
 }
 
+main .placement-container .divider {
+  width: 100%;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+main .placement-container .divider:last-of-type {
+  opacity: 0;
+}
+
 main .placement-container .placement {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-radius: 8px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -428,7 +438,26 @@ main .placement-container .placement {
   padding: 8px 0;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border-bottom: 1px solid #a0a0a0;
+  margin: 8px;
+}
+
+main .placement-container .placement.new-placament {
+  -webkit-animation: blinker 1s linear infinite;
+          animation: blinker 1s linear infinite;
+  -webkit-animation-iteration-count: 5;
+          animation-iteration-count: 5;
+}
+
+@-webkit-keyframes blinker {
+  50% {
+    background-color: rgba(18, 212, 255, 0.7);
+  }
+}
+
+@keyframes blinker {
+  50% {
+    background-color: rgba(18, 212, 255, 0.7);
+  }
 }
 
 main .placement-container .placement .placement-details {
@@ -470,6 +499,17 @@ main .placement-container .placement .placement-actions {
           justify-content: flex-start;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+main .placement-container .placement .placement-actions form {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 112px;
 }
 
 main .placement-container .placement .placement-actions > * {
@@ -1127,6 +1167,10 @@ main div.form {
 
 .widget.widget-large {
   width: 65%;
+}
+
+.widget.widget-extra-large {
+  width: 100%;
 }
 
 .widget.form {
