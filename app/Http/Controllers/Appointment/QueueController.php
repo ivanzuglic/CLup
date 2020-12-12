@@ -216,7 +216,11 @@ class QueueController extends AppointmentController
         Appointment::update($appointment);
 
     }
-    
+
+
+    /**
+     * @param Request $request
+     */
     public function addUserToQueue(Request $request)
     {
 
@@ -240,7 +244,13 @@ class QueueController extends AppointmentController
                         $lane = $end->lane;
                     }
                 }
-            } else {
+            }
+            elseif ($queue_ends[1] == null){
+                $min = date('H:i:s', $min_start_time);
+                $lane = 1;
+                break;
+            }
+            else {
                 $min = date('H:i:s', $min_start_time);
                 $lane = $queue_ends[$i - 1]->lane;
                 $lane++;
