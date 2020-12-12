@@ -67,7 +67,7 @@ Route::get('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'use
 
 // Adding reservation route
 Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation']);
-Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation']);
+Route::get('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation']);
 
 //
 

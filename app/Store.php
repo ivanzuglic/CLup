@@ -78,21 +78,25 @@ class Store extends Model
         for ($i = 1; $i <= $max_occupancy; $i++){
             $overlapping_appointments[$i] = $this->hasMany('App\Appointment', 'store_id')->where([
                 ['lane', '=', $i],
+                ['active', '=', 1],
                 ['date', '=', $date],
                 ['start_time', '>=', $start_time],
                 ['end_time', '<=', $end_time],
             ])->orWhere([
                 ['lane', '=', $i],
+                ['active', '=', 1],
                 ['date', '=', $date],
                 ['start_time', '<=', $start_time],
                 ['end_time', '>=', $end_time],
             ])->orWhere([
                 ['lane', '=', $i],
+                ['active', '=', 1],
                 ['date', '=', $date],
                 ['start_time', '>', $start_time],
                 ['start_time', '<', $end_time],
             ])->orWhere([
                 ['lane', '=', $i],
+                ['active', '=', 1],
                 ['date', '=', $date],
                 ['end_time', '>', $start_time],
                 ['end_time', '<', $end_time],

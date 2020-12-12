@@ -81,6 +81,7 @@ class QueueController extends AppointmentController
                 'end_time' => $request->reservation_end_time,
                 'date' => $request->reservation_date,
                 'status' => 'waiting',
+                'active' => '1',
                 'lane' => $reservation_valid["lane"],
             ];
 
@@ -213,8 +214,9 @@ class QueueController extends AppointmentController
     {
         $appointment = Appointment::findOrFail($appointment_id);
         $appointment->active = 0;
-        Appointment::update($appointment);
+        $appointment->save();
 
+        return back();
     }
 
 

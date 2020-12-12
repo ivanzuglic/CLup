@@ -125,10 +125,11 @@ class AppointmentController extends Controller
 
     public function getActiveAppointmentsForUser()
     {
-        $queues = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 2)->where('active', 1)->get();
-        $reservations = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 1)->where('active', 1)->get();
+        $queues = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 2)->with('store')->where('active', 1)->get();
+        $reservations = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 1)->with('store')->where('active', 1)->get();
 
         return view('customer_views.placement-view', compact('queues', 'reservations'));
+
     }
 
 }

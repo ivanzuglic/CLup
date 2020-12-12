@@ -37,5 +37,10 @@ class Appointment extends Model
      *
      * @var array
      */
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store', 'store_id');
+    }
 }
 
