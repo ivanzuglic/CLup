@@ -23,11 +23,11 @@
                 </div>
                 <div class="placement-actions">
                     <button href="" class="btn medium"><span>View</span></button>
-{{--                    <form method="GET" action="{{route('removeFromQueue', $reservation->appointment_id)}}">--}}
-{{--                        @csrf--}}
-{{--                        @method('PATCH')--}}
-                        <a href="/removeFromQueue/{{$queue->appointment_id}}" type="button" class="btn medium" ><span>Delete</span></a>
-{{--                    </form>--}}
+                    <form method="POST" action="{{route('removeFromQueue', $queue->appointment_id)}}">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
+                    </form>
                 </div>
             </div>
             <div class="divider"></div>
@@ -58,7 +58,7 @@
                     <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn medium" ><span>Delete</span></button>
+                        <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
                     </form>
                 </div>
             </div>
