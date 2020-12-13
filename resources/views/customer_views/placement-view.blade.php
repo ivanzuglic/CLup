@@ -18,12 +18,7 @@
                         Reservation Time:&nbsp;<span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
                     </section>
                     <section class="ETA">
-{{--                        try: {{date('H:i', 3600)}}--}}
-{{--                        now: {{strtotime("now")}}--}}
-{{--                        app now: {{strtotime($queue->start_time)}}--}}
-{{--                        diff: {{(strtotime($queue->start_time) - strtotime("now"))}}--}}
-
-                        ETA:&nbsp;<span>{{ date('H:i',(strtotime($queue->start_time) - strtotime("now")-3600)) }}</span>
+                        ETA:&nbsp;<span>{{ date('H:i', (strtotime($queue->start_time) - strtotime('now') - 3600)) }}</span>
                     </section>
                 </div>
                 <div class="placement-actions">
