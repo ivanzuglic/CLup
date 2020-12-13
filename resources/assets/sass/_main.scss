@@ -73,7 +73,6 @@ main {
             justify-content: space-between;
             padding: $base-spacing*.5 0;
             flex-wrap: wrap;
-            // border-bottom: 1px solid $grey;
             margin: $base-spacing*.5;
 
             &.new-placament {
@@ -119,6 +118,111 @@ main {
 
                 >* {
                     margin: 0 $base-spacing*.5;
+                }
+            }
+        }
+    }
+
+    .ticket-widget {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .ticket-information {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-bottom: 1px solid $grey;
+            
+            .qr-code-container {
+                margin-top: $base-spacing;
+                margin-bottom: $base-spacing;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 9px;
+                .qr-code {
+                    max-width: $base-spacing*20;
+                    max-height: $base-spacing*20;
+                }
+            }
+
+            .eta {
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: $base-spacing*2;
+            }
+        }
+
+        .store-home {
+            display: flex;
+            flex-direction: row;
+            margin: $base-spacing;
+            justify-content: flex-start;
+            width: 96%;
+
+            .store-details-text-area {
+                margin: $base-spacing;
+                flex-grow: 10;
+                ul {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    padding-left: 0;
+                    li {
+                        display: flex;
+                        flex-direction: row;
+                        flex-flow: row wrap;
+                        font-size: 1.4rem;
+                        line-height: 2.8rem;
+                        font-weight: bold;
+                        overflow-wrap: wrap;
+                        word-wrap: break-word;
+                        section {
+                            font-weight: normal;
+                            overflow-wrap: break-word;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            word-break: break-word;
+                            hyphens: auto;
+                        }
+                    }
+                }
+            }
+
+            .store-image-area {
+                display: flex;
+                flex-direction: row;
+                
+                .store-image-container {
+                    width: $base-spacing*16;
+                    overflow: hidden;
+                    height: $base-spacing*16;
+                    border-radius: 8px;
+                    background-color: $grey;
+                    background-image: url('/images/shopping-basket-solid.svg');
+                    background-repeat: no-repeat;
+                    background-size: $base-spacing*18;
+                    background-position: center;
+                    border: 1px solid $grey;
+                    flex-shrink: 0;
+        
+                    .store-image {
+                        margin-top: -1%;
+                        margin-left: -1%;
+                        width: 102%;
+                        height: 102%;
+                    }
+                }
+            }
+
+            @include media('<=desktop') {
+                flex-flow: column wrap;
+                justify-content: center;
+
+                .store-image-container {
+                    margin-right: auto;
+                    margin-left: auto;
                 }
             }
         }

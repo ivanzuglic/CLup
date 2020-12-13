@@ -516,6 +516,155 @@ main .placement-container .placement .placement-actions > * {
   margin: 0 8px;
 }
 
+main .ticket-widget {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+main .ticket-widget .ticket-information {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+main .ticket-widget .ticket-information .qr-code-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 9px;
+}
+
+main .ticket-widget .ticket-information .qr-code-container .qr-code {
+  max-width: 320px;
+  max-height: 320px;
+}
+
+main .ticket-widget .ticket-information .eta {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 32px;
+}
+
+main .ticket-widget .store-home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 16px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 96%;
+}
+
+main .ticket-widget .store-home .store-details-text-area {
+  margin: 16px;
+  -webkit-box-flex: 10;
+      -ms-flex-positive: 10;
+          flex-grow: 10;
+}
+
+main .ticket-widget .store-home .store-details-text-area ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+main .ticket-widget .store-home .store-details-text-area ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  font-size: 1.4rem;
+  line-height: 2.8rem;
+  font-weight: bold;
+  overflow-wrap: wrap;
+  word-wrap: break-word;
+}
+
+main .ticket-widget .store-home .store-details-text-area ul li section {
+  font-weight: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+
+main .ticket-widget .store-home .store-image-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+main .ticket-widget .store-home .store-image-area .store-image-container {
+  width: 256px;
+  overflow: hidden;
+  height: 256px;
+  border-radius: 8px;
+  background-color: #a0a0a0;
+  background-image: url("/images/shopping-basket-solid.svg");
+  background-repeat: no-repeat;
+  background-size: 288px;
+  background-position: center;
+  border: 1px solid #a0a0a0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+main .ticket-widget .store-home .store-image-area .store-image-container .store-image {
+  margin-top: -1%;
+  margin-left: -1%;
+  width: 102%;
+  height: 102%;
+}
+
+@media (max-width: 1144px) {
+  main .ticket-widget .store-home {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  main .ticket-widget .store-home .store-image-container {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
 main .store-details-widget {
   display: -webkit-box;
   display: -ms-flexbox;

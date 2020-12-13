@@ -4,36 +4,46 @@
 
 @section('main')
 
-<div class="form widget widget-large">
-    <form method="POST">
-        @csrf
-        <h1 class="widget-title" style="text-align: center">Ticket View</h1>
+<div class="form widget widget-large ticket-widget">
 
-        <img src="https://www.kaspersky.com/content/en-global/images/repository/isc/2020/9910/a-guide-to-qr-codes-and-how-to-scan-qr-codes-2.png"
-            style="width : 30%; margin-display: block; margin-left: auto;
-            margin-right: auto;">
-        <h1 class=" widget-title"
-            style="text-align: center; border-bottom: 4px solid currentColor; padding-bottom: 15px">ETA: </h1>
-
-        <img src="https://www.pngitem.com/pimgs/m/325-3256412_buy-shopping-cart-add-product-ecommerce-icon-png.png"
-            class="image-ticket">
-
-        <div class="image-names">
-            <label for="Name">Store Name:</label>
+    <div class="ticket-information">
+        <div class="qr-code-container">
+            <!-- QR Code SVG Goes Here, be sure that the svg has the "qr-code" class -->
+            <img class="qr-code" src="https://www.kaspersky.com/content/en-global/images/repository/isc/2020/9910/a-guide-to-qr-codes-and-how-to-scan-qr-codes-2.png" placeholder="QR Code">
         </div>
+        <section class="eta">ETA:&nbsp;ADD_STUFF_HERE</section>
+    </div>
 
-        <div class="image-names">
-            <label for="Name">Store Type:</label>
+    <div class="store-home">
+        <div class="store-image-area">
+            <div class="store-image-container">
+                <img src="{{asset('/storage/images/'.$store->image_reference)}}" class="store-image" alt="">
+            </div>
+            </div>
+        <div class="store-details-text-area">
+            <ul>
+                <li>
+                    Store name:&nbsp;<section>{{ $store->name }}</section>
+                </li>
+                <li>
+                    Store type:&nbsp;<section>{{ $store->type->store_type }}</section>
+                </li>
+                <li>
+                    @if($store->working_hours->isEmpty())
+                        Work hours:&nbsp;<section>Closed Today</section>
+                    @else
+                        Work hours:&nbsp;<section>{{ date('H:i', strtotime($store->working_hours[0]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[0]->closing_hours)) }}</section>
+                    @endif
+                </li>
+                <li>
+                    Occupancy:&nbsp;<section>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </section>
+                </li>
+                <li>
+                    Address:&nbsp;<section>{{ $store->address_line_1 }},&nbsp;{{ $store->town }}</section>
+                </li>
+            </ul>
         </div>
-
-        <div class="image-names">
-            <label for="Name">Work Hours:</label>
-        </div>
-
-        <div class="image-names">
-            <label for="Name">Address:</label>
-        </div>
-    </form>
+    </div>
 
 </div>
 
