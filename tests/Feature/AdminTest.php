@@ -60,7 +60,15 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_admin_can_edit_their_profile()
+    public function only_logged_in_admin_can_see_edit_form()
+    {
+        $response = $this->get('/user_profile/edit')
+            ->assertRedirect('/login');
+
+    }
+
+    /** @test */
+    public function authenticated_admin_can_see_edit_form()
     {
         $this->actingAsAdmin();
 
@@ -70,7 +78,15 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_admin_can_update_their_profile()
+    public function only_logged_in_admin_can_update_their_profile_through_form()
+    {
+        $response = $this->patch('/user_profile/update', $this->adminData())
+            ->assertRedirect('/login');
+
+    }
+
+    /** @test */
+    public function authenticated_admin_can_update_their_profile_through_form()
     {
         //$this->withoutExceptionHandling();
 
@@ -82,9 +98,9 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_admin_can_update_their_password()
+    public function authenticated_admin_can_update_their_password_through_form()
     {
-        //$this->withoutExceptionHandling();    // use when you want more details of error (only when test fails)
+        //$this->withoutExceptionHandling();
 
         $this->actingAsAdmin();
 
@@ -96,7 +112,7 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function a_store_can_be_added_through_the_form()
+    public function authenticated_admin_can_add_a_store_through_the_form()
     {
         //$this->withoutExceptionHandling();
 
@@ -121,7 +137,7 @@ class AdminTest extends TestCase
 
 
     /** @test */
-    public function a_manager_can_be_added_through_the_form()
+    public function authenticated_admin_can_add_a_manager_through_the_form()
     {
         //$this->withoutExceptionHandling();
 

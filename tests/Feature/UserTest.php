@@ -46,7 +46,15 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_customer_can_edit_their_profile()
+    public function only_logged_in_customer_can_see_edit_form()
+    {
+        $response = $this->get('/user_profile/edit')
+            ->assertRedirect('/login');
+
+    }
+
+    /** @test */
+    public function authenticated_customer_can_see_edit_form()
     {
         $this->actingAsCustomer();
 
@@ -56,7 +64,15 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_customer_can_update_their_profile()
+    public function only_logged_in_customer_can_update_their_profile_through_form()
+    {
+        $response = $this->patch('/user_profile/update', $this->data())
+            ->assertRedirect('/login');
+
+    }
+
+    /** @test */
+    public function authenticated_customer_can_update_their_profile_through_form()
     {
         //$this->withoutExceptionHandling();
 
@@ -70,7 +86,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_customer_can_update_their_password()
+    public function authenticated_customer_can_update_their_password_through_form()
     {
         //$this->withoutExceptionHandling();    // use when you want more details of error (only when test fails)
 
