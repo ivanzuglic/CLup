@@ -223,7 +223,7 @@ class QueueController extends AppointmentController
     public function removeReservation(Request $request, $appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
-        $appointment->status = 'done';
+   //     $appointment->status = 'done';
         $appointment->active = 0;
         $appointment->save();
 
@@ -241,7 +241,17 @@ class QueueController extends AppointmentController
         $queue_ends = $store->getLaneEnds($store->max_occupancy);
 
         $working_hours = $store->working_hours;
-        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
+
+        if(date('w') == 0)
+        {
+            $day_of_week = 6;
+        }
+        else
+        {
+            $day_of_week = date('w') - 1;
+        }
+
+        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
         $min = $today_working_hours->closing_hours;
         $lane = 1;
         $min_start_time = $request->travel_time * 60 + strtotime(date('H:i:s'));
@@ -303,7 +313,7 @@ class QueueController extends AppointmentController
 
         Appointment::create($appointment);
 
-        return back();
+        return redirect(route('placements', Auth::id()));
     }
 
     public function removeUserFromQueue($appointment_id)
@@ -333,8 +343,9 @@ class QueueController extends AppointmentController
                 break;
             }
         }
-        return $this->rebalanceProxyUsers($store_id, $appointment);
+        $this->rebalanceProxyUsers($store_id, $appointment);
 
+        return back();
     }
 
     public function rebalanceProxyUsers(int $store_id, Appointment $canceled_appointment)
