@@ -2,13 +2,17 @@
 
 namespace Tests\Feature;
 
-
-
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class BasicTest extends TestCase
 {
+    /*
+     * To start all Feature tests, type command: "vendor\bin\phpunit --testsuite Feature"
+     *
+     */
+
+
     /**
      * A basic test example.
      *

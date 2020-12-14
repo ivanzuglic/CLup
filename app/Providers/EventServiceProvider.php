@@ -25,6 +25,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ManagerCreatedEvent' => [
             'App\Listeners\ManagerCreatedListener',
         ],
+        'App\Events\ReservationCreatedEvent' => [
+            'App\Listeners\ReservationCreatedListener',
+        ],
+        'App\Events\QueueCreatedEvent' => [
+            'App\Listeners\QueueCreatedListener',
+        ],
     ];
 
     /**

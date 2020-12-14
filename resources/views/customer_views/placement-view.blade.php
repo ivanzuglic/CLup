@@ -8,25 +8,32 @@
         <h2 class="widget-title">Queue Placements</h2>
     </div>
     <div class="placement-container">
-{{--        @foreach--}}
-{{--            <div class="placement">--}}
-{{--                <div class="placement-details">--}}
-{{--                    <section class="store-name">--}}
-{{--                        Store name:&nbsp;<span>Placeholder</span>--}}
-{{--                    </section>--}}
-{{--                    <section class="ETA">--}}
-{{--                        ETA:&nbsp;<span>Placeholder</span>--}}
-{{--                    </section>--}}
-{{--                    <section class="queue-length">--}}
-{{--                        People in queue:&nbsp;<span>Placeholder</span>--}}
-{{--                    </section>--}}
-{{--                </div>--}}
-{{--                <div class="placement-actions">--}}
-{{--                    <a href="" class="btn medium"><span>View</span></a>--}}
-{{--                    <a href="" class="btn medium"><span>Delete</span></a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endforeach--}}
+        @foreach($queues as $queue)
+            <div class="placement @if((strtotime("now") - strtotime($queue->created_at)) <= 30) new-placament @endif">
+                <div class="placement-details">
+                    <section class="store-name">
+                        Store name:&nbsp;<span>{{ $queue->store->name }} [{{ $queue->store->address_line_1 }}, {{ $queue->store->town }}]</span>
+                    </section>
+                    <section class="reservation-time">
+                        Appointment Time:&nbsp;<span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
+                    </section>
+                    <section class="ETA">
+                        ETA:&nbsp;<span>{{ date('H:i', (strtotime($queue->start_time) - strtotime('now') - 3600)) }}</span>
+                    </section>
+                </div>
+                <div class="placement-actions">
+                    <form method="GET" action="{{route('appointment.show', $queue->appointment_id)}}">
+                        <button type="submit" class="btn medium"><span>View</span></button>
+                    </form>
+                    <form method="POST" action="{{route('removeFromQueue', $queue->appointment_id)}}">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
+                    </form>
+                </div>
+            </div>
+            <div class="divider"></div>
+        @endforeach
     </div>
 </div>
 
@@ -36,10 +43,10 @@
     </div>
     <div class="placement-container">
         @foreach($reservations as $reservation)
-            <div class="placement new-placament">
+            <div class="placement @if((strtotime("now") - strtotime($reservation->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
-                        Store name:&nbsp;<span>{{ $reservation->store->name }}[{{ $reservation->store_id }}]</span>
+                        Store name:&nbsp;<span>{{ $reservation->store->name }} [{{ $reservation->store->address_line_1 }}, {{ $reservation->store->town }}]</span>
                     </section>
                     <section class="reservation-time">
                         Reservation Time:&nbsp;<span>{{ date('H:i', strtotime($reservation->start_time)) }} - {{ date('H:i', strtotime($reservation->end_time)) }}</span>
@@ -49,8 +56,14 @@
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <a href="" class="btn medium"><span>View</span></a>
-                    <a href="/appointments/reservations/{{ $reservation->appointment_id }}" class="btn medium" ><span>Delete</span></a>
+                    <form method="GET" action="/appointments/{{$reservation->appointment_id}}">
+                        <button type="submit" class="btn medium"><span>View</span></button>
+                    </form>
+                    <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
+                    </form>
                 </div>
             </div>
             <div class="divider"></div>

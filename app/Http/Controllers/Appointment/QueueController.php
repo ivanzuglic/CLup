@@ -1,64 +1,72 @@
 <?php
 
-
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
-use App\Http\Controllers\Controller;
+use App\Events\QueueCreatedEvent;
+use App\Events\ReservationCreatedEvent;
 use App\Store;
-use App\StoreType;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Appointment\AppointmentController;
-
 
 class QueueController extends AppointmentController
 {
 
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $store = Store::where('store_id', 1)->first();
 
-//        return $store->getAllAppointments($store->max_occupancy);
         return $store->getEmptyTimeslots($store->max_occupancy);
+//        return $store->getAllAppointments($store->max_occupancy);
 //        return $store->getAppointmentsInLane(1);
 //        return $store->getLaneHeads($store->max_occupancy);
 //        return $store->getLaneEnds($store->max_occupancy);
 
-        //moving each appointment in lane 1 for 10 minutes
-        foreach ($store->getAppointmentsInLane(1) as $appointment) {
-            $start_time = strtotime($appointment->start_time) + 600;
-            $end_time = strtotime($appointment->end_time) + 600;
-            $appointment->start_time = date('h:i:s', $start_time);
-            $appointment->end_time = date('h:i:s', $end_time);
-            $appointment->save();
-        }
+//        //moving each appointment in lane 1 for 10 minutes
+//        foreach ($store->getAppointmentsInLane(1) as $appointment) {
+//            $start_time = strtotime($appointment->start_time) + 600;
+//            $end_time = strtotime($appointment->end_time) + 600;
+//            $appointment->start_time = date('h:i:s', $start_time);
+//            $appointment->end_time = date('h:i:s', $end_time);
+//            $appointment->save();
+//        }
     }
-
-    public function insertUserAppointment(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'integer|nullable',                            // can be NULL (for someone who is queued in front of store)
-            'store_id' => 'required|integer|exists:stores,store_id'
-        ]);
-
-        if ($validator->fails()) {
-            //return view();
-        } else {
-            return $this->store($request);
-        }
-
-    }
-
 
     /**
      * @param Request $request
+     * @return Appointment
+     */
+    public function insertUserAppointment(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|nullable',                                                                            // can be NULL (for someone who is queued in front of store)
+            'store_id' => 'required|integer|exists:stores,store_id'
+        ]);
+
+        if ($validator->fails())
+        {
+            //return view();
+        }
+        else
+        {
+            return $this->store($request);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
      */
     public function addReservation(Request $request)
     {
-
         // Validate request
         $request->validate([
             'reservation_start_time' => 'required',
@@ -85,13 +93,19 @@ class QueueController extends AppointmentController
                 'lane' => $reservation_valid["lane"],
             ];
 
-            Appointment::create($appointment);
+            $appointment_create = Appointment::create($appointment);
 
-            // return view
+            $store = Store::where('store_id', $request->store_id)->first();
+
+            $user = Auth::user();
+
+            event(new ReservationCreatedEvent($user, $appointment_create, $store));
+
+            return redirect(route('placements', Auth::id()));
         }
         else
         {
-            // return view
+            return Redirect::back()->withErrors(['Reservation cannot be made in that timeslot!']);
         }
     }
 
@@ -210,9 +224,15 @@ class QueueController extends AppointmentController
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $appointment_id
+     * @return RedirectResponse
+     */
     public function removeReservation(Request $request, $appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
+   //     $appointment->status = 'done';
         $appointment->active = 0;
         $appointment->save();
 
@@ -230,7 +250,17 @@ class QueueController extends AppointmentController
         $queue_ends = $store->getLaneEnds($store->max_occupancy);
 
         $working_hours = $store->working_hours;
-        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
+
+        if(date('w') == 0)
+        {
+            $day_of_week = 6;
+        }
+        else
+        {
+            $day_of_week = date('w') - 1;
+        }
+
+        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
         $min = $today_working_hours->closing_hours;
         $lane = 1;
         $min_start_time = $request->travel_time * 60 + strtotime(date('H:i:s'));
@@ -290,9 +320,13 @@ class QueueController extends AppointmentController
             //return view();
         }
 
-        Appointment::create($appointment);
+        $appointment_create = Appointment::create($appointment);
 
-        return back();
+        $user = Auth::user();
+
+        event(new QueueCreatedEvent($user, $appointment_create, $store));
+
+        return redirect(route('placements', Auth::id()));
     }
 
     public function removeUserFromQueue($appointment_id)
@@ -322,8 +356,9 @@ class QueueController extends AppointmentController
                 break;
             }
         }
-        return $this->rebalanceProxyUsers($store_id, $appointment);
+        $this->rebalanceProxyUsers($store_id, $appointment);
 
+        return back();
     }
 
     public function rebalanceProxyUsers(int $store_id, Appointment $canceled_appointment)
