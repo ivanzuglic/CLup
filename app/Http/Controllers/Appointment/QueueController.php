@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
+use App\Events\QueueCreatedEvent;
+use App\Events\ReservationCreatedEvent;
 use App\Store;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -90,7 +92,13 @@ class QueueController extends AppointmentController
                 'lane' => $reservation_valid["lane"],
             ];
 
-            Appointment::create($appointment);
+            $appointment_create = Appointment::create($appointment);
+
+            $store = Store::where('store_id', $request->store_id)->first();
+
+            $user = Auth::user();
+
+            event(new ReservationCreatedEvent($user, $appointment_create, $store));
 
             return redirect(route('placements', Auth::id()));
         }
@@ -311,7 +319,11 @@ class QueueController extends AppointmentController
             //return view();
         }
 
-        Appointment::create($appointment);
+        $appointment_create = Appointment::create($appointment);
+
+        $user = Auth::user();
+
+        event(new QueueCreatedEvent($user, $appointment_create, $store));
 
         return redirect(route('placements', Auth::id()));
     }
