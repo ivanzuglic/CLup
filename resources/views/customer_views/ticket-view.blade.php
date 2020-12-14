@@ -6,12 +6,14 @@
 
 <div class="form widget widget-large ticket-widget">
 
+    <div class="ticket-information" id="message"></div>
+
     <div class="ticket-information">
         <div class="qr-code-container">
             <!-- QR Code SVG Goes Here, be sure that the svg has the "qr-code" class -->
-            <img class="qr-code" src="https://www.kaspersky.com/content/en-global/images/repository/isc/2020/9910/a-guide-to-qr-codes-and-how-to-scan-qr-codes-2.png" placeholder="QR Code">
+            <div class="qr-code">{{ $qr }}</div>
         </div>
-        <section class="eta">ETA:&nbsp;ADD_STUFF_HERE</section>
+        <section class="eta">ETA:&nbsp;{{ date('H:i', (strtotime($appointment->start_time) - strtotime('now') - 3600)) }}</section>
     </div>
 
     <div class="store-home">
@@ -47,5 +49,31 @@
 
 </div>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//js.pusher.com/3.1/pusher.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+
+    var $message = $('#message');
+
+    var pusher = new Pusher('{{env('PUSHER_APP_KEY')}}', {
+        encrypted: true,
+        cluster: 'eu',
+    });
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    // Subscribe to the channel we specified in our Laravel Event
+    var channel = pusher.subscribe('qr');
+
+    // Bind a function to a Event (the full Laravel class)
+    channel.bind('App\\Events\\CustomerEntersStore', function(data) {
+        var message = message.html();
+        var newMessage = data.message;
+        message.html(newMessage);
+        message.show();
+    });
+</script>
 @endsection

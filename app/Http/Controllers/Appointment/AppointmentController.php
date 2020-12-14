@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
+use App\Events\CustomerEntersStore;
 use App\Http\Controllers\Controller;
+use App\Store;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AppointmentController extends Controller
 {
@@ -63,11 +68,68 @@ class AppointmentController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Appointment $appointment_id
-     * @return Appointment
      */
     public function show($appointment_id)
     {
-        return Appointment::findOrFail($appointment_id);
+        $appointment = Appointment::find($appointment_id);
+        $store = Store::find($appointment->store_id)->with('type')->with(['working_hours' => function ($query) {
+            $query->where('day', '=', (date('w')-1));
+        }])->first();
+        $qr = QrCode::size(300)->generate(url('/scan/').'/'.$appointment_id);
+
+        return view('customer_views.ticket-view', compact('appointment', 'store', 'qr'));
+    }
+
+    public function scan($appointment_id)
+    {
+        $appointment = Appointment::where('appointment_id', $appointment_id)->first();
+        $message = '';
+
+        if ($appointment->status == 'waiting') {
+            $store = Store::find($appointment->store_id);
+            $appointment_before = $store->getAppointmentBefore($appointment);
+
+            if ($appointment_before != null) {
+                if ($appointment_before->status != 'done') {
+                    $message = 'The client may not enter the store yet!';
+
+                    return view('qr_response_views.warningResponse', compact('message'));
+                }
+                else{
+                    $appointment->status = 'in store';
+                    $appointment->save();
+
+                    $message = 'The client may enter the store!';
+
+                    return view('qr_response_views.successResponse', compact('message'));
+                }
+            }
+            else {
+                $appointment->status = 'in store';
+                $appointment->save();
+
+                $message = 'The client may enter the store!';
+
+                return view('qr_response_views.successResponse', compact('message'));
+            }
+        }
+        else if($appointment->status == 'in store'){
+            $appointment->status = 'done';
+            $appointment->save();
+
+            $message = 'The client left the store!';
+
+            return view('qr_response_views.successResponse', compact('message'));
+        }
+        else if($appointment->status == 'done'){
+            $message = 'The client had already left the store!';
+
+            return view('qr_response_views.errorResponse', compact('message'));
+        }
+
+        $user = Auth::user();
+        event(new CustomerEntersStore($appointment, $message, $user));
+        return $message;
     }
 
 
@@ -130,4 +192,8 @@ class AppointmentController extends Controller
 
         return view('customer_views.placement-view', compact('queues', 'reservations'));
     }
+    public function QrResponse(){
+        return view('qr_response_views.errorResponse');
+    }
+
 }

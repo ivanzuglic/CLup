@@ -14,7 +14,7 @@
                 <img src="/images/times-circle-solid.svg" placeholder="Error!">
             </div>
             <div class="information-msg">
-                There was an unexpected error!
+                {{ $message }}
             </div>
         </div>
     </div>

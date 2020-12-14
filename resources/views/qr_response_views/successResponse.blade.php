@@ -14,7 +14,7 @@
                 <img src="/images/thumbs-up-solid.svg" placeholder="Thumbs Up!">
             </div>
             <div class="information-msg">
-                The client may enter the store!
+                {{ $message }}
             </div>
         </div>
     </div>

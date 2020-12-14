@@ -46,7 +46,7 @@ class Store extends Model
     }
 
     /**
-     * Get the working hours for the store.
+     * Get the working hours for the store for each day.
      */
     public function working_hours()
     {
@@ -115,6 +115,24 @@ class Store extends Model
     }
 
     /**
+     * Get the appointement from specific lane that is inside the store.
+     *
+     */
+    public function getInStoreAppointmentFromLane($lane)
+    {
+        return $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $lane)->where('date', date('Y-m-d'))->where('status', 'in store')->first();
+    }
+
+    /**
+     * Get the appointement before specific appointment in lane.
+     *
+     */
+    public function getAppointmentBefore($appointment)
+    {
+        return $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $appointment->lane)->where('date', $appointment->date)->where('start_time', '<', $appointment->start_time)->orderBy('start_time', 'desc')->first();
+    }
+
+    /**
      * Get the appointements from specific lane for the store.
      *
      */
@@ -122,7 +140,7 @@ class Store extends Model
     {
         $lanes = [];
         for ($i = 1; $i <= $max_occupancy; $i++){
-            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->first();
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('status', 'waiting')->where('active', 1)->where('lane', $i)->orderBy('start_time')->first();
         }
         return $lanes;
     }
@@ -140,11 +158,19 @@ class Store extends Model
         return $lanes;
     }
 
+    /**
+     * Get proxy costumers with start time after specific one.
+     *
+     */
     public function getProxyCustomersAfterTime($start_time)
     {
         return $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('appointment_type',3)->where('start_time', '>', $start_time)->orderBy('start_time')->get();
     }
 
+    /**
+     * Get all empty time slots in store.
+     *
+     */
     public function getEmptyTimeslots($max_occupancy, $start_working_time, $end_working_time)
     {
         $lanes = [];

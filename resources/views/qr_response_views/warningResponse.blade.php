@@ -14,7 +14,7 @@
                 <img src="/images/exclamation-triangle-solid.svg" placeholder="Warning!">
             </div>
             <div class="information-msg">
-                The client may NOT enter the store!
+                {{ $message }}
             </div>
         </div>
     </div>
