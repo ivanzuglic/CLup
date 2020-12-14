@@ -12,17 +12,19 @@
             <div class="placement @if((strtotime("now") - strtotime($queue->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
-                        Store name:&nbsp;<span>{{ $queue->store->name }}[{{ $queue->store_id }}]</span>
+                        Store name:&nbsp;<span>{{ $queue->store->name }} [{{ $queue->store->address_line_1 }}, {{ $queue->store->town }}]</span>
                     </section>
                     <section class="reservation-time">
-                        Reservation Time:&nbsp;<span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
+                        Appointment Time:&nbsp;<span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
                     </section>
                     <section class="ETA">
                         ETA:&nbsp;<span>{{ date('H:i', (strtotime($queue->start_time) - strtotime('now') - 3600)) }}</span>
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <button href="" class="btn medium"><span>View</span></button>
+                    <form method="GET" action="{{route('appointment.show', $queue->appointment_id)}}">
+                        <button type="submit" class="btn medium"><span>View</span></button>
+                    </form>
                     <form method="POST" action="{{route('removeFromQueue', $queue->appointment_id)}}">
                         @csrf
                         @method('PATCH')
@@ -44,7 +46,7 @@
             <div class="placement @if((strtotime("now") - strtotime($reservation->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
-                        Store name:&nbsp;<span>{{ $reservation->store->name }}[{{ $reservation->store_id }}]</span>
+                        Store name:&nbsp;<span>{{ $reservation->store->name }} [{{ $reservation->store->address_line_1 }}, {{ $reservation->store->town }}]</span>
                     </section>
                     <section class="reservation-time">
                         Reservation Time:&nbsp;<span>{{ date('H:i', strtotime($reservation->start_time)) }} - {{ date('H:i', strtotime($reservation->end_time)) }}</span>
@@ -54,7 +56,9 @@
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <button href="" class="btn medium"><span>View</span></button>
+                    <form method="GET" action="/appointments/{{$reservation->appointment_id}}">
+                        <button type="submit" class="btn medium"><span>View</span></button>
+                    </form>
                     <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">
                         @csrf
                         @method('PATCH')

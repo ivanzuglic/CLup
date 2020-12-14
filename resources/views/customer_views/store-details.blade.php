@@ -39,19 +39,19 @@
                 <div class="store-interactions">
                     <form class="row-form" method="post" action="{{route('addToQueue')}}">
                         @csrf
-                        <div class="store-interactions-div">
-                            Queue Duration:<span>&nbsp;10min </span>
-                        </div>
-                        <div class="store-interactions-div">
-                            People Currently in Queue:<span>&nbsp;7</span>
-                        </div>
+{{--                        <div class="store-interactions-div">--}}
+{{--                            Queue Duration:<span>&nbsp;10min </span>--}}
+{{--                        </div>--}}
+{{--                        <div class="store-interactions-div">--}}
+{{--                            People Currently in Queue:<span>&nbsp;7</span>--}}
+{{--                        </div>--}}
                         <div class="queue-form-input">
                             <label for="travel-time" class="">Required Travel Time (mins.):</label>
                             <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                             <input id="travel-time" type="text" class="" name="travel_time" placeholder="Travel Time" required autofocus>
                             <label for="planned-stay-time" class="">Planned stay time (mins.):</label>
                             <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required autofocus>
-                            <button type="submit" class="btn medium">
+                            <button type="submit" class="btn medium" @if($store->working_hours->isEmpty()) disabled="disabled" style="background-color: #a0a0a0; cursor:default" @endif>
                                 <span>Queue Up!</span>
                             </button>
                         </div>
@@ -94,6 +94,10 @@
                                 <span>Book Timeslot!</span>
                             </button>
                         </div>
+                        <br>
+                        @if($errors->any())
+                            <span  class="invalid-feedback" style="color: red">{{$errors->first()}}</span>
+                        @endif
                     </form>
                 </div>
             </div>

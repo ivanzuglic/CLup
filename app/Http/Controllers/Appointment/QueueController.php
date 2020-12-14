@@ -10,6 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,7 +105,7 @@ class QueueController extends AppointmentController
         }
         else
         {
-            // return view
+            return Redirect::back()->withErrors(['Reservation cannot be made in that timeslot!']);
         }
     }
 

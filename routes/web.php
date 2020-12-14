@@ -55,10 +55,15 @@ Route::post('stores/{store_id}/working_hours/manager', ['as' => 'working_hours.b
 Route::get('/appointments', 'Appointment\AppointmentController@index');
 Route::get('/appointments/create', 'Appointment\AppointmentController@create');
 Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment');
-Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show');
+Route::get('/appointments/{appointment_id}', ['as' => 'appointment.show', 'uses' => 'Appointment\AppointmentController@show']);
 Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit');
 Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update');
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
+
+//QR code routes
+Route::get('/qr_response', 'Appointment\QueueController@QrResponse');
+Route::get('/scan/{appointment_id}', 'Appointment\AppointmentController@scan');
+
 
 Route::get('/queue', 'Appointment\QueueController@index');
 Route::post('/addToQueue', ['as' => 'addToQueue', 'uses' => 'Appointment\QueueController@addUserToQueue']);
