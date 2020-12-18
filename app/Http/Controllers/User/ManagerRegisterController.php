@@ -63,7 +63,6 @@ class ManagerRegisterController extends Controller
            for ($i = 0; $i < 10; $i++) {
                $random .= $possibleChars[rand(0, strlen($possibleChars) - 1)];
            }
-           return $random;
 
            $data['password'] = $random;
 
