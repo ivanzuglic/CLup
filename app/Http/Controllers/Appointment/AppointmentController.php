@@ -72,7 +72,7 @@ class AppointmentController extends Controller
     public function show($appointment_id)
     {
         $appointment = Appointment::find($appointment_id);
-        $store = Store::find($appointment->store_id)->with('type')->with(['working_hours' => function ($query) {
+        $store = Store::where('store_id', $appointment->store_id)->with('type')->with(['working_hours' => function ($query) {
             $query->where('day', '=', (date('w')-1));
         }])->first();
         $qr = QrCode::size(300)->generate(url('/scan/').'/'.$appointment_id);
