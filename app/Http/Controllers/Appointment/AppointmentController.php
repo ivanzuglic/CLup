@@ -6,6 +6,7 @@ use App\Appointment;
 use App\Events\CustomerEntersStore;
 use App\Http\Controllers\Controller;
 use App\Store;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -194,6 +195,17 @@ class AppointmentController extends Controller
     }
     public function QrResponse(){
         return view('qr_response_views.errorResponse');
+    }
+
+    public function print_ticket($appointment_id)
+    {
+        $paper_size = [0, 0, 227.00, 340.00];
+        $appointment = Appointment::findOrFail($appointment_id);
+        $qr = QrCode::size(200)->generate(url('/scan/').'/'.$appointment_id);
+
+//        return view('pdf.print_ticket', compact('appointment', 'qr'));
+        $pdf = PDF::loadView('pdf.print_ticket', compact('appointment', 'qr'));
+        return $pdf->setPaper($paper_size)->stream('invoice.pdf');
     }
 
 }
