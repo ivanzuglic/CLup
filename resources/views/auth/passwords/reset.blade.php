@@ -1,11 +1,13 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="form widget widget-medium">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="widget-header title-only">
+                    <h2 class="widget-title">{{ __('Reset Password') }}</h2>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.request') }}" aria-label="{{ __('Reset Password') }}">

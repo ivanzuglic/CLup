@@ -50,7 +50,7 @@
 
             <div>
                 or <a href="{{ route('register') }}">Register an account</a>
-            <div>
+            </div>
         </form>
     </div>
 @endsection
