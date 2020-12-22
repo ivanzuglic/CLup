@@ -13,7 +13,26 @@
             <!-- QR Code SVG Goes Here, be sure that the svg has the "qr-code" class -->
             <div class="qr-code">{{ $qr }}</div>
         </div>
-        <section class="eta">ETA:&nbsp;{{ date('H:i', (strtotime($appointment->start_time) - strtotime('now') - 3600)) }}</section>
+        <section class="eta">
+            @if($appointment->appointment_type == 1)
+                Date:
+                {{ $appointment->date }}<br>
+            @endif
+            Time:
+                {{ date('H:i', strtotime($appointment->start_time)) }} - {{ date('H:i', strtotime($appointment->end_time)) }}<br>
+            ETA:
+            @if($appointment->appointment_type == 1)
+                @if(strtotime($appointment->start_time) >= strtotime('now'))
+                    {{ (strtotime($appointment->date) - strtotime(date("Y-m-d")))/86400 }}&nbspDay(s),
+                    {{ date('H:i', (strtotime($appointment->start_time) - strtotime('now') - 3600)) }}&nbspHours
+                @else
+                    {{ ((strtotime($appointment->date) - strtotime(date("Y-m-d")))/86400) - 1 }}&nbspDay(s),
+                    {{ date('H:i', (strtotime($appointment->start_time) - strtotime('now') - 3600)) }}&nbspHours
+                @endif
+            @else
+                {{ date('H:i', (strtotime($appointment->start_time) - strtotime('now') - 3600)) }}&nbspHours
+            @endif
+        </section>
     </div>
 
     <div class="store-home">
@@ -31,11 +50,7 @@
                     Store type:&nbsp;<section>{{ $store->type->store_type }}</section>
                 </li>
                 <li>
-                    @if($store->working_hours->isEmpty())
-                        Work hours:&nbsp;<section>Closed Today</section>
-                    @else
-                        Work hours:&nbsp;<section>{{ date('H:i', strtotime($store->working_hours[0]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[0]->closing_hours)) }}</section>
-                    @endif
+                    Work hours:&nbsp;<section>{{ date('H:i', strtotime($store->working_hours[$appointment_day_of_week]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[$appointment_day_of_week]->closing_hours)) }}</section>
                 </li>
                 <li>
                     Occupancy:&nbsp;<section>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </section>
