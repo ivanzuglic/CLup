@@ -232,9 +232,10 @@ class QueueController extends AppointmentController
     public function removeReservation(Request $request, $appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
-   //     $appointment->status = 'done';
         $appointment->active = 0;
         $appointment->save();
+
+        $this->rebalanceProxyUsers($appointment->store_id, $appointment);
 
         return back();
     }
@@ -408,7 +409,6 @@ class QueueController extends AppointmentController
                 $customer->lane = $lane_no;
                 $customer->save();
             }
-
         }
     }
 }
