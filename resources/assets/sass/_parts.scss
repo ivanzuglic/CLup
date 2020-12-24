@@ -63,8 +63,8 @@
     flex-direction: column;
     overflow: hidden;
     height: auto;
-    min-width: $base-spacing*24;
     margin-bottom: $base-spacing;
+    min-width: $base-spacing*10;
 
     .widget-header {
         border-bottom: 1px solid $grey;
@@ -91,12 +91,17 @@
     }
     &.widget-medium {
         width: $base-spacing*30;
+
+        @include media('<=phablet') {
+            max-width: $base-spacing*22;
+            min-width: $base-spacing*11;
+        }
     }
     &.widget-large {
         width: 65%;
     }
     &.widget-extra-large {
-        width: 100%;
+        width: 95%;
     }
 
     &.form {
