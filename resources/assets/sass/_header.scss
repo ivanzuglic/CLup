@@ -80,7 +80,7 @@ header {
 
     @include media('<=desktop') {
         .logo {
-            padding-left: $base-spacing*3;
+            padding-left: $base-spacing*3.5;
         }
 
         #toggle-nav {
@@ -93,6 +93,12 @@ header {
             .user-name {
                 display: none;
             }
+        }
+    }
+
+    @include media('<=phone') {
+        .logo {
+            max-width: $base-spacing*10;
         }
     }
 }

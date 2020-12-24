@@ -10,7 +10,7 @@ form {
       -ms-flex-align: left;
           align-items: left;
   width: 100%;
-  margin: 16px 16px;
+  margin: 16px;
 }
 
 form > div {
@@ -165,6 +165,25 @@ form .form-control span {
   margin-left: auto;
 }
 
+@media (max-width: 560px) {
+  form .form-control {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  form .form-control a {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  form .form-control .required-fields {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
 form .required-fields {
   color: #ff0f0f;
 }
@@ -293,7 +312,7 @@ header .logo {
 
 @media (max-width: 1144px) {
   header .logo {
-    padding-left: 48px;
+    padding-left: 56px;
   }
 
   header #toggle-nav {
@@ -306,6 +325,12 @@ header .logo {
 
   header .user-info .user-name {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  header .logo {
+    max-width: 160px;
   }
 }
 
@@ -350,14 +375,14 @@ main {
           flex-direction: column;
 }
 
-main.no-nav {
-  width: 100%;
-  margin-left: 0;
-}
-
 main > * {
   margin-left: auto;
   margin-right: auto;
+}
+
+main > .widget-medium {
+  -ms-flex-item-align: center;
+      align-self: center;
 }
 
 main.active-nav {
@@ -897,6 +922,12 @@ main .store-card-area .store-card {
   margin-right: 16px;
 }
 
+@media (max-width: 560px) {
+  main .store-card-area .store-card {
+    width: 80%;
+  }
+}
+
 main .store-card-area .store-card .store-image-container {
   width: 100%;
   overflow: hidden;
@@ -952,7 +983,7 @@ main span.invalid-feedback {
 
 main .search-bar {
   background-color: #fafafa;
-  min-width: 90%;
+  min-width: 80%;
   padding: 4px;
   margin: 16px;
   border-radius: 8px;
@@ -1042,6 +1073,13 @@ main div.form {
     opacity: 1;
     -webkit-transform: translateX(0);
             transform: translateX(0);
+  }
+}
+
+@media (max-width: 560px) {
+  main {
+    margin: 4px;
+    padding: 0;
   }
 }
 
@@ -1277,8 +1315,8 @@ main div.form {
           flex-direction: column;
   overflow: hidden;
   height: auto;
-  min-width: 384px;
   margin-bottom: 16px;
+  min-width: 160px;
 }
 
 .widget .widget-header {
@@ -1314,12 +1352,19 @@ main div.form {
   width: 480px;
 }
 
+@media (max-width: 560px) {
+  .widget.widget-medium {
+    max-width: 352px;
+    min-width: 176px;
+  }
+}
+
 .widget.widget-large {
   width: 65%;
 }
 
 .widget.widget-extra-large {
-  width: 100%;
+  width: 95%;
 }
 
 .widget.form {

@@ -101,17 +101,12 @@
 
     #toggle-nav {
         position: absolute;
-        // top: $base-spacing/2;
-        // right: 0;
-        // transform: translateX(100%);
         display: block;
         cursor: pointer;
         background: $white;
         height: $base-spacing*2;
         width: $base-spacing*2;
-        //z-index: -1;
         border: 0;
-        //box-shadow: 0 2px 4px 0 rgba(11,48,59,.12);
         overflow: hidden;
         padding: 0;
         margin: 0;
@@ -130,7 +125,6 @@
         #toggle-nav {
             display: block;
             z-index: 10;
-            // transform: translateY(10px);
         }
         *:not(#toggle-nav) {
             opacity: 0;

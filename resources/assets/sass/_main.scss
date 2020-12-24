@@ -8,14 +8,13 @@ main {
     display: flex;
     flex-direction: column;
 
-    &.no-nav {
-        width: 100%;
-        margin-left: 0;
-    }
-
     > * {
         margin-left: auto;
         margin-right: auto;
+    }
+
+    > .widget-medium {
+        align-self: center;
     }
 
     &.active-nav {
@@ -377,6 +376,10 @@ main {
             margin-bottom: $base-spacing*2;
             margin-right: $base-spacing;
 
+            @include media('<=phablet') {
+                width: 80%;
+            }
+
             .store-image-container {
                 width: 100%;
                 overflow: hidden;
@@ -428,7 +431,7 @@ main {
     }
     .search-bar {
         background-color: $white;
-        min-width: 90%;
+        min-width: 80%;
         padding: $base-spacing*.25;
         margin: $base-spacing;
         border-radius: 8px;
@@ -490,5 +493,10 @@ main {
                 transform: translateX(0);
             }
         }
+    }
+
+    @include media('<=phablet') {
+        margin: $base-spacing*.25;
+        padding: 0;
     }
 }
