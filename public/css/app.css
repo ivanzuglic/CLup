@@ -166,13 +166,6 @@ form .form-control span {
 }
 
 @media (max-width: 560px) {
-  form .form-control {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-
   form .form-control a {
     margin-left: 0;
     margin-top: 8px;
@@ -188,7 +181,7 @@ form .required-fields {
   color: #ff0f0f;
 }
 
-form.row-form {
+form.placament-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -204,13 +197,79 @@ form.row-form {
   margin: 0 16px;
 }
 
-form.row-form > div {
+form.placament-form h3 {
+  margin-bottom: 0;
+  margin-top: 0;
   margin-right: 16px;
 }
 
-form.row-form h3 {
-  margin-bottom: 0;
-  margin-top: 0;
+form.placament-form .store-interactions-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 0;
+  font-weight: bold;
+  margin-bottom: 8px;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+}
+
+form.placament-form .store-interactions-div span {
+  font-weight: normal;
+}
+
+form.placament-form .store-interactions-div > input {
+  margin-right: 16px;
+}
+
+form.placament-form .store-interactions-div > label {
+  margin-right: 16px;
+}
+
+form.placament-form .store-interactions-div .label-divider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+form.placament-form .store-interactions-div .label-divider > input {
+  margin-right: 16px;
+}
+
+@media (max-width: 768px) {
+  form.placament-form .store-interactions-div {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: none;
+        -ms-flex-align: none;
+            align-items: none;
+  }
+}
+
+@media (max-width: 768px) {
+  form.placament-form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  form.placament-form button {
+    margin-top: 16px;
+  }
 }
 
 header {
@@ -373,6 +432,11 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+main.no-nav {
+  width: 100%;
+  margin-left: 0;
 }
 
 main > * {
@@ -821,69 +885,38 @@ main .store-details-widget .store-home .store-details-text-area ul li section {
   }
 }
 
+@media (max-width: 560px) {
+  main .store-details-widget .store-home {
+    padding: 4px;
+  }
+
+  main .store-details-widget .store-home .store-image-container {
+    margin-top: 4px;
+    width: 304px;
+    height: 304px;
+  }
+}
+
 main .store-details-widget .store-interactions {
-  padding: 16px;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-main .store-details-widget .store-interactions .store-interactions-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  padding: 0;
-  font-weight: bold;
-  margin-bottom: 8px;
-  line-height: 2.5rem;
-  font-size: 1.2rem;
+main .store-details-widget .store-interactions .reservation-display {
+  margin: 16px;
 }
 
-main .store-details-widget .store-interactions .store-interactions-div span {
-  font-weight: normal;
-}
-
-main .store-details-widget .store-interactions .queue-form-input {
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-left: 0;
-}
-
-main .store-details-widget .store-interactions .queue-form-input label {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-}
-
-main .store-details-widget .store-interactions .queue-form-input input {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  margin-left: 8px;
-  margin-right: 8px;
-  max-width: 72px;
-  height: 36px;
-  margin-bottom: 8px;
-}
-
-main .store-details-widget .store-interactions .queue-form-input button {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  margin-bottom: 8px;
+main .store-details-widget .store-interactions .reservation-display #timeline-embed {
+  width: 100%;
+  height: 48px;
 }
 
 main .store-card-area {
