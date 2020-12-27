@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Crypt;
 
-class ManagerCreatedNotification extends Notification
+class ManagerCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -49,7 +49,7 @@ class ManagerCreatedNotification extends Notification
     {
         return (new MailMessage)
                     ->from('administration@clup.com', 'CLup')
-                    ->greeting("Hello {$this->manager_user->name}!")
+                    ->greeting("Hello, {$this->manager_user->name}!")
                     ->line('You have been registered as a store manager.')
 
                     ->line('Your Login Credentials Are:')
