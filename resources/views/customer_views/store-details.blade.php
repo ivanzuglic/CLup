@@ -50,7 +50,7 @@
                             <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                             <input id="travel-time" type="text" class="" name="travel_time" placeholder="Travel Time" required autofocus>
                             <label for="planned-stay-time" class="">Planned stay time (mins.):</label>
-                            <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required autofocus>
+                            <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required>
                             <button type="submit" class="btn medium" @if($store->working_hours->isEmpty()) disabled="disabled" style="background-color: #a0a0a0; cursor:default" @endif>
                                 <span>Queue Up!</span>
                             </button>
