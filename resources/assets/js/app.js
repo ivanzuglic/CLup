@@ -24,6 +24,7 @@ window.Vue = require('vue');
 ;(() => {
     const menu = document.querySelector('#nav')
     const body = document.querySelector('body')
+
     const menuToggleButton = document.querySelector('#toggle-nav')
     if (menuToggleButton) {
         menuToggleButton.addEventListener('click', () => menuShow())
@@ -39,6 +40,14 @@ window.Vue = require('vue');
                 menuToggleButton.style.backgroundImage = 'url("/images/arrow-left-solid.svg")'
                 body.classList.add('nav-active')
             }
+        }
+    }
+
+    const uploadFileButton = document.querySelector('#upload-file-button')
+    if (uploadFileButton) {
+        uploadFileButton.addEventListener('click', (event) => uploadImage())
+        const uploadImage = () => {
+            document.getElementById("file-input").click();
         }
     }
 })()

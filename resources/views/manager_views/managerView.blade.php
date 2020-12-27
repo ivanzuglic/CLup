@@ -3,9 +3,9 @@
 @section('title','Manager View')
 
 @section('main')
-<div class="form widget widget-medium">
+<div class="form widget widget-large">
     <div class="widget-header title-only">
-        <h2 class="widget-title">Store Max. Occupancy and Reservation Ratio</h2>
+        <h2 class="widget-title">Store Parameters</h2>
     </div>
     <form method="POST" action = "{{route('stores.update',$store->store_id)}}" enctype="multipart/form-data" class="form-inline" id="store-parameters">
         @csrf
@@ -41,28 +41,28 @@
         </div>
 
         <div>
-            <label for="Image" class="col-md-4 col-form-label text-md-right">
+            <label for="file-input" class="col-md-4 col-form-label text-md-right">
                 {{ __('Upload Image') }}:
             </label>
             <br/>
-            <input id="Image" type="file"
-                   class="form-control{{ $errors->has('Image') ? ' is-invalid' : '' }}" name="image_reference">
+            <div id="upload-file-button">Upload Store Image</div>
+            <input id="file-input" type="file" class="form-control{{ $errors->has('Image') ? ' is-invalid' : '' }}" name="image_reference">
             @if ($errors->has('image_reference'))
                 <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('image_reference') }}</strong>
-        </span>
+                    <strong>{{ $errors->first('image_reference') }}</strong>
+                </span>
             @endif
         </div>
 
         <div class="form-control">
             <button type="submit" class="btn medium">
-            <span>Submit</span>
+                <span>Submit</span>
             </button>
         </div>
     </form>
 </div>
 
-<div class="form widget widget-medium">
+<div class="form widget widget-large">
     <div class="widget-header title-only">
         <h2 class="widget-title">Store Workhours</h2>
     </div>
@@ -70,9 +70,10 @@
         @csrf
         {{--@method('PATCH')--}}
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Monday" name="days_selected[]" value="0" {{ $checkbox[0] }}>
-            <label class="form-check-label" for="Monday">Monday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Monday" name="days_selected[]" value="0" {{ $checkbox[0] }}>
+                <label class="form-check-label" for="Monday">Monday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="mon-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[0] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -81,9 +82,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Tuesday" name="days_selected[]" value="1" {{ $checkbox[1] }}>
-            <label class="form-check-label" for="Tuesday">Tuesday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Tuesday" name="days_selected[]" value="1" {{ $checkbox[1] }}>
+                <label class="form-check-label" for="Tuesday">Tuesday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="tue-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[1] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -92,9 +94,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Wednesday" name="days_selected[]" value="2" {{ $checkbox[2] }}>
-            <label class="form-check-label" for="Wednesday">Wednesday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Wednesday" name="days_selected[]" value="2" {{ $checkbox[2] }}>
+                <label class="form-check-label" for="Wednesday">Wednesday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="wed-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[2] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -103,9 +106,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Thursday" name="days_selected[]" value="3" {{ $checkbox[3] }}>
-            <label class="form-check-label" for="Thursday">Thursday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Thursday" name="days_selected[]" value="3" {{ $checkbox[3] }}>
+                <label class="form-check-label" for="Thursday">Thursday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="thu-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[3] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -114,9 +118,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Friday" name="days_selected[]" value="4" {{ $checkbox[4] }}>
-            <label class="form-check-label" for="Friday">Friday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Friday" name="days_selected[]" value="4" {{ $checkbox[4] }}>
+                <label class="form-check-label" for="Friday">Friday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="fri-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[4] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -125,9 +130,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Saturday" name="days_selected[]" value="5" {{ $checkbox[5] }}>
-            <label class="form-check-label" for="Saturday">Saturday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Saturday" name="days_selected[]" value="5" {{ $checkbox[5] }}>
+                <label class="form-check-label" for="Saturday">Saturday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="sat-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[5] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
@@ -136,9 +142,10 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" class="form-check-label" id="Sunday" name="days_selected[]" value="6" {{ $checkbox[6] }}>
-            <label class="form-check-label" for="Sunday">Sunday</label>
-
+            <div class="single-checkbox-container">
+                <input type="checkbox" class="form-check-label" id="Sunday" name="days_selected[]" value="6" {{ $checkbox[6] }}>
+                <label class="form-check-label" for="Sunday">Sunday</label>
+            </div>
             <div class="time-input">
                 <input type="time" id="sun-opening-picker" class="form-control" placeholder="Select time" name="opening_hours[]" value="{{ $opening_hours[6] }}">
                 <h3>&nbsp;&nbsp;to&nbsp;&nbsp;</h3>
