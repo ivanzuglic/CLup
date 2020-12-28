@@ -94,12 +94,30 @@ main {
                 font-weight: bold;
                 flex-wrap: wrap;
 
-                span {
-                    font-weight: normal;
+                section {
+                    display: flex;
+                    flex-direction: row;
+
+                    span {
+                        font-weight: normal;
+                    }
+
+                    @include media('<=phablet') {
+                        flex-direction: column;
+
+                        span {
+                            line-height: 1rem;
+                            padding-bottom: $base-spacing;
+                        }
+                    }
                 }
 
                 >* {
                     margin: 0 $base-spacing*.5;
+                }
+
+                @include media('<=phablet') {
+                    flex-direction: column;
                 }
             }
 
@@ -108,6 +126,7 @@ main {
                 flex-direction: row;
                 justify-content: flex-start;
                 flex-wrap: wrap;
+                padding-top: $base-spacing*.5;
 
                 form {
                     flex-direction: row;

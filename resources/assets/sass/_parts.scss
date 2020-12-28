@@ -22,7 +22,7 @@
         text-align: center;
     }
     &:hover {
-        background-color: darken($blue, 10%)
+        background-color: darken($blue, 10%);
     }
 
     &.small {
@@ -98,7 +98,11 @@
         }
     }
     &.widget-large {
-        width: 65%;
+        width: 70%;
+
+        @include media('<=tablet') {
+            width: 90%;
+        }
     }
     &.widget-extra-large {
         width: 95%;
