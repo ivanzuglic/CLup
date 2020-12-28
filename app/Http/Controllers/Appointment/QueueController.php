@@ -155,6 +155,9 @@ class QueueController extends AppointmentController
                     //Check whether reservation ratio is honored
                     $overlapping_appointments = $store->getAllOverlappingAppointments($store->max_occupancy, $date, $start_time, $end_time);
 
+                    //Check whether user does not have any overlapping appointments (in this or in some other store)
+                    $user_free = $this->checkForUserOverlappingAppointments($start_time, $end_time, $date);
+
                     $empty_lines = 0;
                     $filled_lines = 0;
                     $reservations = 0;
@@ -178,10 +181,14 @@ class QueueController extends AppointmentController
 
                     $reservation_ratio = ($reservations + 1) / $store->max_occupancy;
 
-                    if ($reservation_ratio <= $store->max_reservation_ratio && $empty_lines > 0) {
-                        return array("valid" => true, "lane" => $return_lane);
-                    } else {
-                        return array("valid" => false, "lane" => $return_lane);
+
+                    if($reservation_ratio <= $store->max_reservation_ratio && $empty_lines > 0 && $user_free)
+                    {
+                        return array("valid"  => true, "lane" => $return_lane);
+                    }
+                    else
+                    {
+                        return array("valid"  => false, "lane" => $return_lane);
                     }
                 } else {
                     return array("valid" => false, "lane" => $return_lane);
@@ -208,6 +215,13 @@ class QueueController extends AppointmentController
         $this->rebalanceProxyUsers($appointment->store_id, $appointment);
 
         return back();
+    }
+
+    private function checkForUserOverlappingAppointments($start_time, $end_time, $date)
+    {
+        $overlapping_appointments = Auth::User()->getAllUserAppointmentsInTimeframe($start_time, $end_time, $date);
+        return $overlapping_appointments->isEmpty();
+
     }
 
 

@@ -14486,6 +14486,7 @@ window.Vue = __webpack_require__(35);
 ;(function () {
     var menu = document.querySelector('#nav');
     var body = document.querySelector('body');
+
     var menuToggleButton = document.querySelector('#toggle-nav');
     if (menuToggleButton) {
         menuToggleButton.addEventListener('click', function () {
@@ -14503,6 +14504,16 @@ window.Vue = __webpack_require__(35);
                 menuToggleButton.style.backgroundImage = 'url("/images/arrow-left-solid.svg")';
                 body.classList.add('nav-active');
             }
+        };
+    }
+
+    var uploadFileButton = document.querySelector('#upload-file-button');
+    if (uploadFileButton) {
+        uploadFileButton.addEventListener('click', function (event) {
+            return uploadImage();
+        });
+        var uploadImage = function uploadImage() {
+            document.getElementById("file-input").click();
         };
     }
 })();

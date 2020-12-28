@@ -5,7 +5,7 @@ form {
     flex-direction: column;
     align-items: left;
     width: 100%;
-    margin: $base-spacing $base-spacing;
+    margin: $base-spacing;
     > div {
         padding: $base-spacing*.5 $base-spacing*4;
 
@@ -13,25 +13,51 @@ form {
             display: flex;
             flex-direction: row;
             vertical-align: middle;
-            max-height: $base-spacing*2;
+
+            @include media('<=tablet') {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            @include media('<=phablet') {
+                padding: $base-spacing;
+            }
+
+            input[type=checkbox] {
+                flex-shrink: 0;
+            }
 
             .time-input {
                 margin-left: auto;
                 display: flex;
                 flex-direction: row;
 
-                h3 {
-                    line-height: .3rem;
-                    margin-top: 0;
-                    margin-bottom: 0;
+                @include media('<=tablet') {
+                    margin-left: 0;
+                    margin-bottom: $base-spacing*.5;
                 }
 
-                input[type=time] {
-                    width: $base-spacing*5;
+                @include media('<=phablet') {
+                    input[type=time] {
+                        height: $base-spacing*3;
+                    }
+                }
+
+                h3 {
+                    line-height: 2.4rem;
+                    margin-top: 0;
+                    margin-bottom: 0;
                 }
             }
         }
     }
+
+    .single-checkbox-container {
+        display: flex;
+        flex-direction: row;
+    }
+
     select {
         border-radius: 4px;
         border-color: rgba($grey, .2);
@@ -101,8 +127,7 @@ form {
         background-color: $background-grey;
         font-size: 1rem;
         width: $base-spacing*6;
-        height: $base-spacing*2.25;
-
+        height: $base-spacing*2.5;
     }
     input[type=date] {
         border-radius: 4px;
@@ -113,6 +138,29 @@ form {
         width: $base-spacing*9;
         height: $base-spacing*2.25;
     }
+    input[type=file] {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+    }
+
+    #upload-file-button {
+        width: $base-spacing*12;
+        height: $base-spacing*2.5;
+        color: $text-color;
+        background-color: $background-grey;
+        border-radius: 5px;
+        border: 1px solid $grey;
+        font-size: 1.2rem;
+        line-height: 2.5rem;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($background-grey, 10%);
+        }
+    }
+
     .form-check-label {
         padding-left: $base-spacing*.5;
         line-height: 2rem;
@@ -128,9 +176,33 @@ form {
             line-height: 2.5rem;
             margin-left: auto;
         }
+
+        @include media('<=phablet') {
+            flex-direction: column;
+            a {
+                margin-left: 0;
+                margin-top: $base-spacing*.5;
+            }
+            .required-fields {
+                margin-left: 0;
+                margin-top: $base-spacing*.5;
+            }
+        }
     }
+
     .required-fields {
         color: $alert-red;
+    }
+
+    .form-single-checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+        .checkbox-label {
+            line-height: 2rem;
+            padding-left: $base-spacing*.5;
+        }
     }
 
     &.row-form {
