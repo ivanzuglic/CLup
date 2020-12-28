@@ -76,8 +76,8 @@
             </span>
                 @endif
             </div>
-            <div>
-                <input type="checkbox" onclick="myFunction()">Show Password
+            <div class="form-single-checkbox">
+                <input type="checkbox" onclick="myFunction()"><span class="checkbox-label">Show Password</span>
             </div>
 
             <div>
@@ -86,8 +86,8 @@
                 <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
                        name="password_confirmation"  placeholder="Confirm Password" required>
             </div>
-            <div>
-                <input type="checkbox" onclick="myFunction1()">Show Password
+            <div class="form-single-checkbox">
+                <input type="checkbox" onclick="myFunction1()"><span class="checkbox-label">Show Password</span>
             </div>
 
 

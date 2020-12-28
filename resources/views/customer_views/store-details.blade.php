@@ -59,6 +59,7 @@
                                     <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required autofocus>
                                 </div>
                             </div>
+
                             <button type="submit" class="btn medium" @if($store->working_hours->isEmpty()) disabled="disabled" style="background-color: #a0a0a0; cursor:default" @endif>
                                 <span>Queue Up!</span>
                             </button>

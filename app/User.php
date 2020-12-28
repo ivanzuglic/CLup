@@ -37,4 +37,31 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Roles', 'role_id');
     }
+
+    public function getAllUserAppointmentsInTimeframe($start_time, $end_time, $date)
+    {
+        $overlapping_appointments = $this->hasMany('App\Appointment', 'user_id')->where([
+            ['active', '=', 1],
+            ['date', '=', $date],
+            ['start_time', '>=', $start_time],
+            ['end_time', '<=', $end_time],
+        ])->orWhere([
+            ['active', '=', 1],
+            ['date', '=', $date],
+            ['start_time', '<=', $start_time],
+            ['end_time', '>=', $end_time],
+        ])->orWhere([
+            ['active', '=', 1],
+            ['date', '=', $date],
+            ['start_time', '>', $start_time],
+            ['start_time', '<', $end_time],
+        ])->orWhere([
+            ['active', '=', 1],
+            ['date', '=', $date],
+            ['end_time', '>', $start_time],
+            ['end_time', '<', $end_time],
+        ])->orderBy('start_time')->get();
+
+        return $overlapping_appointments;
+    }
 }
