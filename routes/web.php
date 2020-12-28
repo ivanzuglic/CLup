@@ -77,5 +77,3 @@ Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointmen
 // Placements route
 Route::get('/user/{id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser']);
 
-
-
