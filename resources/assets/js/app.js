@@ -9,6 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+var timeline_json = generateDailyTimeline();
+window.timeline = new TL.Timeline('timeline-embed', timeline_json);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
