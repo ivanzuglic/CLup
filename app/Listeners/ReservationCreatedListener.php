@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\ReservationCreatedEvent;
 use App\Notifications\ReservationCreatedNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ReservationCreatedListener
 {
@@ -28,9 +26,9 @@ class ReservationCreatedListener
     public function handle(ReservationCreatedEvent $event)
     {
         $user = $event->user;
-        $appointment = $event->appointment;
         $store = $event->store;
+        $appointment = $event->appointment;
 
-        $user->notify(new ReservationCreatedNotification($user, $appointment, $store));
+        $user->notify(new ReservationCreatedNotification($user, $store, $appointment));
     }
 }

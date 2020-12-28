@@ -89,13 +89,13 @@ class QueueController extends AppointmentController
                 'lane' => $reservation_valid["lane"],
             ];
 
-            $appointment_create = Appointment::create($appointment);
-
+            // Appointment created (appointment_id assigned)
+            $created_appointment = Appointment::create($appointment);
+            $user = Auth::user();
             $store = Store::where('store_id', $request->store_id)->first();
 
-            $user = Auth::user();
-
-            event(new ReservationCreatedEvent($user, $appointment_create, $store));
+            // An event raised
+            event(new ReservationCreatedEvent($user, $store, $created_appointment));
 
             return redirect(route('placements', Auth::id()));
         } else {
@@ -221,9 +221,7 @@ class QueueController extends AppointmentController
     {
         $overlapping_appointments = Auth::User()->getAllUserAppointmentsInTimeframe($start_time, $end_time, $date);
         return $overlapping_appointments->isEmpty();
-
     }
-
 
     /**
      * @param Request $request
@@ -311,17 +309,17 @@ class QueueController extends AppointmentController
         if ($validator->fails()) {
             //return view();
         }
-
-        $appointment_create = Appointment::create($appointment);
-
+        // Appointment created (appointment_id assigned)
+        $created_appointment = Appointment::create($appointment);
         $user = Auth::user();
 
-        event(new QueueCreatedEvent($user, $appointment_create, $store));
+        // An event raised
+        event(new QueueCreatedEvent($user, $store, $created_appointment));
 
         return redirect(route('placements', Auth::id()));
     }
 
-    
+
     public function removeUserFromQueue($appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);

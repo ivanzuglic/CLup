@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Executing NotifyAt30 task once every minute
         $schedule->call(new NotifyAt30())->everyMinute();
     }
 
