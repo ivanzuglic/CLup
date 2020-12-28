@@ -51,12 +51,9 @@ class QueueController extends AppointmentController
             'store_id' => 'required|integer|exists:stores,store_id'
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             //return view();
-        }
-        else
-        {
+        } else {
             return $this->store($request);
         }
     }
@@ -79,8 +76,7 @@ class QueueController extends AppointmentController
         $reservation_valid = $this->checkReservationCriteria($request);
 
         // If reservation is valid, create an appointment
-        if($reservation_valid["valid"] == true)
-        {
+        if ($reservation_valid["valid"] == true) {
             $appointment = [
                 'user_id' => Auth::user()->id,
                 'store_id' => $request->store_id,
@@ -102,9 +98,7 @@ class QueueController extends AppointmentController
             event(new ReservationCreatedEvent($user, $appointment_create, $store));
 
             return redirect(route('placements', Auth::id()));
-        }
-        else
-        {
+        } else {
             return Redirect::back()->withErrors(['Reservation cannot be made in that timeslot!']);
         }
     }
@@ -124,12 +118,9 @@ class QueueController extends AppointmentController
         $date = $request->reservation_date;
         $store_id = $request->store_id;
 
-        if(date('w', strtotime($date)) == 0)
-        {
+        if (date('w', strtotime($date)) == 0) {
             $day_of_week = 6;
-        }
-        else
-        {
+        } else {
             $day_of_week = date('w', strtotime($date)) - 1;
         }
 
@@ -139,30 +130,24 @@ class QueueController extends AppointmentController
         $working_hours_col = $store->working_hours;
 
         // Check whether reservation date is valid (today or after)
-        if($date >= date("Y-m-d"))
-        {
+        if ($date >= date("Y-m-d")) {
             // Check whether end time is after start time
-            if(strtotime($start_time) < strtotime($end_time))
-            {
+            if (strtotime($start_time) < strtotime($end_time)) {
                 // Getting working hours of the store for $day_of_the_week (if open)
                 $working_hours = $working_hours_col->where('day', $day_of_week)->first();
-                if($working_hours === null)
-                {
-                    return array("valid"  => false, "lane" => $return_lane);
+                if ($working_hours === null) {
+                    return array("valid" => false, "lane" => $return_lane);
                 }
 
                 // Check whether reservation start time is valid (after opening hours on the requested day)
                 // Check whether reservation end time is valid (before closing hours on the requested day)
-                if((strtotime($start_time) >= strtotime($working_hours->opening_hours))
-                    && (strtotime($end_time) <= strtotime($working_hours->closing_hours)))
-                {
+                if ((strtotime($start_time) >= strtotime($working_hours->opening_hours))
+                    && (strtotime($end_time) <= strtotime($working_hours->closing_hours))) {
                     // If the requested day is today
-                    if($date == date("Y-m-d"))
-                    {
+                    if ($date == date("Y-m-d")) {
                         // Check whether reservation start time is in the future
-                        if(strtotime($start_time) < strtotime(date('H:i:s')))
-                        {
-                            return array("valid"  => false, "lane" => $return_lane);
+                        if (strtotime($start_time) < strtotime(date('H:i:s'))) {
+                            return array("valid" => false, "lane" => $return_lane);
                         }
                     }
 
@@ -178,22 +163,16 @@ class QueueController extends AppointmentController
                     $reservations = 0;
                     $iterator = 0;
 
-                    foreach ($overlapping_appointments as $lane)
-                    {
+                    foreach ($overlapping_appointments as $lane) {
                         $iterator++;
 
-                        if($lane->isEmpty())
-                        {
+                        if ($lane->isEmpty()) {
                             $empty_lines++;
                             $return_lane = $iterator;
-                        }
-                        else
-                        {
+                        } else {
                             $filled_lines++;
-                            foreach ($lane as $appointment)
-                            {
-                                if($appointment->appointment_type === 1)
-                                {
+                            foreach ($lane as $appointment) {
+                                if ($appointment->appointment_type === 1) {
                                     $reservations++;
                                 }
                             }
@@ -201,6 +180,7 @@ class QueueController extends AppointmentController
                     }
 
                     $reservation_ratio = ($reservations + 1) / $store->max_occupancy;
+
 
                     if($reservation_ratio <= $store->max_reservation_ratio && $empty_lines > 0 && $user_free)
                     {
@@ -210,20 +190,14 @@ class QueueController extends AppointmentController
                     {
                         return array("valid"  => false, "lane" => $return_lane);
                     }
+                } else {
+                    return array("valid" => false, "lane" => $return_lane);
                 }
-                else
-                {
-                    return array("valid"  => false, "lane" => $return_lane);
-                }
+            } else {
+                return array("valid" => false, "lane" => $return_lane);
             }
-            else
-            {
-                return array("valid"  => false, "lane" => $return_lane);
-            }
-        }
-        else
-        {
-            return array("valid"  => false, "lane" => $return_lane);
+        } else {
+            return array("valid" => false, "lane" => $return_lane);
         }
     }
 
@@ -258,47 +232,54 @@ class QueueController extends AppointmentController
     {
 
         $store = Store::where('store_id', $request->store_id)->first();
-        $queue_ends = $store->getLaneEnds($store->max_occupancy);
 
         $working_hours = $store->working_hours;
+        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
+        $duration = $request->planned_stay_time;
+        $empty_slots = $store->getAdequateEmptyTimeslots($store->max_occupancy, $today_working_hours->opening_hours, $today_working_hours->closing_hours, $duration * 60);
 
-        if(date('w') == 0)
-        {
+
+        if (date('w') == 0) {
             $day_of_week = 6;
-        }
-        else
-        {
+        } else {
             $day_of_week = date('w') - 1;
         }
 
-        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
         $min = $today_working_hours->closing_hours;
-        $lane = 1;
+
         $min_start_time = $request->travel_time * 60 + strtotime(date('H:i:s'));
+
+        $adequate_lanes_empty_slots = [];
+
+        for ($i = 1; $i <= $store->max_occupancy; $i++) {
+            $lane = $empty_slots[$i];
+
+            for ($j = 0; $j < sizeof($lane); $j++) {
+                if (strtotime($lane[$j]['end']) > $min_start_time) {
+                    if (strtotime($lane[$j]['start']) < $min_start_time) {
+                        if (strtotime($lane[$j]['end']) - $min_start_time >= strtotime($duration)) {
+                            $lane[$j]['start'] = date('H:i:s', $min_start_time);
+                        }
+                    }
+                    $adequate_lanes_empty_slots[$i] = $lane[$j];
+                    break;
+                }
+            }
+        }
 
 
         for ($i = 1; $i <= $store->max_occupancy; $i++) {
-            $end = $queue_ends[$i];
-
-            if ($end != NULL) {
-                if (strtotime($end->end_time) < strtotime($min)) {
-                    if (strtotime($end->end_time) >= $min_start_time) {
-                        $min = $end->end_time;
-                        $lane = $end->lane;
-                    }
+            if (array_key_exists($i, $adequate_lanes_empty_slots)) {
+                $slot = $adequate_lanes_empty_slots[$i];
+                if (strtotime($slot['start']) < strtotime($min)) {
+                    $min = $slot['start'];
+                    $lane = $i;
                 }
             }
-            elseif ($queue_ends[1] == null){
-                $min = date('H:i:s', $min_start_time);
-                $lane = 1;
-                break;
-            }
-            else {
-                $min = date('H:i:s', $min_start_time);
-                $lane = $queue_ends[$i - 1]->lane;
-                $lane++;
-                break;
-            }
+        }
+
+        if (strtotime($min) == strtotime($today_working_hours->closing_hours)) {
+            return Redirect::back()->withErrors(['There are no available timeslots for your stay time.']);
         }
 
         $end_time = strtotime($min) + $request->planned_stay_time * 60;
@@ -340,6 +321,7 @@ class QueueController extends AppointmentController
         return redirect(route('placements', Auth::id()));
     }
 
+    
     public function removeUserFromQueue($appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
