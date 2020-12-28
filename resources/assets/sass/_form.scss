@@ -140,6 +140,18 @@ form {
             }
         }
     }
+
+    .form-single-checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+        .checkbox-label {
+            line-height: 2rem;
+            padding-left: $base-spacing*.5;
+        }
+    }
+
     .required-fields {
         color: $alert-red;
     }
