@@ -27,7 +27,6 @@ class Appointment extends Model
         'user_id' => 'integer',
         'store_id' => 'integer',
         'appointment_type' => 'integer',
-        'in_store' => 'integer',
         'done' => 'integer',
         'lane' => 'integer'
     ];

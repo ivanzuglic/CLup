@@ -22,6 +22,7 @@ Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStor
 Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
 Route::post('/admin/dashboard/add_manager', ['as' => 'manager.create', 'uses' => 'User\ManagerRegisterController@create']);
 Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware('role:manager');
+Route::get('/manager/print_tickets', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
 
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
 Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
@@ -68,6 +69,7 @@ Route::get('/appointments/{appointment_id}/pdf', 'Appointment\AppointmentControl
 
 Route::get('/queue', 'Appointment\QueueController@index');
 Route::post('/addToQueue', ['as' => 'addToQueue', 'uses' => 'Appointment\QueueController@addUserToQueue']);
+Route::post('/addProxyToQueue', ['as' => 'addProxyToQueue', 'uses' => 'Appointment\QueueController@addProxyToQueue']);
 Route::patch('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'uses' => 'Appointment\QueueController@removeUserFromQueue']);
 
 // Adding reservation route

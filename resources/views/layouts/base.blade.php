@@ -64,7 +64,7 @@
                                     <a id="store-parameters" href="\manager\dashboard">Store parameters</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="print-tickets" href="">Print tickets</a>
+                                    <a id="print-tickets" href="\manager\print_tickets">Print tickets</a>
                             </li>
                             <li class="nav-option">
                                     <a id="store-statistics" href="">Store statistics</a>
