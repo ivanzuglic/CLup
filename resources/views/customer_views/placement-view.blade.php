@@ -12,13 +12,13 @@
             <div class="placement @if((strtotime("now") - strtotime($queue->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
-                        Store name:&nbsp;<span>{{ $queue->store->name }} [{{ $queue->store->address_line_1 }}, {{ $queue->store->town }}]</span>
+                        Store: <span>{{ $queue->store->name }} [{{ $queue->store->address_line_1 }}, {{ $queue->store->town }}]</span>
                     </section>
                     <section class="reservation-time">
-                        Appointment Time:&nbsp;<span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
+                        Time: <span>{{ date('H:i', strtotime($queue->start_time)) }} - {{ date('H:i', strtotime($queue->end_time)) }}</span>
                     </section>
                     <section class="ETA">
-                        ETA:&nbsp;<span>{{ date('H:i', (strtotime($queue->start_time) - strtotime('now') - 3600)) }}</span>
+                        ETA: <span>{{ date('H:i', (strtotime($queue->start_time) - strtotime('now') - 3600)) }}&nbspHours</span>
                     </section>
                 </div>
                 <div class="placement-actions">
@@ -46,13 +46,25 @@
             <div class="placement @if((strtotime("now") - strtotime($reservation->created_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
-                        Store name:&nbsp;<span>{{ $reservation->store->name }} [{{ $reservation->store->address_line_1 }}, {{ $reservation->store->town }}]</span>
+                        Store: <span>{{ $reservation->store->name }} [{{ $reservation->store->address_line_1 }}, {{ $reservation->store->town }}]</span>
                     </section>
                     <section class="reservation-time">
-                        Reservation Time:&nbsp;<span>{{ date('H:i', strtotime($reservation->start_time)) }} - {{ date('H:i', strtotime($reservation->end_time)) }}</span>
+                        Time: <span>{{ date('H:i', strtotime($reservation->start_time)) }} - {{ date('H:i', strtotime($reservation->end_time)) }}</span>
                     </section>
                     <section class="ETA">
-                        Date:&nbsp;<span>{{ $reservation->date }}</span>
+                        Date: <span>{{ $reservation->date }}</span>
+                    </section>
+                    <section class = "ETA">
+                        ETA:
+                        <span>
+                            @if(strtotime($reservation->start_time) >= strtotime('now'))
+                                {{ (strtotime($reservation->date) - strtotime(date("Y-m-d")))/86400 }}&nbspDay(s),
+                                {{ date('H:i', (strtotime($reservation->start_time) - strtotime('now') - 3600)) }}&nbspHours
+                            @else
+                                {{ ((strtotime($reservation->date) - strtotime(date("Y-m-d")))/86400) - 1 }}&nbspDay(s),
+                                {{ date('H:i', (strtotime($reservation->start_time) - strtotime('now') - 3600)) }}&nbspHours
+                            @endif
+                        </span>
                     </section>
                 </div>
                 <div class="placement-actions">
