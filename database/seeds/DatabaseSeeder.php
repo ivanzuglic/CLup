@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
          $this->call(AppointmentTypesSeeder::class);
          $this->call(UsersTableAdminSeeder::class);
          $this->call(UsersTableManagerSeeder::class);
+         $this->call(UserSeeder::class);
          $this->call(StoresSeeder::class);
          $this->call(WorkingHoursTableSeeder::class);
          $this->call(AppointmentsTableSeeder::class);
