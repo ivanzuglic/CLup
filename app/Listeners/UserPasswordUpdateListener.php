@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserPasswordUpdateEvent;
 use App\Notifications\UserPasswordUpdateNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserPasswordUpdateListener
 {

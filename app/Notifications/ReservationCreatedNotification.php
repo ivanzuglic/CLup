@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\HtmlString;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -12,21 +13,23 @@ class ReservationCreatedNotification extends Notification  implements ShouldQueu
     use Queueable;
 
     protected $user;
-    protected $appointment;
     protected $store;
+    protected $appointment;
     protected $appointment_start_time;
     protected $appointment_end_time;
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $user
+     * @param $store
+     * @param $appointment
      */
-    public function __construct($user, $appointment, $store)
+    public function __construct($user, $store, $appointment)
     {
         $this->user = $user;
-        $this->appointment = $appointment;
         $this->store = $store;
+        $this->appointment = $appointment;
         $this->appointment_start_time = date('H:i', strtotime($this->appointment->start_time));
         $this->appointment_end_time = date('H:i', strtotime($this->appointment->end_time));
     }
@@ -46,19 +49,23 @@ class ReservationCreatedNotification extends Notification  implements ShouldQueu
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('administration@CLup.com', 'CLup')
-            ->greeting("Hello {$this->user->name}!")
-            ->line("Your reservation at {$this->store->name} has been recorded!")
-            ->line("Reservation Date: {$this->appointment->date}")
-            ->line("Reservation Time: {$this->appointment_start_time} - {$this->appointment_end_time}")
-            ->line("Store Address: {$this->store->address_line_1}")
-            ->action('Start using CLup!', url('/home'))
-            ->line('Thank you for using CLup!');
+            ->from('notifications@CLup.com', 'CLup')
+            ->subject('CLup - Reservation Confirmation')
+            ->greeting("Hello, {$this->user->name}!")
+
+            ->line(new HtmlString('You placed a Reservation at <strong>' . $this->store->name . '</strong>.'))
+            ->line(new HtmlString('Your Appointment ID: <strong>' . $this->appointment->appointment_id . '</strong>'))
+            ->line(new HtmlString('Reservation Timeslot: <strong>' . $this->appointment_start_time . ' - ' . $this->appointment_end_time . '</strong> on <strong>' . $this->appointment->date .'</strong>'))
+
+            ->line(new HtmlString('If you wish to <strong>edit</strong> or <strong>delete</strong> your Reservation, you can do so on <strong>My&nbsp;Placements</strong> page.'))
+            ->action('My Placements', url("/user/{$this->user->id}/placements"))
+
+            ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
 
     /**

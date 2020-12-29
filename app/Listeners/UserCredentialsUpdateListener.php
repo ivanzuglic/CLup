@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserCredentialsUpdateEvent;
 use App\Notifications\UserCredentialsUpdateNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserCredentialsUpdateListener
 {

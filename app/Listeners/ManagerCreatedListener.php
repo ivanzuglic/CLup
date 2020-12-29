@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Events\ManagerCreatedEvent;
 use App\Notifications\ManagerCreatedNotification;
 use App\Store;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ManagerCreatedListener
 {

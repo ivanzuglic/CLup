@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class UserRegisteredNotification extends Notification implements ShouldQueue
 {
@@ -43,11 +44,13 @@ class UserRegisteredNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('administration@clup.com', 'CLup')
-                    ->greeting("Hello {$this->user->name}!")
-                    ->line("Registration successful!")
-                    ->action('Start using CLup!', url('/home'))
-                    ->line('Thank you for using CLup!');
+            ->from('notifications@clup.com', 'CLup')
+            ->subject('CLup - Registration Confirmation')
+            ->greeting("Hello, {$this->user->name}!")
+
+            ->line(new HtmlString('Registration <strong>successful</strong>!'))
+            ->action('Start using CLup!', url('/home'))
+            ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
 
     /**

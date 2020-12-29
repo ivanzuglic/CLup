@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserRegisteredEvent;
 use App\Notifications\UserRegisteredNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserRegisteredListener
 {

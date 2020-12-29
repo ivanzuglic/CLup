@@ -193,12 +193,19 @@ class AppointmentController extends Controller
         return 204;
     }
 
-    public function getActiveAppointmentsForUser()
+    public function getActiveAppointmentsForUser($user_id)
     {
-        $queues = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 2)->with('store')->where('active', 1)->get();
-        $reservations = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 1)->with('store')->where('active', 1)->get();
+        if($user_id == Auth::id())
+        {
+            $queues = Appointment::where('user_id', Auth::id())->where('appointment_type', 2)->with('store')->where('active', 1)->get();
+            $reservations = Appointment::where('user_id', Auth::id())->where('appointment_type', 1)->with('store')->where('active', 1)->get();
 
-        return view('customer_views.placement-view', compact('queues', 'reservations'));
+            return view('customer_views.placement-view', compact('queues', 'reservations'));
+        }
+        else
+        {
+            return redirect(route('placements', Auth::id()));
+        }
     }
 
     public function QrResponse(){

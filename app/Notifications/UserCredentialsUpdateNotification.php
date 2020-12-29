@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class UserCredentialsUpdateNotification extends Notification implements ShouldQueue
 {
@@ -16,7 +17,7 @@ class UserCredentialsUpdateNotification extends Notification implements ShouldQu
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $user
      */
     public function __construct($user)
     {
@@ -38,15 +39,17 @@ class UserCredentialsUpdateNotification extends Notification implements ShouldQu
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('administration@CLup.com', 'CLup')
-            ->greeting("Hello {$this->user->name}!")
-            ->line("Credentials update successful!")
-            ->line('Thank you for using CLup!');
+            ->from('notifications@clup.com', 'CLup')
+            ->subject('CLup - Credentials Updated')
+            ->greeting("Hello, {$this->user->name}!")
+
+            ->line(new HtmlString('Credentials update <strong>successful</strong>!'))
+            ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
 
     /**

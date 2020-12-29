@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class AppointmentReminderNotification extends Notification implements ShouldQueue
 {
@@ -14,23 +15,23 @@ class AppointmentReminderNotification extends Notification implements ShouldQueu
     protected $user;
     protected $store;
     protected $appointment;
-    protected $start_time;
-    protected $end_time;
-
+    protected $appointment_start_time;
+    protected $appointment_end_time;
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $user
+     * @param $store
+     * @param $appointment
      */
     public function __construct($user, $store, $appointment)
     {
         $this->user = $user;
         $this->store = $store;
         $this->appointment = $appointment;
-
-        $this->start_time = date('H:i', strtotime($this->appointment->start_time));
-        $this->end_time = date('H:i', strtotime($this->appointment->end_time));
+        $this->appointment_start_time = date('H:i', strtotime($this->appointment->start_time));
+        $this->appointment_end_time = date('H:i', strtotime($this->appointment->end_time));
     }
 
     /**
@@ -48,21 +49,22 @@ class AppointmentReminderNotification extends Notification implements ShouldQueu
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('administration@clup.com', 'CLup')
+            ->from('notifications@clup.com', 'CLup')
+            ->subject('CLup - Appointment Reminder')
             ->greeting("Hello, {$this->user->name}!")
 
-            ->line("Your appointment at {$this->store->name} starts in less than 30 minutes.")
-            ->line("Current Appointment Time: {$this->start_time} - {$this->end_time}")
+            ->line(new HtmlString('Your appointment at <strong>' . $this->store->name . '</strong> starts in <strong>less than 30 minutes</strong>.'))
+            ->line(new HtmlString('Appointment Timeslot: <strong>' . $this->appointment_start_time . ' - ' . $this->appointment_end_time . '</strong>'))
 
-            ->line("If you can not make the appointment, you should reschedule or delete the appointment")
+            ->line(new HtmlString('If you can not make the appointment, you can <strong>reschedule</strong> it or <strong>delete</strong> it on <strong>My&nbsp;Placements</strong> page.'))
             ->action('My Placements', url("/user/{$this->user->id}/placements"))
 
-            ->line('Thank you for using CLup!');
+            ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
 
     /**
