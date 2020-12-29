@@ -507,8 +507,10 @@ class QueueController extends AppointmentController
             //return view();
         }
 
-        Appointment::create($appointment);
 
-        return back();
+        $app = Appointment::create($appointment);
+
+        return redirect(route('appointment.pdf', $app->appointment_id));
+       
     }
 }

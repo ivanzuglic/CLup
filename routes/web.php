@@ -64,7 +64,7 @@ Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentControll
 //QR code routes
 Route::get('/qr_response', 'Appointment\QueueController@QrResponse');
 Route::get('/scan/{appointment_id}', 'Appointment\AppointmentController@scan');
-Route::get('/appointments/{appointment_id}/pdf', 'Appointment\AppointmentController@print_ticket');
+Route::get('/appointments/{appointment_id}/pdf', ['as' => 'appointment.pdf' , 'uses' => 'Appointment\AppointmentController@print_ticket']);
 
 
 Route::get('/queue', 'Appointment\QueueController@index');
