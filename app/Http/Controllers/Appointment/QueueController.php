@@ -511,6 +511,6 @@ class QueueController extends AppointmentController
         $app = Appointment::create($appointment);
 
         return redirect(route('appointment.pdf', $app->appointment_id));
-       
+
     }
 }
