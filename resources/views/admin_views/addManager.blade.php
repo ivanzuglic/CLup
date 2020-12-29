@@ -34,38 +34,21 @@
             @endif
         </div>
 
-        <div>
-            <label for="password" class="col-md-4 col-form-label text-md-right"><span
-                    class="required-fields">*</span>{{ __('Password') }}:</label><br />
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                name="password" placeholder="Password" required>
-            @if ($errors->has('password'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
-        </div>
-
-        <div>
-            <label for="password_confirm" class="col-md-4 col-form-label text-md-right"><span
-                    class="required-fields">*</span>{{ __('Confirm Password') }}:</label><br />
-            <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                   name="password_confirmation" placeholder="Confirm Password" required>
-        </div>
 
         <div>
             <label for="Store ID" class="col-md-4 col-form-label text-md-right">
                 <span class="required-fields">*</span>{{ __('Store ID') }}:</label><br />
             <div class="md-form mt-0">
-                <select name="store_id" class="form-control" >
+                <select name="store_id" class="form-control">
                     @foreach($stores as $store)
-                        <option class="form-control" value="{{$store->store_id}}">{{$store->name}} (id: {{$store->store_id}})</option>
+                    <option class="form-control" value="{{$store->store_id}}">{{$store->name}} (id:
+                        {{$store->store_id}})</option>
                     @endforeach
                 </select>
             </div>
         </div>
 
-        <br/>
+        <br />
 
         <div class="form-control">
             <button type="submit" class="btn medium">
