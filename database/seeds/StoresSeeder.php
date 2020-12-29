@@ -49,7 +49,7 @@ class StoresSeeder extends Seeder
                 'country' => 'Alpha',
 
                 'max_occupancy' => '1000',
-                'current_occupancy' => '800',
+                'current_occupancy' => '0',
             ],
 
             [
@@ -63,7 +63,7 @@ class StoresSeeder extends Seeder
                 'country' => 'Alpha',
 
                 'max_occupancy' => '90',
-                'current_occupancy' => '2',
+                'current_occupancy' => '0',
             ],
             [
                 'name' => 'Best Served Cold',
@@ -76,7 +76,7 @@ class StoresSeeder extends Seeder
                 'country' => 'Antarctica',
 
                 'max_occupancy' => '20',
-                'current_occupancy' => '15',
+                'current_occupancy' => '0',
             ],
             [
                 'name' => 'Big Bad Store',

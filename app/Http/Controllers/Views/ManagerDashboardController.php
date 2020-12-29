@@ -48,4 +48,12 @@ class ManagerDashboardController extends Controller
 
         return view('manager_views.managerView', array('store' => $store, 'checkbox' => $checkbox, 'opening_hours' => $opening_hours, 'closing_hours' => $closing_hours));
     }
+
+    public function printTickets()
+    {
+        $user = Auth::user();
+        $store = Store::findorfail($user->store_id);
+
+        return view('manager_views.print-ticket-view', compact('store'));
+    }
 }
