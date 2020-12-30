@@ -157,7 +157,7 @@ class AdminTest extends TestCase
             'store_id' => '5'
         ]);
 
-        $this->assertCount(4, User::all());
+        $this->assertCount(16, User::all());
 
     }
 
