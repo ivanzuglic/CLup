@@ -19,6 +19,13 @@ class StoresTypesSeeder extends Seeder
         $types = [
             ['store_type' => 'Market'],
             ['store_type' => 'Pharmacy'],
+            ['store_type' => 'Pet Shop'],
+            ['store_type' => 'Music Shop'],
+            ['store_type' => 'Jewellery Shop'],
+            ['store_type' => 'Flower Shop'],
+            ['store_type' => 'Butcher'],
+            ['store_type' => 'Clothing Shop'],
+            ['store_type' => 'Shoe Shop'],
         ];
 
         foreach ($types as $type)

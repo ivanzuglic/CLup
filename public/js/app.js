@@ -14471,6 +14471,9 @@ __webpack_require__(13);
 
 window.Vue = __webpack_require__(35);
 
+var timeline_json = generateDailyTimeline();
+window.timeline = new TL.Timeline('timeline-embed', timeline_json);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -14486,6 +14489,7 @@ window.Vue = __webpack_require__(35);
 ;(function () {
     var menu = document.querySelector('#nav');
     var body = document.querySelector('body');
+
     var menuToggleButton = document.querySelector('#toggle-nav');
     if (menuToggleButton) {
         menuToggleButton.addEventListener('click', function () {
@@ -14503,6 +14507,16 @@ window.Vue = __webpack_require__(35);
                 menuToggleButton.style.backgroundImage = 'url("/images/arrow-left-solid.svg")';
                 body.classList.add('nav-active');
             }
+        };
+    }
+
+    var uploadFileButton = document.querySelector('#upload-file-button');
+    if (uploadFileButton) {
+        uploadFileButton.addEventListener('click', function (event) {
+            return uploadImage();
+        });
+        var uploadImage = function uploadImage() {
+            document.getElementById("file-input").click();
         };
     }
 })();

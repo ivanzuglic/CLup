@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 
 class ManagerRegisterController extends Controller
 {
@@ -49,18 +50,26 @@ class ManagerRegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+//     * @return \App\User
      */
     protected function create(Request $data)
     {
 
        if (Gate::allows('ManagerRegister', Auth::user())) {
 
+           $possibleChars = '123456789abcdefghjkmnpqrstuvxyzABCDEFGHJKMNPQRSTUVWXYZ';
+
+           $random = '';
+           for ($i = 0; $i < 10; $i++) {
+               $random .= $possibleChars[rand(0, strlen($possibleChars) - 1)];
+           }
+
+           $data['password'] = $random;
+
            $data->validate([
                'name' => 'required|string|max:255',
                'email' => 'required|string|email|max:255|unique:users',
-               'password' => 'required|string|min:6|confirmed',
-               'password_confirmation' => 'required|string|min:6|same:password',
+               'password' => 'required|string|min:6',
                'phone_number' => 'string|min:8|max:14',
                'store_id' => 'required|integer|exists:stores,store_id'
            ]);

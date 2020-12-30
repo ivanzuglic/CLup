@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
@@ -22,25 +23,28 @@ class Appointment extends Model
         'lane'
     ];
 
-
     protected $casts = [
         'user_id' => 'integer',
         'store_id' => 'integer',
         'appointment_type' => 'integer',
-        'in_store' => 'integer',
         'done' => 'integer',
         'lane' => 'integer'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @return BelongsTo
      */
-
     public function store()
     {
         return $this->belongsTo('App\Store', 'store_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
 

@@ -7,8 +7,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\HtmlString;
 
-class ManagerCreatedNotification extends Notification
+class ManagerCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,7 +20,9 @@ class ManagerCreatedNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $manager_user
+     * @param $manager_store
+     * @param $manager_pass_encrypted
      */
     public function __construct($manager_user, $manager_store, $manager_pass_encrypted)
     {
@@ -43,29 +46,27 @@ class ManagerCreatedNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('administration@clup.com', 'CLup')
-                    ->greeting("Hello {$this->manager_user->name}!")
-                    ->line('You have been registered as a store manager.')
+            ->from('notifications@clup.com', 'CLup')
+            ->subject('CLup - Store Manager Account Details')
+            ->greeting("Hello, {$this->manager_user->name}!")
 
-                    ->line('Your Login Credentials Are:')
-                    ->line("    EMAIL:      {$this->manager_user->email}")
-                    ->line("    PASSWORD:   {$this->manager_pass_decrypted}")
+            ->line(new HtmlString('You have been registered as a <strong>Store&nbsp;Manager</strong>.'))
 
-                    ->line('You have been linked to the Store:')
-                    ->line("    STORE NAME: {$this->manager_store->name}")
-                    ->line("    ADDRESS:    {$this->manager_store->address_line_1}")
-                    ->line("                {$this->manager_store->address_line_2}")
-                    ->line("                {$this->manager_store->zip_code}, {$this->manager_store->town}")
-                    ->line("                {$this->manager_store->country}")
+            ->line(new HtmlString('Your <strong>Login Credentials</strong> are:'))
+            ->line(new HtmlString('&nbsp;&nbsp;&nbsp;&nbsp;<strong>email: </strong>' . $this->manager_user->email))
+            ->line(new HtmlString('&nbsp;&nbsp;&nbsp;&nbsp;<strong>password: </strong>' . $this->manager_pass_decrypted))
+            ->line(new HtmlString('<em>It is strongly recommended you change your password as soon as possible!</em>'))
 
-                    ->action('Manager Dashboard', url('/manager/dashboard'))
+            ->line(new HtmlString('You have been linked to <strong>' . $this->manager_store->name . '</strong>.'))
 
-                    ->line('Thank you for using CLup!');
+            ->action('Manager Dashboard', url('/manager/dashboard'))
+
+            ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
 
     /**

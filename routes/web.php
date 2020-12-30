@@ -22,6 +22,7 @@ Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStor
 Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
 Route::post('/admin/dashboard/add_manager', ['as' => 'manager.create', 'uses' => 'User\ManagerRegisterController@create']);
 Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware('role:manager');
+Route::get('/manager/print_tickets', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
 
 Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
 Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
@@ -63,18 +64,20 @@ Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentControll
 //QR code routes
 Route::get('/qr_response', 'Appointment\QueueController@QrResponse');
 Route::get('/scan/{appointment_id}', 'Appointment\AppointmentController@scan');
+Route::get('/appointments/{appointment_id}/pdf', ['as' => 'appointment.pdf' , 'uses' => 'Appointment\AppointmentController@print_ticket']);
 
 
 Route::get('/queue', 'Appointment\QueueController@index');
 Route::post('/addToQueue', ['as' => 'addToQueue', 'uses' => 'Appointment\QueueController@addUserToQueue']);
+Route::post('/addProxyToQueue', ['as' => 'addProxyToQueue', 'uses' => 'Appointment\QueueController@addProxyToQueue']);
 Route::patch('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'uses' => 'Appointment\QueueController@removeUserFromQueue']);
 
-// Adding reservation route
-Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation']);
-// Removing reservation route
-Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation']);
-// Placements route
-Route::get('/user/{id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser']);
 
+// Adding a reservation route
+Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation'])->middleware('auth')->middleware('role:customer');
+// Removing a reservation route
+Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation'])->middleware('auth')->middleware('role:customer');
 
+// My Placements route
+Route::get('/user/{user_id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser'])->middleware('auth')->middleware('role:customer');
 

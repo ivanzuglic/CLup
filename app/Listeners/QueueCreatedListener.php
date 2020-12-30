@@ -3,10 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\QueueCreatedEvent;
-
 use App\Notifications\QueueCreatedNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class QueueCreatedListener
 {
@@ -29,9 +26,9 @@ class QueueCreatedListener
     public function handle(QueueCreatedEvent $event)
     {
         $user = $event->user;
-        $appointment = $event->appointment;
         $store = $event->store;
+        $appointment = $event->appointment;
 
-        $user->notify(new QueueCreatedNotification($user, $appointment, $store));
+        $user->notify(new QueueCreatedNotification($user, $store, $appointment));
     }
 }

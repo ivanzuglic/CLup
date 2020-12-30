@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Roles;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Role
@@ -11,8 +12,8 @@ class Role
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @param $role_string
      * @return mixed
      */

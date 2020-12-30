@@ -6,9 +6,8 @@ use App\Appointment;
 use App\Events\CustomerEntersStore;
 use App\Http\Controllers\Controller;
 use App\Store;
-use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -49,15 +48,15 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
+            'store_id' => 'required|integer|exists:stores,store_id',
+            'user_id' => 'integer|exists:users,id',
             'appointment_type' => 'required|integer|exists:appointment_types,type_id',
             'start_time' => 'required|date_format:H:i:s',
             'end_time' => 'required|date_format:H:i:s|after:start_time',
             'date' => 'required|date',
-            'in_store' => 'required|integer|min:0|max:1',
+            'status' => 'required|in:waiting,in store,done',
             'active' => 'required|boolean',
-            'done' => 'required|integer|min:0|max:1',
             'lane' => 'required|integer|min:1'
         ]);
 
@@ -72,12 +71,22 @@ class AppointmentController extends Controller
     public function show($appointment_id)
     {
         $appointment = Appointment::find($appointment_id);
-        $store = Store::where('store_id', $appointment->store_id)->with('type')->with(['working_hours' => function ($query) {
-            $query->where('day', '=', (date('w')-1));
-        }])->first();
+
+        $store = Store::where('store_id', $appointment->store_id)->with('type')->with('working_hours')->first();
+
+        $appointment_day_of_week = date("w", strtotime($appointment->date));
+        if($appointment_day_of_week == 0)
+        {
+            $appointment_day_of_week == 6;
+        }
+        else
+        {
+            $appointment_day_of_week--;
+        }
+
         $qr = QrCode::size(300)->generate(url('/scan/').'/'.$appointment_id);
 
-        return view('customer_views.ticket-view', compact('appointment', 'store', 'qr'));
+        return view('customer_views.ticket-view', compact('appointment', 'appointment_day_of_week', 'store', 'qr'));
     }
 
     public function scan($appointment_id)
@@ -132,7 +141,6 @@ class AppointmentController extends Controller
         return $message;
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -153,22 +161,22 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, $appointment_id)
     {
-
         $request->validate([
-            'appointment_type' => 'integer|exists:appointment_types,type_id',
-            'start_time' => 'date_format:H:i:s',
-            'end_time' => 'date_format:H:i:s|after:start_time',
-            'in_store' => 'min:0|max:1',
-            'active' => 'boolean',
-            'done' => 'min:0|max:1',
-            'lane' => 'integer|min:1'
+            'store_id' => 'required|integer|exists:stores,store_id',
+            'user_id' => 'integer|exists:users,id',
+            'appointment_type' => 'required|integer|exists:appointment_types,type_id',
+            'start_time' => 'required|date_format:H:i:s',
+            'end_time' => 'required|date_format:H:i:s|after:start_time',
+            'date' => 'required|date',
+            'status' => 'required|in:waiting,in store,done',
+            'active' => 'required|boolean',
+            'lane' => 'required|integer|min:1'
         ]);
 
         $appointment = Appointment::findOrFail($appointment_id);
         $appointment->update($request->all());
 
         return $appointment;
-
     }
 
     /**
@@ -185,15 +193,34 @@ class AppointmentController extends Controller
         return 204;
     }
 
-    public function getActiveAppointmentsForUser()
+    public function getActiveAppointmentsForUser($user_id)
     {
-        $queues = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 2)->with('store')->where('active', 1)->get();
-        $reservations = Appointment::where('user_id', Auth::user()->id)->where('appointment_type', 1)->with('store')->where('active', 1)->get();
+        if($user_id == Auth::id())
+        {
+            $queues = Appointment::where('user_id', Auth::id())->where('appointment_type', 2)->with('store')->where('active', 1)->get();
+            $reservations = Appointment::where('user_id', Auth::id())->where('appointment_type', 1)->with('store')->where('active', 1)->get();
 
-        return view('customer_views.placement-view', compact('queues', 'reservations'));
+            return view('customer_views.placement-view', compact('queues', 'reservations'));
+        }
+        else
+        {
+            return redirect(route('placements', Auth::id()));
+        }
     }
+
     public function QrResponse(){
         return view('qr_response_views.errorResponse');
+    }
+
+    public function print_ticket($appointment_id)
+    {
+        $paper_size = [0, 0, 227.00, 340.00];
+
+        $appointment = Appointment::findOrFail($appointment_id);
+        $qr = QrCode::size(200)->generate(url('/scan/').'/'.$appointment_id);
+
+        $pdf = PDF::loadView('pdf.print_ticket', compact('appointment', 'qr'));
+        return $pdf->setPaper($paper_size)->stream('invoice.pdf');
     }
 
 }
