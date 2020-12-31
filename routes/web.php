@@ -17,18 +17,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Customer-accessible Home page
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');
+// Admin-accessible Dashboard pages
 Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStore')->middleware('role:admin');
 Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
 Route::post('/admin/dashboard/add_manager', ['as' => 'manager.create', 'uses' => 'User\ManagerRegisterController@create']);
-Route::get('/manager/dashboard', 'Views\ManagerDashboardController')->middleware('role:manager');
-Route::get('/manager/print_tickets', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
-
-Route::get('/user_profile/edit', ['as' => 'user_profile.edit', 'uses' => 'User\UserController@edit']);
-Route::patch('/user_profile/update', ['as' => 'user_profile.update', 'uses' => 'User\UserController@update']);
-Route::patch('/user_profile/update/pass', ['as' => 'user_profile.updatePass', 'uses' => 'User\UserController@updatePass']);
-
-
+// Manager-accessible Dashboard pages
+Route::get('/manager/dashboard/store_parameters', 'Views\ManagerDashboardController@storeParameters')->middleware('role:manager');
+Route::get('/manager/dashboard/print_tickets', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
+// Profile page accessible to all users
+Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'User\UserController@edit'])->middleware('role:admin|customer|manager');
+Route::patch('/profile/update', ['as' => 'profile.update', 'uses' => 'User\UserController@update'])->middleware('role:admin|customer|manager');
+Route::patch('/profile/update/password', ['as' => 'profile.updatePassword', 'uses' => 'User\UserController@updatePassword'])->middleware('role:admin|customer|manager');
 
 // StoreController CRUD routes
 Route::get('/stores', ['as' => 'stores.search', 'uses' => 'Store\StoreController@index']);

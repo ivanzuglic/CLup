@@ -40,7 +40,7 @@ class LoginController extends Controller
                 return '/admin/dashboard/add_store';
 
             case 'manager':
-                return '/manager/dashboard';
+                return '/manager/dashboard/store_parameters';
 
             default:
                 return '/home';
