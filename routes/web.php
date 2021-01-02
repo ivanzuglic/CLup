@@ -19,39 +19,40 @@ Auth::routes();
 
 // Customer-accessible Home page
 Route::get('/home', 'Views\HomeController')->middleware('role:customer');
+Route::get('/home/search', ['as' => 'home.search', 'uses' => 'Store\StoreController@index'])->middleware('role:customer');
+Route::get('/store/{store_id}/details', ['as' => 'store.show_details', 'uses' => 'Store\StoreController@show_details'])->middleware('role:customer');
 // Admin-accessible Dashboard pages
 Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStore')->middleware('role:admin');
+Route::post('/admin/dashboard/add_store', ['as' => 'add.store', 'uses' => 'Store\StoreController@store'])->middleware('role:admin');
 Route::get('/admin/dashboard/add_manager', 'Views\AdminDashboardController@addManager')->middleware('role:admin');
-Route::post('/admin/dashboard/add_manager', ['as' => 'manager.create', 'uses' => 'User\ManagerRegisterController@create']);
+Route::post('/admin/dashboard/add_manager', ['as' => 'add.manager', 'uses' => 'User\ManagerRegisterController@create'])->middleware('role:admin');
 // Manager-accessible Dashboard pages
-Route::get('/manager/dashboard/store_parameters', 'Views\ManagerDashboardController@storeParameters')->middleware('role:manager');
-Route::get('/manager/dashboard/print_tickets', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
+Route::get('/manager/dashboard/store_parameters/{store_id}', 'Views\ManagerDashboardController@storeParameters')->middleware('role:manager');
+Route::patch('/manager/dashboard/store_parameters/{store_id}/parameters/update', ['as' => 'parameters.update', 'uses' => 'Store\StoreController@update'])->middleware('role:manager');
+Route::post('/manager/dashboard/store_parameters/{store_id}/working_hours/update', ['as' => 'working_hours.update', 'uses' => 'Store\WorkingHoursController@bulk_CUD'])->middleware('role:manager');
+Route::get('/manager/dashboard/print_tickets/{store_id}', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
 // Profile page accessible to all users
 Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'User\UserController@edit'])->middleware('role:admin|customer|manager');
 Route::patch('/profile/update', ['as' => 'profile.update', 'uses' => 'User\UserController@update'])->middleware('role:admin|customer|manager');
 Route::patch('/profile/update/password', ['as' => 'profile.updatePassword', 'uses' => 'User\UserController@updatePassword'])->middleware('role:admin|customer|manager');
 
 // StoreController CRUD routes
-Route::get('/stores', ['as' => 'stores.search', 'uses' => 'Store\StoreController@index']);
+Route::get('/stores', 'Store\StoreController@index');
 Route::get('/stores/create', 'Store\StoreController@create');
-Route::post('/stores', ['as' => 'stores.store', 'uses' => 'Store\StoreController@store']);
+Route::post('/stores', 'Store\StoreController@store');
 Route::get('/stores/{store_id}', 'Store\StoreController@show');
 Route::get('/stores/{store_id}/edit', 'Store\StoreController@edit');
-Route::patch('/stores/{store_id}', ['as' => 'stores.update', 'uses' => 'Store\StoreController@update']);
+Route::patch('/stores/{store_id}', 'Store\StoreController@update');
 Route::delete('/stores/{store_id}', 'Store\StoreController@destroy');
 
-Route::get('/stores/{store_id}/details', ['as' => 'stores.show_details', 'uses' => 'Store\StoreController@show_details']);
-
 // WorkingHoursController CRUD routes
-Route::get('stores/{store_id}/working_hours', ['as' => 'working_hours.index', 'uses' => 'Store\WorkingHoursController@index']);
+Route::get('stores/{store_id}/working_hours', 'Store\WorkingHoursController@index');
 Route::get('stores/{store_id}/working_hours/create', 'Store\WorkingHoursController@create');
 Route::post('/stores/{store_id}/working_hours', 'Store\WorkingHoursController@store');
 Route::get('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@show');
 Route::get('/stores/{store_id}/working_hours/{working_hours_id}/edit', 'Store\WorkingHoursController@edit');
 Route::patch('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@update');
 Route::delete('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@destroy');
-// WorkingHours manager routes
-Route::post('stores/{store_id}/working_hours/manager', ['as' => 'working_hours.bulk_CUD', 'uses' => 'Store\WorkingHoursController@bulk_CUD']);
 
 // AppointmentController and QueueController CRUD routes
 Route::get('/appointments', 'Appointment\AppointmentController@index');
@@ -75,10 +76,10 @@ Route::patch('/removeFromQueue/{appointment_id}', ['as' => 'removeFromQueue', 'u
 
 
 // Adding a reservation route
-Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation'])->middleware('auth')->middleware('role:customer');
+Route::post('/appointments/reservations', ['as' => 'appointment.addReservation', 'uses' => 'Appointment\QueueController@addReservation'])->middleware('role:customer');
 // Removing a reservation route
-Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation'])->middleware('auth')->middleware('role:customer');
+Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointment.removeReservation', 'uses' => 'Appointment\QueueController@removeReservation'])->middleware('role:customer');
 
 // My Placements route
-Route::get('/user/{user_id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser'])->middleware('auth')->middleware('role:customer');
+Route::get('/user/{user_id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser'])->middleware('role:customer');
 

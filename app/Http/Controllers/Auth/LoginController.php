@@ -31,7 +31,8 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $role_id = Auth::user()->role_id;
+        $user = Auth::user();
+        $role_id = $user->role_id;
 
         $role = Roles::where('id', $role_id)->firstOrFail();
 
@@ -40,7 +41,7 @@ class LoginController extends Controller
                 return '/admin/dashboard/add_store';
 
             case 'manager':
-                return '/manager/dashboard/store_parameters';
+                return "/manager/dashboard/store_parameters/{$user->store_id}";
 
             default:
                 return '/home';

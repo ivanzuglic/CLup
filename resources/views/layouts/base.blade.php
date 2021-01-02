@@ -63,10 +63,10 @@
                         @endif
                         @if (Auth::user()->role_id == 3)
                             <li class="nav-option">
-                                    <a id="store-parameters" href="\manager\dashboard\store_parameters">Store Parameters</a>
+                                    <a id="store-parameters" href="\manager\dashboard\store_parameters\{{ Auth::user()->store_id }}">Store Parameters</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="print-tickets" href="\manager\dashboard\print_tickets">Print Tickets</a>
+                                    <a id="print-tickets" href="\manager\dashboard\print_tickets\{{ Auth::user()->store_id }}">Print Tickets</a>
                             </li>
                             <li class="nav-option">
                                     <a id="store-statistics" href="">Store Statistics</a>
