@@ -25,7 +25,7 @@
                     <form method="GET" action="{{route('appointment.show', $queue->appointment_id)}}">
                         <button type="submit" class="btn medium"><span>View</span></button>
                     </form>
-                    <form method="POST" action="{{route('removeFromQueue', $queue->appointment_id)}}">
+                    <form method="POST" action="{{route('appointment.removeQueue', $queue->appointment_id)}}">
                         @csrf
                         @method('PATCH')
                         <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
@@ -68,7 +68,7 @@
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <form method="GET" action="/appointments/{{$reservation->appointment_id}}">
+                    <form method="GET" action="{{route('appointment.show', $reservation->appointment_id)}}">
                         <button type="submit" class="btn medium"><span>View</span></button>
                     </form>
                     <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">
