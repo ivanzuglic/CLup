@@ -7,7 +7,7 @@
     <div class="widget-header title-only">
         <h2 class="widget-title">Adding Manager Form</h2>
     </div>
-    <form method="POST" action="{{route('manager.create')}}">
+    <form method="POST" action="{{route('add.manager')}}">
         @csrf
 
         <div>

@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="store-interactions">
-                    <form class="placament-form" method="post" action="{{route('addToQueue')}}">
+                    <form class="placament-form" method="post" action="{{route('appointment.addQueue')}}">
                         @csrf
 {{--                        <div class="store-interactions-div">--}}
 {{--                            Queue Duration:<span>&nbsp;10min </span>--}}
@@ -45,7 +45,7 @@
 {{--                        <div class="store-interactions-div">--}}
 {{--                            People Currently in Queue:<span>&nbsp;7</span>--}}
 {{--                        </div>--}}
-                        
+
                             <div class="store-interactions-div">
                                 <label for="travel-time" class="">Required Travel Time (mins.):</label>
                                 <div class="label-divider">
