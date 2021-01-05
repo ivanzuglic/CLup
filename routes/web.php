@@ -51,6 +51,12 @@ Route::patch('/appointments/reservations/{appointment_id}', ['as' => 'appointmen
 Route::post('/appointments/queue', ['as' => 'appointment.addQueue', 'uses' => 'Appointment\QueueController@addUserToQueue'])->middleware('role:customer');
 //      Removing a queue entry
 Route::patch('/appointments/queue/{appointment_id}', ['as' => 'appointment.removeQueue', 'uses' => 'Appointment\QueueController@removeUserFromQueue'])->middleware('role:customer');
+//      Pushing back a queue entry
+Route::post('/appointments/queue/{appointment_id}/push_back', ['as' => 'appointment.pushBackQueue', 'uses' => 'Appointment\QueueController@moveBackInQueue'])->middleware('role:customer');
+//      Checking for an earlier timeslot
+Route::get('/appointments/queue/{appointment_id}/available_earlier_timeslot', ['as' => 'appointment.earlierTimeslot', 'uses' => 'Appointment\QueueController@findEarlierTimeSlot'])->middleware('role:customer');
+//      Pushing forward a queue entry
+Route::patch('/appointments/queue/{appointment_id}/push_forward', ['as' => 'appointment.pushForwardQueue', 'uses' => 'Appointment\QueueController@moveUserEarlierInQueue'])->middleware('role:customer');
 //      Adding a proxy queue entry
 Route::post('/appointments/queue/proxy', ['as' => 'appointment.addQueueProxy', 'uses' => 'Appointment\QueueController@addProxyToQueue'])->middleware('role:manager');
 
