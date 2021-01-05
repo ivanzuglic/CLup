@@ -513,4 +513,20 @@ class QueueController extends AppointmentController
         return redirect(route('appointment.pdf', $app->appointment_id));
 
     }
+
+    public function moveBackInQueue(Request $request)
+    {
+        $appointment = $appointment = Appointment::findOrFail($request->appointment_id);
+        $planned_stay_time = strtotime($appointment->end_time) - strtotime($appointment->start_time);
+
+
+        $this->removeUserFromQueue($appointment->appointment_id);
+
+        $request = new Request([
+            'store_id' => $request->store_id,
+            'user_id' => $request->user_id,
+
+        ]);
+
+    }
 }
