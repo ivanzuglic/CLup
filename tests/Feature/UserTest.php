@@ -48,7 +48,7 @@ class UserTest extends TestCase
     /** @test */
     public function only_logged_in_customer_can_see_edit_form()
     {
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
     }
@@ -58,7 +58,7 @@ class UserTest extends TestCase
     {
         $this->actingAsCustomer();
 
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertOk();
 
     }
@@ -66,7 +66,7 @@ class UserTest extends TestCase
     /** @test */
     public function only_logged_in_customer_can_update_their_profile_through_form()
     {
-        $response = $this->patch('/user_profile/update', $this->data())
+        $response = $this->patch('/profile/update', $this->data())
             ->assertRedirect('/login');
 
     }
@@ -78,7 +78,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', $this->data())
+        $response = $this->patch('/profile/update', $this->data())
             ->assertRedirect('/');
 
       //  $this->assertCount(3, User::all());
@@ -92,7 +92,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update/pass', [
+        $response = $this->patch('/profile/update/password', [
             'password' => 'test321',
             'password_confirmation' => 'test321'
         ])->assertRedirect('/');
@@ -112,7 +112,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['name' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['name' => '']));
         $response->assertSessionHasErrors('name');
     }
 
@@ -124,7 +124,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['email' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['email' => '']));
         $response->assertSessionHasErrors('email');
     }
 
@@ -135,7 +135,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['email' => 'test_test']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['email' => 'test_test']));
         $response->assertSessionHasErrors('email');
     }
 
@@ -146,7 +146,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -157,7 +157,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '123']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '123']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -168,7 +168,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/user_profile/update', array_merge($this->data(), ['phone_number' => '12345678901234567']));
+        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '12345678901234567']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -178,7 +178,7 @@ class UserTest extends TestCase
         //$this->withoutExceptionHandling();
 
         $this->actingAsCustomer();
-        $response = $this->patch('/user_profile/update/pass', [
+        $response = $this->patch('/profile/update/password', [
             'password' => 'test32',
             'password_confirmation' => 'test3'
         ]);

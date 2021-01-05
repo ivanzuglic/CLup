@@ -32,7 +32,7 @@ class ManagerTest extends TestCase
     /** @test */
     public function only_logged_in_user_can_see_manager_dashboard()
     {
-        $response = $this->get('/manager/dashboard')
+        $response = $this->get('/manager/dashboard/store_parameters/1')
             ->assertRedirect('/login');
     }
 
@@ -42,7 +42,7 @@ class ManagerTest extends TestCase
     {
         // $this->withoutExceptionHandling();
         $this->actingAsManager();
-        $response = $this->get('/manager/dashboard')
+        $response = $this->get('/manager/dashboard/store_parameters/5')
             ->assertOk();
 
     }
@@ -50,7 +50,7 @@ class ManagerTest extends TestCase
     /** @test */
     public function only_logged_in_admin_can_see_edit_form()
     {
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
     }
@@ -60,7 +60,7 @@ class ManagerTest extends TestCase
     {
         $this->actingAsManager();
 
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertOk();
 
     }
@@ -68,7 +68,7 @@ class ManagerTest extends TestCase
     /** @test */
     public function only_logged_in_manager_can_update_their_profile_through_form()
     {
-        $response = $this->patch('/user_profile/update', $this->managerData())
+        $response = $this->patch('/profile/update', $this->managerData())
             ->assertRedirect('/login');
 
     }
@@ -80,7 +80,7 @@ class ManagerTest extends TestCase
 
         $this->actingAsManager();
 
-        $response = $this->patch('/user_profile/update', $this->managerData())
+        $response = $this->patch('/profile/update', $this->managerData())
             ->assertRedirect('/');
 
     }
@@ -92,7 +92,7 @@ class ManagerTest extends TestCase
 
         $this->actingAsManager();
 
-        $response = $this->patch('/user_profile/update/pass', [
+        $response = $this->patch('/profile/update/password', [
             'password' => 'test321',
             'password_confirmation' => 'test321'
         ])->assertRedirect('/');
@@ -106,7 +106,7 @@ class ManagerTest extends TestCase
 
         $this->user = $this->makeManager();
 
-        $response = $this->actingAs($this->user)->patch(route('stores.update', [
+        $response = $this->actingAs($this->user)->patch(route('parameters.update', [
             'store_id' => $this->user->store_id,
             'max_occupancy' => '40',
             'max_reservation_ratio' => '0.5',
@@ -123,7 +123,7 @@ class ManagerTest extends TestCase
 
         $this->user = $this->makeManager();
 
-        $response = $this->actingAs($this->user)->post(route('working_hours.bulk_CUD', [
+        $response = $this->actingAs($this->user)->post(route('working_hours.update', [
             'store_id' => $this->user->store_id,
             'day' => '2',
             'opening_hours' => '08:00',
