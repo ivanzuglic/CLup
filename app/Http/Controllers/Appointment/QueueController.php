@@ -369,25 +369,43 @@ class QueueController extends AppointmentController
     {
         $store = Store::find($store_id);
         $working_hours = $store->working_hours;
-        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
+
+        if (date('w') == 0) {
+
+            $day_of_week = 6;
+
+        } else {
+
+            $day_of_week = date('w') - 1;
+
+        }
+
+        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
 
         $proxyCustomers = $store->getProxyCustomersAfterTime($canceled_appointment->start_time);
 
         foreach ($proxyCustomers as $customer) {
+
             $planned_stay = strtotime($customer->end_time) - strtotime($customer->start_time);
 
             $empty_timeslots_in_lanes = $store->getEmptyTimeslots($store->max_occupancy, $today_working_hours->opening_hours, $today_working_hours->closing_hours);
+
             $first_empty_in_lanes = [];
             for ($i = 1; $i <= sizeof($empty_timeslots_in_lanes); $i++) {
                 $lane = $empty_timeslots_in_lanes[$i];
 
                 for ($j = 0; $j < sizeof($lane); $j++) {
                     if (strtotime($lane[$j]['end']) > strtotime(date('H:i:s'))) {
-                        if (strtotime($lane[$j]['start']) <= strtotime(date('H:i:s')))
+
+                        if (strtotime($lane[$j]['start']) <= strtotime(date('H:i:s'))) {
+
                             $lane[$j]['start'] = date('H:i:s');
+                        }
+
                         $slot_duration = strtotime($lane[$j]['end']) - strtotime($lane[$j]['start']);
 
                         if ($slot_duration >= $planned_stay) {
+
                             $first_empty_in_lanes[$i] = $lane[$j];
                             break;
                         }
@@ -395,12 +413,15 @@ class QueueController extends AppointmentController
                     }
                 }
             }
+
             if ($first_empty_in_lanes != null) {
+
                 $min = $customer->start_time;
                 $lane_no = $customer->lane;
 
                 foreach ($first_empty_in_lanes as $key => $lane) {
                     if (strtotime($lane['start']) < strtotime($min)) {
+
                         $min = $lane['start'];
                         $lane_no = $key;
                     }
@@ -439,6 +460,8 @@ class QueueController extends AppointmentController
 
         $min = $today_working_hours->closing_hours;
 
+        $duration = date('H:i:s', $duration*60-3600);
+
         $min_start_time = strtotime(date('H:i:s'));
 
         $adequate_lanes_empty_slots = [];
@@ -448,19 +471,24 @@ class QueueController extends AppointmentController
 
             for ($j = 0; $j < sizeof($lane); $j++) {
                 if (strtotime($lane[$j]['end']) > $min_start_time) {
-                    if (strtotime($lane[$j]['start']) < $min_start_time) {
-                        if (strtotime($lane[$j]['end']) - $min_start_time >= strtotime($duration)) {
+
+                    if (date('H:i:s',(strtotime($lane[$j]['end']) - $min_start_time)-3600) >= $duration) {
+
+                        if($lane[$j]['start'] < date('H:i:s')) {
+
                             $lane[$j]['start'] = date('H:i:s', $min_start_time);
+
                         }
+
+                        $adequate_lanes_empty_slots[$i] = $lane[$j];
+                        break;
+
                     }
-                    $adequate_lanes_empty_slots[$i] = $lane[$j];
-                    break;
                 }
             }
         }
 
-
-        for ($i = 1; $i <= $store->max_occupancy; $i++) {
+        for ($i = 1; $i <= sizeof($adequate_lanes_empty_slots); $i++) {
             if (array_key_exists($i, $adequate_lanes_empty_slots)) {
                 $slot = $adequate_lanes_empty_slots[$i];
                 if (strtotime($slot['start']) < strtotime($min)) {
