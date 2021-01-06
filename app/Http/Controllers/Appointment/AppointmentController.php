@@ -150,6 +150,7 @@ class AppointmentController extends Controller
         }
         else if($appointment->status == 'in store'){
             $appointment->status = 'done';
+            $appointment->active = false;
             $appointment->store_exited_at = date('H:i:s');
             $appointment->save();
 
