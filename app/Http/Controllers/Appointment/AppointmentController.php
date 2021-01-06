@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
-use App\Events\CustomerEntersStore;
+use App\Events\StoreExitedEvent;
 use App\Http\Controllers\Controller;
 use App\Store;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -150,6 +150,7 @@ class AppointmentController extends Controller
         }
         else if($appointment->status == 'in store'){
             $appointment->status = 'done';
+            $appointment->active = false;
             $appointment->store_exited_at = date('H:i:s');
             $appointment->save();
 
@@ -158,6 +159,8 @@ class AppointmentController extends Controller
 
             $message = 'The client left the store!';
 
+            event(new StoreExitedEvent($appointment->appointment_id));
+
             return view('qr_response_views.successResponse', compact('message'));
         }
         else if($appointment->status == 'done'){
@@ -165,10 +168,6 @@ class AppointmentController extends Controller
 
             return view('qr_response_views.errorResponse', compact('message'));
         }
-
-        $user = Auth::user();
-        event(new CustomerEntersStore($appointment, $message, $user));
-        return $message;
     }
 
     //pushing back appointments in lane where customer stays longer then anticipated

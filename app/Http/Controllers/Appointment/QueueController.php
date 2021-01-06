@@ -259,12 +259,12 @@ class QueueController extends AppointmentController
             for ($j = 0; $j < sizeof($lane); $j++) {
                 if (strtotime($lane[$j]['end']) > $min_start_time) {
                     if (strtotime($lane[$j]['start']) < $min_start_time) {
-                        if (strtotime($lane[$j]['end']) - $min_start_time >= strtotime($duration)) {
-                            $lane[$j]['start'] = date('H:i:s', $min_start_time);
-                        }
+                        $lane[$j]['start'] = date('H:i:s', $min_start_time);
                     }
-                    $adequate_lanes_empty_slots[$i] = $lane[$j];
-                    break;
+                    if (strtotime($lane[$j]['end']) - $min_start_time >= $duration * 60) {
+                        $adequate_lanes_empty_slots[$i] = $lane[$j];
+                        break;
+                    }
                 }
             }
         }

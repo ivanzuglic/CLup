@@ -31,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\QueueCreatedEvent' => [
             'App\Listeners\QueueCreatedListener',
         ],
+        'App\Events\StoreExitedEvent' => [
+            'App\Listeners\StoreExitedListener',
+        ],
     ];
 
     /**
