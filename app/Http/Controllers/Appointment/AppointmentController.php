@@ -9,6 +9,7 @@ use App\Store;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AppointmentController extends Controller
@@ -106,6 +107,7 @@ class AppointmentController extends Controller
                 }
                 else{
                     $appointment->status = 'in store';
+                    $appointment->store_entered_at = date('H:i:s');
                     $appointment->save();
 
                     $message = 'The client may enter the store!';
@@ -115,6 +117,7 @@ class AppointmentController extends Controller
             }
             else {
                 $appointment->status = 'in store';
+                $appointment->store_entered_at = date('H:i:s');
                 $appointment->save();
 
                 $message = 'The client may enter the store!';
@@ -124,7 +127,11 @@ class AppointmentController extends Controller
         }
         else if($appointment->status == 'in store'){
             $appointment->status = 'done';
+            $appointment->store_exited_at = date('H:i:s');
             $appointment->save();
+
+            if (strtotime($appointment->store_exited_at) > strtotime($appointment->end_time))
+                $this->pushBackLaneAfterLateAppointment($appointment);
 
             $message = 'The client left the store!';
 
@@ -139,6 +146,68 @@ class AppointmentController extends Controller
         $user = Auth::user();
         event(new CustomerEntersStore($appointment, $message, $user));
         return $message;
+    }
+
+    //pushing back appointments in lane where customer stays longer then anticipated
+    public function pushBackLaneAfterLateAppointment($appointment)
+    {
+        $late = strtotime($appointment->store_exited_at) - strtotime($appointment->end_time);
+        $store = $appointment->store;
+        if(date('w') == 0)
+            $day_of_week = 6;
+        else
+            $day_of_week = date('w') - 1;
+        $working_hours = $store->working_hours->where('day', $day_of_week);
+        $appointments = Appointment::where('lane', $appointment->lane)->where('start_time', '>=', $appointment->end_time)->where('date', $appointment->date)->where('active', 1)->get();
+
+        for ($i = 0; $i < sizeof($appointments); $i++) {
+            //reservations cannot be pushed back unless late appointment is right before it in that lane
+            if ($appointments[$i]->type->appointment_type == 'Reservation'){
+                if ($i == 0){
+                    $this->changeAppointmentTime($appointments[$i], $late, $working_hours[$day_of_week]);
+                }else {
+                    continue;
+                }
+            }
+            // if it's not the last appointment in lane, check if following appointment is reservation
+            if ($i+1 != sizeof($appointments)){
+                // if the following appointment is not reservation, appointment is pushed back normally
+                if ($appointments[$i+1]->type->appointment_type != 'Reservation'){
+                    $this->changeAppointmentTime($appointments[$i], $late, $working_hours[$day_of_week]);
+                }
+                // if the following appointment is a reservation, pushing back depends
+                else {
+                    // if pushing back appointment overlaps with reservation, it is pushed back after it
+                    if (strtotime($appointments[$i]->end_time) + $late > strtotime($appointments[$i+1]->start_time)){
+                        $late = strtotime($appointments[$i+1]->end_time) - strtotime($appointments[$i]->start_time);
+                    }
+                    $this->changeAppointmentTime($appointments[$i], $late, $working_hours[$day_of_week]);
+                    $late = strtotime($appointments[$i]->end_time) - strtotime($appointments[$i]->start_time);
+                }
+            }
+            // if it is the last appointment, push it back
+            else {
+                $this->changeAppointmentTime($appointments[$i], $late, $working_hours[$day_of_week]);
+            }
+        }
+    }
+
+    // changing start time and end time of appointment for certain late value
+    public function changeAppointmentTime($appointment, $late, $working_hours)
+    {
+        //if changed start time is larger then closing hours, redirects back with error
+        if (strtotime($appointment->start_time) + $late > strtotime($working_hours->closing_hours))
+            return Redirect::back()->withErrors('Some customers fall out of queue');
+        //if not adds late value to start
+        else
+            $appointment->start_time = date('H:i:s', (strtotime($appointment->start_time) + $late));
+        //if changed end time is smaller then closing hours, it changes
+        if (strtotime($appointment->end_time) + $late <= strtotime($working_hours->closing_hours))
+            $appointment->end_time = date('H:i:s', (strtotime($appointment->end_time) + $late));
+        //if not, end time is set to closing hours
+        else
+            $appointment->end_time = $working_hours->closing_hours;
+        $appointment->save();
     }
 
     /**

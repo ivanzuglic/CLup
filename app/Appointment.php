@@ -46,5 +46,13 @@ class Appointment extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    /**
+//     * @return BelongsTo
+     */
+    public function type()
+    {
+        return $this->belongsTo('App\Appointment_type', 'appointment_type');
+    }
 }
 
