@@ -4,17 +4,24 @@ namespace App\Http\Controllers\User;
 
 use App\Events\UserCredentialsUpdateEvent;
 use App\Events\UserPasswordUpdateEvent;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     private $user;
 
+    /**
+     * UserController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,12 +32,19 @@ class UserController extends Controller
         });
     }
 
+    /**
+     * @return Application|Factory|View
+     */
     public function edit()
     {
         $user = $this->user;
         return view('temp.users_edit', compact('user'));
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function update(Request $request)
     {
 
@@ -47,7 +61,11 @@ class UserController extends Controller
         return back();
     }
 
-    public function updatePass(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updatePassword(Request $request)
     {
 
         $request->validate([

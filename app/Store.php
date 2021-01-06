@@ -212,7 +212,7 @@ class Store extends Model
     {
         $lanes = [];
         for ($i = 1; $i <= $max_occupancy; $i++) {
-            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->get();
+            $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('date', date("Y-m-d"))->where('active', 1)->where('lane', $i)->orderBy('start_time')->get();
         }
         $empty_time_slots = [];
         $lane_no = 1;

@@ -62,7 +62,7 @@ class AdminTest extends TestCase
     /** @test */
     public function only_logged_in_admin_can_see_edit_form()
     {
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
     }
@@ -72,7 +72,7 @@ class AdminTest extends TestCase
     {
         $this->actingAsAdmin();
 
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertOk();
 
     }
@@ -80,7 +80,7 @@ class AdminTest extends TestCase
     /** @test */
     public function only_logged_in_admin_can_update_their_profile_through_form()
     {
-        $response = $this->patch('/user_profile/update', $this->adminData())
+        $response = $this->patch('/profile/update', $this->adminData())
             ->assertRedirect('/login');
 
     }
@@ -92,7 +92,7 @@ class AdminTest extends TestCase
 
         $this->actingAsAdmin();
 
-        $response = $this->patch('/user_profile/update', $this->adminData())
+        $response = $this->patch('/profile/update', $this->adminData())
             ->assertRedirect('/');
 
     }
@@ -104,7 +104,7 @@ class AdminTest extends TestCase
 
         $this->actingAsAdmin();
 
-        $response = $this->patch('/user_profile/update/pass', [
+        $response = $this->patch('/profile/update/password', [
             'password' => 'test321',
             'password_confirmation' => 'test321'
         ])->assertRedirect('/');
@@ -157,7 +157,7 @@ class AdminTest extends TestCase
             'store_id' => '5'
         ]);
 
-        $this->assertCount(4, User::all());
+        $this->assertCount(16, User::all());
 
     }
 

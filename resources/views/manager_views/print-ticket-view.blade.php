@@ -10,7 +10,7 @@
             <h2 class="widget-title">Print Ticket</h2>
         </div>
         <div>
-            <form class="placament-form" method="post" action="{{route('addProxyToQueue')}}">
+            <form class="placament-form" method="post" action="{{route('appointment.addQueueProxy')}}">
                 @csrf
                 <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                 <div class="store-interactions-div">
