@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
 use App\Events\CustomerEntersStore;
+use App\Events\UserRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\Store;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -157,6 +158,8 @@ class AppointmentController extends Controller
                 $this->pushBackLaneAfterLateAppointment($appointment);
 
             $message = 'The client left the store!';
+
+            event(new UserRegisteredEvent($appointment->appointment_id));
 
             return view('qr_response_views.successResponse', compact('message'));
         }
