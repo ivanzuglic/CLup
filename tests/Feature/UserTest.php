@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Appointment;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserTest extends TestCase
+class UserTest extends BasicFeatureCase
 {
     /*
      * tests of this class can be started in two ways:
@@ -23,8 +24,16 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+//        $this->seed();
 
+    }
+
+    /** @test */
+    public function user_can_see_login_page()
+    {
+        $this->seed();
+        $response = $this->get('/login');
+        $response->assertStatus(200);
     }
 
 
@@ -46,7 +55,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function only_logged_in_customer_can_see_edit_form()
+    public function only_logged_in_customer_can_see_profile_edit_form()
     {
         $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
@@ -54,7 +63,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_customer_can_see_edit_form()
+    public function authenticated_customer_can_see_profile_edit_form()
     {
         $this->actingAsCustomer();
 
@@ -66,7 +75,7 @@ class UserTest extends TestCase
     /** @test */
     public function only_logged_in_customer_can_update_their_profile_through_form()
     {
-        $response = $this->patch('/profile/update', $this->data())
+        $response = $this->patch('/profile/update', $this->customerData())
             ->assertRedirect('/login');
 
     }
@@ -78,17 +87,17 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', $this->data())
+        $response = $this->patch('/profile/update', $this->customerData())
             ->assertRedirect('/');
 
-      //  $this->assertCount(3, User::all());
+        //  $this->assertCount(3, User::all());
 
     }
 
     /** @test */
     public function authenticated_customer_can_update_their_password_through_form()
     {
-        //$this->withoutExceptionHandling();    // use when you want more details of error (only when test fails)
+        //$this->withoutExceptionHandling();    // use when you want more details of error (when test fails)
 
         $this->actingAsCustomer();
 
@@ -99,6 +108,82 @@ class UserTest extends TestCase
 
         //  $this->assertCount(3, User::all());
 
+    }
+
+    /** @test */
+    public function only_logged_in_customer_can_see_placements_list()
+    {
+        $response = $this->get('/user/10/placements')
+            ->assertRedirect('/login');
+
+    }
+
+    /** @test */
+    public function authenticated_customer_can_see_their_placements()
+    {
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeCustomer();
+        $response = $this->actingAs($this->user)->get('/user/' . $this->user->id . '/placements')
+            ->assertOk();
+
+    }
+
+    /** @test */
+    public function authenticated_customer_can_search_stores()
+    {
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeCustomer();
+        $searchString = 'Clup';
+        $response = $this->actingAs($this->user)->get('/home/search')
+            ->assertOk();
+        $response = $this->actingAs($this->user)->get('/home/search?search_string' . $searchString . '')
+            ->assertOk();
+    }
+
+    /** @test */
+    public function authenticated_customer_can_view_details_of_specific_store()
+    {
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeCustomer();
+        $response = $this->actingAs($this->user)->get('/store/1/details')
+            ->assertOk();
+
+    }
+
+    /** @test */
+    public function authenticated_customer_can_queue_up_in_specific_store()
+    {
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeCustomer();
+
+        $response = $this->actingAs($this->user)->post('/appointments/queue', [
+            'store_id' => 2,
+            'travel_time' => 10,
+            'planned_stay_time' => 20
+        ]);
+        $response->assertRedirect('/user/' . $this->user->id . '/placements');
+        $this->assertCount(6, Appointment::all());
+    }
+
+    /** @test */
+    public function authenticated_customer_can_book_a_timeslot_in_specific_store()
+    {
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeCustomer();
+
+        $response = $this->actingAs($this->user)->post('/appointments/reservations', [
+            'store_id' => 2,
+            'reservation_date' => '2021-01-21',
+            'reservation_start_time' => '13:00',
+            'reservation_end_time' => '13:30'
+        ]);
+        $response->assertRedirect('/user/' . $this->user->id . '/placements');
+        $this->assertCount(6, Appointment::all());
     }
 
     /*
@@ -112,7 +197,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['name' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['name' => '']));
         $response->assertSessionHasErrors('name');
     }
 
@@ -124,7 +209,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['email' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['email' => '']));
         $response->assertSessionHasErrors('email');
     }
 
@@ -135,7 +220,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['email' => 'test_test']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['email' => 'test_test']));
         $response->assertSessionHasErrors('email');
     }
 
@@ -146,7 +231,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['phone_number' => '']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -157,7 +242,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '123']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['phone_number' => '123']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -168,7 +253,7 @@ class UserTest extends TestCase
 
         $this->actingAsCustomer();
 
-        $response = $this->patch('/profile/update', array_merge($this->data(), ['phone_number' => '12345678901234567']));
+        $response = $this->patch('/profile/update', array_merge($this->customerData(), ['phone_number' => '12345678901234567']));
         $response->assertSessionHasErrors('phone_number');
     }
 
@@ -187,27 +272,5 @@ class UserTest extends TestCase
 
     }
 
-
-    /*
-     * Private functions
-     */
-    private function actingAsCustomer()
-    {
-        $this->actingAs(factory(User::class)->create([
-            'role_id' => '2',
-        ]));
-    }
-
-    /*
-     * Function that returns data that we want to edit
-     */
-    private function data()
-    {
-        return [
-            'name' => 'Test Customer',
-            'email' => 'test@test.com',
-            'phone_number' => '87654321'
-        ];
-    }
 
 }
