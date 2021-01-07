@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'stores';
     protected $primaryKey = 'store_id';
 
@@ -54,7 +52,7 @@ class Store extends Model
     }
 
     /**
-     * Get all appointements for the store.
+     * Get all appointments for the store.
      *
      * @return array
      */
@@ -65,6 +63,23 @@ class Store extends Model
             $lanes[$i] = $this->hasMany('App\Appointment', 'store_id')->where('active', 1)->where('lane', $i)->orderBy('start_time')->get();
         }
         return $lanes;
+    }
+
+    /**
+     * Get all completed appointments for the store for the day.
+     *
+     * @return array
+     */
+    public function getAllCompletedAppointmentsForToday()
+    {
+        $appointments = $this->hasMany('App\Appointment', 'store_id')
+            ->where('status', 'done')
+            ->where('active', 0)
+            ->where('store_entered_at', '!=', 'null')
+            ->where('store_exited_at', '!=', 'null')
+            ->where('date', date("Y-m-d"))
+            ->orderBy('start_time')->get();
+        return $appointments;
     }
 
     /**

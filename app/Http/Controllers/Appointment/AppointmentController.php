@@ -99,9 +99,11 @@ class AppointmentController extends Controller
                 $appointment_day_of_week--;
             }
 
+            $working_hours = $store->working_hours->where('day', $appointment_day_of_week)->first();
+
             $qr = QrCode::size(300)->generate(url('/scan/').'/'.$appointment_id);
 
-            return view('customer_views.ticket-view', compact('appointment', 'appointment_day_of_week', 'store', 'qr'));
+            return view('customer_views.ticket-view', compact('appointment', 'working_hours', 'store', 'qr'));
         }
         else
         {
@@ -116,10 +118,9 @@ class AppointmentController extends Controller
     public function scan($appointment_id)
     {
         $appointment = Appointment::where('appointment_id', $appointment_id)->first();
-        $message = '';
+        $store = Store::find($appointment->store_id);
 
         if ($appointment->status == 'waiting') {
-            $store = Store::find($appointment->store_id);
             $appointment_before = $store->getAppointmentBefore($appointment);
 
             if ($appointment_before != null) {
@@ -132,6 +133,8 @@ class AppointmentController extends Controller
                     $appointment->status = 'in store';
                     $appointment->store_entered_at = date('H:i:s');
                     $appointment->save();
+                    $store->current_occupancy++;
+                    $store->save();
 
                     $message = 'The client may enter the store!';
 
@@ -142,6 +145,8 @@ class AppointmentController extends Controller
                 $appointment->status = 'in store';
                 $appointment->store_entered_at = date('H:i:s');
                 $appointment->save();
+                $store->current_occupancy++;
+                $store->save();
 
                 $message = 'The client may enter the store!';
 
@@ -153,6 +158,8 @@ class AppointmentController extends Controller
             $appointment->active = false;
             $appointment->store_exited_at = date('H:i:s');
             $appointment->save();
+            $store->current_occupancy--;
+            $store->save();
 
             if (strtotime($appointment->store_exited_at) > strtotime($appointment->end_time))
                 $this->pushBackLaneAfterLateAppointment($appointment);

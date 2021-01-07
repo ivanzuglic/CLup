@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StoreOccupancyData extends Model
 {
     protected $table = 'store_occupancy_data';
+    protected $primaryKey = 'store_occupancy_data_id';
 
     /**
      * The attributes that are mass assignable.
