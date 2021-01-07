@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'appointments';
     protected $primaryKey = 'appointment_id';
 

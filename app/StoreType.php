@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreType extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'store_types';
     protected $primaryKey = 'type_id';
 

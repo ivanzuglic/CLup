@@ -74,8 +74,10 @@ class StoreController extends Controller
             'max_reservation_ratio' => 'numeric|min:0.0|max:1.0',
         ]);
 
-         Store::create($request->all());
-         return back();
+        $store = Store::create($request->all());
+        app('App\Http\Controllers\Statistics\StoreOccupancyDataController')->initialize($store->store_id);
+        app('App\Http\Controllers\Statistics\StoreStatisticalDataController')->initialize($store->store_id);
+        return back();
     }
 
     public function show($store_id)

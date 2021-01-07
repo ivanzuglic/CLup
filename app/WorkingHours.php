@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkingHours extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'working_hours';
     protected $primaryKey = 'working_hours_id';
 

@@ -50,7 +50,7 @@
                     Store type:&nbsp;<section>{{ $store->type->store_type }}</section>
                 </li>
                 <li>
-                    Work hours:&nbsp;<section>{{ date('H:i', strtotime($store->working_hours[$appointment_day_of_week]->opening_hours)) }} - {{ date('H:i', strtotime($store->working_hours[$appointment_day_of_week]->closing_hours)) }}</section>
+                    Work hours:&nbsp;<section>{{ date('H:i', strtotime($working_hours->opening_hours)) }} - {{ date('H:i', strtotime($working_hours->closing_hours)) }}</section>
                 </li>
                 <li>
                     Occupancy:&nbsp;<section>{{ $store->current_occupancy }}/{{$store->max_occupancy}} </section>
