@@ -10,7 +10,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminTest extends TestCase
+class AdminTest extends BasicFeatureCase
 {
     /*
      * tests of this class can be started in two ways:
@@ -26,9 +26,9 @@ class AdminTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+//        $this->seed();
 
-        Gate::before(function() {
+        Gate::before(function () {
             return true;
         });
 
@@ -37,6 +37,7 @@ class AdminTest extends TestCase
     /** @test */
     public function only_logged_in_user_can_see_admin_dashboard()
     {
+        $this->seed();
         $response = $this->get('/admin/dashboard/add_store')
             ->assertRedirect('/login');
     }
@@ -60,7 +61,7 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function only_logged_in_admin_can_see_edit_form()
+    public function only_logged_in_admin_can_see_profile_edit_form()
     {
         $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
@@ -68,7 +69,7 @@ class AdminTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_admin_can_see_edit_form()
+    public function authenticated_admin_can_see_profile_edit_form()
     {
         $this->actingAsAdmin();
 
@@ -131,7 +132,7 @@ class AdminTest extends TestCase
             'current_occupancy' => '0',
         ]);
 
-       $this->assertCount(7, Store::all());
+        $this->assertCount(7, Store::all());
 
     }
 
@@ -161,29 +162,4 @@ class AdminTest extends TestCase
 
     }
 
-
-
-    /*
-     * Private functions
-     */
-    private function actingAsAdmin()
-    {
-        $this->actingAs(factory(User::class)->create([
-            'name' => 'Test Admin',
-            'email' => 'admin@test.com',
-            'role_id' => '1',
-        ]));
-    }
-
-    /*
-     * Function that returns data that we want to edit
-     */
-    private function adminData()
-    {
-        return [
-            'name' => 'Test Admin Changed',
-            'email' => 'admin@changed.com',
-            'phone_number' => '87654321'
-        ];
-    }
 }
