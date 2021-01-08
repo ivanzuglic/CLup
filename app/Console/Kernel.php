@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Tasks\AppointmentDeleteUpdate;
 use App\Tasks\NotifyAt30;
 use App\Tasks\StatisticsUpdate;
 use Illuminate\Console\Scheduling\Schedule;
@@ -29,7 +30,9 @@ class Kernel extends ConsoleKernel
         // Executing NotifyAt30 task once every minute
         $schedule->call(new NotifyAt30())->everyMinute();
         // Executing StatisticsUpdate task once a day
-        $schedule->call(new StatisticsUpdate())->dailyAt('23:55');;
+        $schedule->call(new StatisticsUpdate())->dailyAt('23:55');
+        //Executing AppointmentDeleteUpdate every five minutes
+        $schedule->call(new AppointmentDeleteUpdate())->everyFiveMinutes();
     }
 
     /**
