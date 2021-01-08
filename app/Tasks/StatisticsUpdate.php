@@ -52,7 +52,7 @@ class StatisticsUpdate
                     }
 
                     // Calculating new value for the customer density array
-                    $new_array[$i] = ($counter_enter * 0.6) + ($occupancy_data->array_customer_density[$i] * 0.4);
+                    $new_array[$i] = ($counter_enter * 0.2) + ($occupancy_data->array_customer_density[$i] * 0.8);
                     // Updating counters
                     $counter_enter = $counter_enter - $counter_exit;
                     $counter_exit = 0;
