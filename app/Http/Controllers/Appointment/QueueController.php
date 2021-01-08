@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
+use App\Events\AppointmentDeletedEvent;
 use App\Events\QueueCreatedEvent;
 use App\Events\ReservationCreatedEvent;
 use App\Store;
@@ -212,6 +213,8 @@ class QueueController extends AppointmentController
 
         $this->rebalanceProxyUsers($appointment->store_id, $appointment);
 
+        event(new AppointmentDeletedEvent($appointment->appointment_id));
+
         return back();
     }
 
@@ -361,6 +364,8 @@ class QueueController extends AppointmentController
             }
         }
         $this->rebalanceProxyUsers($store_id, $appointment);
+
+        event(new AppointmentDeletedEvent($appointment->appointment_id));
 
         return back();
     }

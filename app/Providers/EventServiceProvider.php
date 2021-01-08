@@ -34,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\StoreExitedEvent' => [
             'App\Listeners\StoreExitedListener',
         ],
+        'App\Events\AppointmentDeletedEvent' => [
+            'App\Listeners\AppointmentDeletedListener',
+        ],
     ];
 
     /**
