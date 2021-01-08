@@ -32,28 +32,12 @@ class ManagerTest extends BasicFeatureCase
     }
 
 
-    /** @test */
-    public function only_logged_in_user_can_see_store_parameters()
-    {
-        $this->seed();
-        $response = $this->get('/manager/dashboard/store_parameters/1')
-            ->assertRedirect('/login');
-    }
-
-
-    /** @test */
-    public function authenticated_manager_can_see_store_parameters()
-    {
-        // $this->withoutExceptionHandling();
-        $this->user = $this->makeManager();
-        $response = $this->actingAs($this->user)->get('/manager/dashboard/store_parameters/' . $this->user->store_id . '')
-            ->assertOk();
-
-    }
+    /*************** Settings view *********************/
 
     /** @test */
     public function only_logged_in_manager_can_see_profile_edit_form()
     {
+        $this->seed();
         $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
@@ -103,6 +87,28 @@ class ManagerTest extends BasicFeatureCase
 
     }
 
+    /*************** Settings view *********************/
+
+
+    /*************** Store parameters view *********************/
+
+    /** @test */
+    public function only_logged_in_user_can_see_store_parameters()
+    {
+        $response = $this->get('/manager/dashboard/store_parameters/1')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function authenticated_manager_can_see_store_parameters()
+    {
+        // $this->withoutExceptionHandling();
+        $this->user = $this->makeManager();
+        $response = $this->actingAs($this->user)->get('/manager/dashboard/store_parameters/' . $this->user->store_id . '')
+            ->assertOk();
+
+    }
+
     /** @test */
     public function authenticated_manager_can_change_parameters_of_their_store()
     {
@@ -141,6 +147,11 @@ class ManagerTest extends BasicFeatureCase
 //        $this->assertCount(3, WorkingHours::all());
 
     }
+
+    /*************** Store Parameters view *********************/
+
+
+    /*************** Print Tickets view *********************/
 
     /** @test */
     public function only_logged_in_manager_can_see_print_ticket_form()
@@ -181,5 +192,7 @@ class ManagerTest extends BasicFeatureCase
 
         $response->assertRedirect('/appointments/' . $appointment->appointment_id . '/pdf');
     }
+
+    /*************** Print Tickets view *********************/
 
 }
