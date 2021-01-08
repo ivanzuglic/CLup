@@ -36,6 +36,41 @@
                         </ul>
                     </div>
                 </div>
+                <div class="store-statistics">
+                    <div class="statistics-details">
+                        <section class="section-title">
+                            Store Statistics:
+                        </section>
+                        <div class="parameters-container">
+                            <div class="single-parameter">
+                                <section class="parameter-name">
+                                    Hourly Visitors:
+                                </section>
+                                <section class="parameter-value">
+                                    20
+                                </section>
+                            </div>
+                            <div class="single-parameter">
+                                <section class="parameter-name">
+                                    Daily Visitors:
+                                </section>
+                                <section class="parameter-value">
+                                    133
+                                </section>
+                            </div><div class="single-parameter">
+                                <section class="parameter-name">
+                                    Average Stay Length:
+                                </section>
+                                <section class="parameter-value">
+                                    13'
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-cotainer">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
                 <div class="store-interactions">
                     <form class="placament-form" method="post" action="{{route('appointment.addQueue')}}">
                         @csrf
