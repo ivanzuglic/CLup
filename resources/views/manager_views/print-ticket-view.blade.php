@@ -10,7 +10,7 @@
             <h2 class="widget-title">Print Ticket</h2>
         </div>
         <div>
-            <form class="placament-form" method="post" action="{{route('appointment.addQueueProxy')}}">
+            <form class="print-form" method="post" action="{{route('appointment.addQueueProxy')}}">
                 @csrf
                 <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                 <div class="store-interactions-div">
@@ -19,7 +19,7 @@
                         <input id="planned-stay-time" type="text" class="" name="planned_stay_time" placeholder="Stay Time" required autofocus>
                     </div>
                 </div>
-              <button type="submit" class="btn medium" @if($store->working_hours->isEmpty()) disabled="disabled" style="background-color: #a0a0a0; cursor:default" @endif>
+                <button type="submit" class="btn medium" @if($store->working_hours->isEmpty()) disabled="disabled" style="background-color: #a0a0a0; cursor:default" @endif>
                     <span>Print Ticket</span>
                 </button>
             </form>
