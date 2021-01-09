@@ -64,7 +64,7 @@ class ManagerCreatedNotification extends Notification implements ShouldQueue
 
             ->line(new HtmlString('You have been linked to <strong>' . $this->manager_store->name . '</strong>.'))
 
-            ->action('Manager Dashboard', url('/manager/dashboard'))
+            ->action('Manager Dashboard', url("/manager/dashboard/store_parameters/{$this->manager_store->store_id}"))
 
             ->line(new HtmlString('Thank you for using <strong>CLup</strong>!'));
     }
