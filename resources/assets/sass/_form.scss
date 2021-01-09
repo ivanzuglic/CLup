@@ -261,4 +261,54 @@ form {
             }
         }
     }
+
+    &.print-form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-bottom: 0;
+        margin-left: 0;
+
+        .store-interactions-div {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0;
+            font-weight: bold;
+            margin-bottom: $base-spacing*.5;
+            line-height: 2.5rem;
+            font-size: 1.2rem;
+
+            >input {
+                margin-right: $base-spacing;
+            }
+    
+            >label {
+                margin-right: $base-spacing;
+            }
+
+            .label-divider {
+                display: flex;
+                flex-direction: row;
+
+                >input {
+                    margin-right: $base-spacing;
+                }
+            }
+
+            @include media('<=tablet') {
+                flex-direction: column;
+                align-items: none;
+            }
+        }
+
+        @include media('<=tablet') {
+            flex-direction: column;
+
+            button {
+                margin-top: $base-spacing;
+            }
+        }
+    }
 }
