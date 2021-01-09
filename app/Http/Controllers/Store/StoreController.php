@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Store;
 
 use App\Store;
+use App\StoreOccupancyData;
+use App\StoreStatisticalData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -100,7 +102,24 @@ class StoreController extends Controller
             $query->where('day', '=', $day_of_week);
         }])->first();
 
-        return view('customer_views.store-details', array('store' => $store));
+        $statistical_data = StoreStatisticalData::where('store_id', $store_id)->first();
+        $occupancy_data = StoreOccupancyData::where('store_id', $store_id)->first();
+
+        $occupancy_array = array_slice ( $occupancy_data->array_customer_density , 6);
+        array_push($occupancy_array, 0);
+
+        $stat_exists = false;
+        if($statistical_data != null)
+        {
+            $stat_exists = true;
+        }
+        $occ_exists = false;
+        if($occupancy_data != null)
+        {
+            $occ_exists = true;
+        }
+
+        return view('customer_views.store-details', array('store' => $store, 'stat_exists' => $stat_exists, 'statistical_data' => $statistical_data, 'occ_exists' => $occ_exists, 'occupancy_array' => $occupancy_array));
     }
 
     public function edit()

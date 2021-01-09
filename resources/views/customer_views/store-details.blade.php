@@ -36,41 +36,47 @@
                         </ul>
                     </div>
                 </div>
-                <div class="store-statistics">
-                    <div class="statistics-details">
-                        <section class="section-title">
-                            Store Statistics:
-                        </section>
-                        <div class="parameters-container">
-                            <div class="single-parameter">
-                                <section class="parameter-name">
-                                    Hourly Visitors:
+                @if($stat_exists == true || $occ_exists == true)
+                    <div class="store-statistics">
+                        @if($stat_exists == true)
+                            <div class="statistics-details">
+                                <section class="section-title">
+                                    Store Statistics:
                                 </section>
-                                <section class="parameter-value">
-                                    20
-                                </section>
+                                <div class="parameters-container">
+        {{--                            <div class="single-parameter">--}}
+        {{--                                <section class="parameter-name">--}}
+        {{--                                    Hourly Visitors:--}}
+        {{--                                </section>--}}
+        {{--                                <section class="parameter-value">--}}
+        {{--                                    20--}}
+        {{--                                </section>--}}
+        {{--                            </div>--}}
+                                    <div class="single-parameter">
+                                        <section class="parameter-name">
+                                            Average Daily Visitors:
+                                        </section>
+                                        <section class="parameter-value">
+                                            {{ $statistical_data->avg_customers }}
+                                        </section>
+                                    </div><div class="single-parameter">
+                                        <section class="parameter-name">
+                                            Average Stay Length:
+                                        </section>
+                                        <section class="parameter-value">
+                                            {{ $statistical_data->avg_time_spent_min }}'
+                                        </section>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="single-parameter">
-                                <section class="parameter-name">
-                                    Daily Visitors:
-                                </section>
-                                <section class="parameter-value">
-                                    133
-                                </section>
-                            </div><div class="single-parameter">
-                                <section class="parameter-name">
-                                    Average Stay Length:
-                                </section>
-                                <section class="parameter-value">
-                                    13'
-                                </section>
+                        @endif
+                        @if($occ_exists == true)
+                            <div class="chart-cotainer">
+                                <canvas id="myChart"></canvas>
                             </div>
-                        </div>
+                        @endif
                     </div>
-                    <div class="chart-cotainer">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
+                @endif
                 <div class="store-interactions">
                     <form class="placament-form" method="post" action="{{route('appointment.addQueue')}}">
                         @csrf
@@ -148,4 +154,9 @@
                     </form>
                 </div>
             </div>
+
+            <script type="text/javascript">
+                var chartOccupancyData = {{ json_encode($occupancy_array) }};
+            </script>
+
 @endsection

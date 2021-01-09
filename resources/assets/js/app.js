@@ -56,7 +56,7 @@ var chartData = {
         pointRadius: 1,
         pointHitRadius: 10,
         categoryPercentage: .8,
-        data : [0, 0, .1, .2, .3, .4, .5, 1, .6, .7, .2, .1, .1, .4, .6, .2, .1, .1]
+        data : chartOccupancyData
     }]
 };
 
