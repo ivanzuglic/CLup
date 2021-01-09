@@ -104,9 +104,7 @@ class StoreController extends Controller
 
         $statistical_data = StoreStatisticalData::where('store_id', $store_id)->first();
         $occupancy_data = StoreOccupancyData::where('store_id', $store_id)->first();
-
-        $occupancy_array = array_slice ( $occupancy_data->array_customer_density , 6);
-        array_push($occupancy_array, 0);
+        $occupancy_array = null;
 
         $stat_exists = false;
         if($statistical_data != null)
@@ -116,6 +114,9 @@ class StoreController extends Controller
         $occ_exists = false;
         if($occupancy_data != null)
         {
+            $occupancy_array = array_slice ( $occupancy_data->array_customer_density , 6);
+            array_push($occupancy_array, 0);
+
             $occ_exists = true;
         }
 
