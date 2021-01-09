@@ -15,6 +15,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/test', function () {
+    return view('/manager_views/managerStatistics', ['name' => 'Finn']);
+});
+
 Auth::routes();
 
 // Customer-accessible pages
