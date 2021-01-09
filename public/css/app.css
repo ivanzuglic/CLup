@@ -985,13 +985,19 @@ main .stat-parameters .stat-container {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 160px;
+  width: 240px;
   height: 32px;
   border-radius: 5px;
   margin: 4px 8px;
   font-size: 1.1rem;
   font-weight: bold;
   line-height: 2rem;
+}
+
+@media (max-width: 768px) {
+  main .stat-parameters .stat-container {
+    width: 160px;
+  }
 }
 
 main .chart-cotainer-large {

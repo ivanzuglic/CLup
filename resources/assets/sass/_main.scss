@@ -264,13 +264,17 @@ main {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            width: $base-spacing*10;
+            width: $base-spacing*15;
             height: $base-spacing*2;
             border-radius: 5px;
             margin: $base-spacing*.25 $base-spacing*.5;
             font-size: 1.1rem;
             font-weight: bold;
             line-height: 2rem;
+
+            @include media('<=tablet') {
+                width: $base-spacing*10;
+            }
         }
     }
 
