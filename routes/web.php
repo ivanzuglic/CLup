@@ -68,28 +68,28 @@ Route::get('/scan/{appointment_id}', 'Appointment\AppointmentController@scan')->
 
 
 // StoreController CRUD routes
-Route::get('/stores', 'Store\StoreController@index');
-Route::get('/stores/create', 'Store\StoreController@create');
-Route::post('/stores', 'Store\StoreController@store');
-Route::get('/stores/{store_id}', 'Store\StoreController@show');
-Route::get('/stores/{store_id}/edit', 'Store\StoreController@edit');
-Route::patch('/stores/{store_id}', 'Store\StoreController@update');
-Route::delete('/stores/{store_id}', 'Store\StoreController@destroy');
+Route::get('/stores', 'Store\StoreController@index')->middleware('role:admin');
+Route::get('/stores/create', 'Store\StoreController@create')->middleware('role:admin');
+Route::post('/stores', 'Store\StoreController@store')->middleware('role:admin');
+Route::get('/stores/{store_id}', 'Store\StoreController@show')->middleware('role:admin');
+Route::get('/stores/{store_id}/edit', 'Store\StoreController@edit')->middleware('role:admin');
+Route::patch('/stores/{store_id}', 'Store\StoreController@update')->middleware('role:admin');
+Route::delete('/stores/{store_id}', 'Store\StoreController@destroy')->middleware('role:admin');
 
 // WorkingHoursController CRUD routes
-Route::get('stores/{store_id}/working_hours', 'Store\WorkingHoursController@index');
-Route::get('stores/{store_id}/working_hours/create', 'Store\WorkingHoursController@create');
-Route::post('/stores/{store_id}/working_hours', 'Store\WorkingHoursController@store');
-Route::get('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@show');
-Route::get('/stores/{store_id}/working_hours/{working_hours_id}/edit', 'Store\WorkingHoursController@edit');
-Route::patch('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@update');
-Route::delete('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@destroy');
+Route::get('stores/{store_id}/working_hours', 'Store\WorkingHoursController@index')->middleware('role:admin');
+Route::get('stores/{store_id}/working_hours/create', 'Store\WorkingHoursController@create')->middleware('role:admin');
+Route::post('/stores/{store_id}/working_hours', 'Store\WorkingHoursController@store')->middleware('role:admin');
+Route::get('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@show')->middleware('role:admin');
+Route::get('/stores/{store_id}/working_hours/{working_hours_id}/edit', 'Store\WorkingHoursController@edit')->middleware('role:admin');
+Route::patch('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@update')->middleware('role:admin');
+Route::delete('/stores/{store_id}/working_hours/{working_hours_id}', 'Store\WorkingHoursController@destroy')->middleware('role:admin');
 
 // AppointmentController and QueueController CRUD routes
-Route::get('/appointments', 'Appointment\AppointmentController@index');
-Route::get('/appointments/create', 'Appointment\AppointmentController@create');
-Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment');
-Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show');
-Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit');
-Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update');
-Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy');
+Route::get('/appointments', 'Appointment\AppointmentController@index')->middleware('role:admin');
+Route::get('/appointments/create', 'Appointment\AppointmentController@create')->middleware('role:admin');
+Route::post('/appointments', 'Appointment\QueueController@insertUserAppointment')->middleware('role:admin');
+Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@show')->middleware('role:admin');
+Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit')->middleware('role:admin');
+Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update')->middleware('role:admin');
+Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy')->middleware('role:admin');
