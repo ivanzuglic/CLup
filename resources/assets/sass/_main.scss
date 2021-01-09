@@ -251,6 +251,41 @@ main {
         }
     }
 
+    .stat-parameters {
+        padding: $base-spacing*2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+
+        .stat-container {
+            padding: $base-spacing*.5;
+            background-color: $background-grey;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: $base-spacing*10;
+            height: $base-spacing*2;
+            border-radius: 5px;
+            margin: $base-spacing*.25 $base-spacing*.5;
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 2rem;
+        }
+    }
+
+    .chart-cotainer-large {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+        padding: $base-spacing*2;
+        width: 80%;
+        border-bottom: 1px solid $grey;
+    }
+
     .store-details-widget {
         display: flex;
         flex-direction: column;
