@@ -88,6 +88,7 @@
 {{--                        </div>--}}
 
                             <div class="store-interactions-div">
+                                <section class="section-title"> &nbsp| QUEUE UP |&nbsp </section>
                                 <label for="travel-time" class="">Required Travel Time (mins.):</label>
                                 <div class="label-divider">
                                     <input type="hidden" name="store_id" value="{{$store->store_id}}" />
@@ -114,6 +115,7 @@
                         @csrf
                         <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                         <div class="store-interactions-div">
+                            <section class="section-title"> &nbsp| BOOK TIMESLOT |&nbsp </section>
                             <label for="reservation_date" class="">Select Date:&nbsp;</label>
                             <div class="label-divider">
                                 <input type="date" id="reservation_date"  name="reservation_date" value="{{ date("Y-m-d") }}" min="{{ date("Y-m-d") }}" class="form-control{{ $errors->has('reservation_date') ? ' is-invalid' : '' }}">
