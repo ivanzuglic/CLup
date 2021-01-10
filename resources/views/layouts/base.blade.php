@@ -69,7 +69,7 @@
                                     <a id="print-tickets" href="\manager\dashboard\print_tickets\{{ Auth::user()->store_id }}">Print Tickets</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="store-statistics" href="">Store Statistics</a>
+                                    <a id="store-statistics" href="\manager\dashboard\store_statistics\{{ Auth::user()->store_id }}">Store Statistics</a>
                             </li>
                         @endif
                         @if (Auth::user()->role_id == 1)

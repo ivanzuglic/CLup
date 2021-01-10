@@ -54,14 +54,14 @@
         {{--                            </div>--}}
                                     <div class="single-parameter">
                                         <section class="parameter-name">
-                                            Average Daily Visitors:
+                                            Visits Per Day (AVG):
                                         </section>
                                         <section class="parameter-value">
                                             {{ $statistical_data->avg_customers }}
                                         </section>
                                     </div><div class="single-parameter">
                                         <section class="parameter-name">
-                                            Average Stay Length:
+                                            Visit Length (AVG):
                                         </section>
                                         <section class="parameter-value">
                                             {{ $statistical_data->avg_time_spent_min }}'
@@ -107,9 +107,9 @@
                     </form>
                 </div>
                 <div class="store-interactions">
-                    <div class="reservation-display">
-                        <div id='timeline-embed'></div>
-                    </div>
+{{--                    <div class="reservation-display">--}}
+{{--                        <div id='timeline-embed'></div>--}}
+{{--                    </div>--}}
                     <form class="placament-form" method="post" action="{{route('appointment.addReservation')}}">
                         @csrf
                         <input type="hidden" name="store_id" value="{{$store->store_id}}" />

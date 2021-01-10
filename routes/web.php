@@ -15,10 +15,6 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/test', function () {
-    return view('/manager_views/managerStatistics', ['name' => 'Finn']);
-});
-
 Auth::routes();
 
 // Customer-accessible pages
@@ -38,6 +34,7 @@ Route::get('/manager/dashboard/store_parameters/{store_id}', 'Views\ManagerDashb
 Route::patch('/manager/dashboard/store_parameters/{store_id}/parameters/update', ['as' => 'parameters.update', 'uses' => 'Store\StoreController@update'])->middleware('role:manager');
 Route::post('/manager/dashboard/store_parameters/{store_id}/working_hours/update', ['as' => 'working_hours.update', 'uses' => 'Store\WorkingHoursController@bulk_CUD'])->middleware('role:manager');
 Route::get('/manager/dashboard/print_tickets/{store_id}', 'Views\ManagerDashboardController@printTickets')->middleware('role:manager');
+Route::get('/manager/dashboard/store_statistics/{store_id}', 'Views\ManagerDashboardController@storeStatistics')->middleware('role:manager');
 
 // Profile page accessible to all users
 Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'User\UserController@edit'])->middleware('role:admin|customer|manager');

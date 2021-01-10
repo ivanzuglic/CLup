@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Views;
 
 use App\Store;
+use App\StoreOccupancyData;
+use App\StoreStatisticalData;
 use App\WorkingHours;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -90,6 +92,47 @@ class ManagerDashboardController extends Controller
         else
         {
             return redirect("/manager/dashboard/print_tickets/{$user->store_id}");
+        }
+    }
+
+    public function storeStatistics($store_id)
+    {
+        // Fetching the current user (manager)
+        $user = Auth::user();
+
+        if($store_id == $user->store_id)
+        {
+            // Fetching the manager's linked store
+            $store = Store::findorfail($user->store_id);
+
+            $statistical_data = StoreStatisticalData::where('store_id', $store->store_id)->first();
+            $occupancy_data = StoreOccupancyData::where('store_id', $store->store_id)->first();
+            $occupancy_array = null;
+
+            $stat_exists = false;
+            if($statistical_data != null)
+            {
+                $stat_exists = true;
+            }
+            $occ_exists = false;
+            if($occupancy_data != null)
+            {
+                $occupancy_array = array_slice ( $occupancy_data->array_customer_density , 6);
+                array_push($occupancy_array, 0);
+
+                $occ_exists = true;
+            }
+
+            return view('manager_views.managerStatistics',
+                array('store' => $store,
+                      'stat_exists' => $stat_exists,
+                      'statistical_data' => $statistical_data,
+                      'occ_exists' => $occ_exists,
+                      'occupancy_array' => $occupancy_array));
+        }
+        else
+        {
+            return redirect("/manager/dashboard/store_statistics/{$user->store_id}");
         }
     }
 }
