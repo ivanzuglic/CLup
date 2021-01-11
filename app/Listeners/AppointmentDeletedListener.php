@@ -33,6 +33,7 @@ class AppointmentDeletedListener
         $store = Store::findOrFail($appointment->store_id);
         // Finding appointments further down the lane that potentially can move forward (only type 2 - queue)
         $next_appointments = Appointment::where('lane', $appointment->lane)
+            ->where('store_id', $store->store_id)
             ->where('start_time', '>=', $appointment->end_time)
             ->where('appointment_type', 2)
             ->where('date', $appointment->date)
