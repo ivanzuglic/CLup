@@ -46,10 +46,10 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function create()
-    {
-        //
-    }
+//    public function create()
+//    {
+//        //
+//    }
 
     /**
      * Store a newly created resource in storage.

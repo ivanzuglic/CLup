@@ -37,7 +37,7 @@ class ManagerTest extends BasicFeatureCase
     /** @test */
     public function only_logged_in_manager_can_see_profile_edit_form()
     {
-        $this->seed();
+//        $this->seed();
         $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
@@ -172,7 +172,7 @@ class ManagerTest extends BasicFeatureCase
             'planned_stay_time' => 10
         ]));
 
-        $this->assertCount(6, Appointment::all());
+        $this->assertCount(8, Appointment::all());
 
     }
 

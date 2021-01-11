@@ -44,6 +44,18 @@ class WorkingHoursTableSeeder extends Seeder
                 'closing_hours' => '22:00',
             ],
             [
+                'store_id' => '1',
+                'day' => '5',
+                'opening_hours' => '08:00',
+                'closing_hours' => '22:00',
+            ],
+            [
+                'store_id' => '1',
+                'day' => '6',
+                'opening_hours' => '08:00',
+                'closing_hours' => '22:00',
+            ],
+            [
                 'store_id' => '2',
                 'day' => '0',
                 'opening_hours' => '08:00',
@@ -70,6 +82,18 @@ class WorkingHoursTableSeeder extends Seeder
             [
                 'store_id' => '2',
                 'day' => '4',
+                'opening_hours' => '08:00',
+                'closing_hours' => '22:00',
+            ],
+            [
+                'store_id' => '2',
+                'day' => '5',
+                'opening_hours' => '08:00',
+                'closing_hours' => '23:00',
+            ],
+            [
+                'store_id' => '2',
+                'day' => '6',
                 'opening_hours' => '08:00',
                 'closing_hours' => '22:00',
             ]

@@ -31,7 +31,7 @@ class UserTest extends BasicFeatureCase
     /** @test */
     public function user_can_see_login_page()
     {
-        $this->seed();
+//        $this->seed();
         $response = $this->get('/login');
         $response->assertStatus(200);
     }
@@ -147,6 +147,21 @@ class UserTest extends BasicFeatureCase
     }
 
     /** @test */
+    public function authenticated_customer_can_exit__store()
+    {
+//        $this->withoutExceptionHandling();
+//        $this->seed();
+        $appointment = Appointment::where('appointment_id', 1)->first();
+        $appointment->status = 'in store';
+        $appointment->save();
+        $response = app('App\Http\Controllers\Appointment\AppointmentController')->scan($appointment->appointment_id);
+
+        $this->assertEquals('in store', $appointment->status);
+
+
+    }
+
+    /** @test */
     public function authenticated_customer_can_queue_up_in_specific_store()
     {
 //        $this->withoutExceptionHandling();
@@ -159,7 +174,7 @@ class UserTest extends BasicFeatureCase
             'planned_stay_time' => 20
         ]);
         $response->assertRedirect('/user/' . $this->user->id . '/placements');
-        $this->assertCount(6, Appointment::all());
+        $this->assertCount(8, Appointment::all());
     }
 
     /** @test */
@@ -176,7 +191,7 @@ class UserTest extends BasicFeatureCase
             'reservation_end_time' => '13:30'
         ]);
         $response->assertRedirect('/user/' . $this->user->id . '/placements');
-        $this->assertCount(6, Appointment::all());
+        $this->assertCount(8, Appointment::all());
     }
 
     /*************** Store details view ******************/
@@ -198,9 +213,14 @@ class UserTest extends BasicFeatureCase
 //        $this->withoutExceptionHandling();
 //        $this->seed();
 
-        $this->user = $this->makeCustomer();
-        $response = $this->actingAs($this->user)->get('/user/' . $this->user->id . '/placements')
+        $this->user1 = $this->makeCustomer();
+        $this->user2 = $this->makeCustomer();
+
+        $response = $this->actingAs($this->user1)->get('/user/' . $this->user1->id . '/placements')
             ->assertOk();
+
+        $response = $this->actingAs($this->user1)->get('/user/' . $this->user2->id . '/placements')
+            ->assertRedirect('/user/' . $this->user1->id . '/placements');
 
     }
 
@@ -239,10 +259,10 @@ class UserTest extends BasicFeatureCase
 
         // creating new reservation appointment to be able to test it
         $response = $this->actingAs($this->user)->post('/appointments/reservations', [
-            'store_id' => 2,
-            'reservation_date' => '2021-01-21',
-            'reservation_start_time' => '13:00',
-            'reservation_end_time' => '13:30'
+            'store_id' => 1,
+            'reservation_date' => date("Y-m-d", strtotime("+0 day")),
+            'reservation_start_time' => date("H:i:s"),
+            'reservation_end_time' => date("H:i:s", strtotime("+10 minute"))
         ]);
 
         // getting appointment_id of previously created reservation appointment
