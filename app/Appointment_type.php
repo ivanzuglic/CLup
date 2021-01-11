@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment_type extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'appointment_types';
     protected $primaryKey = 'type_id';
 

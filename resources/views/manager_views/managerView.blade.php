@@ -7,7 +7,7 @@
     <div class="widget-header title-only">
         <h2 class="widget-title">Store Parameters</h2>
     </div>
-    <form method="POST" action = "{{route('stores.update',$store->store_id)}}" enctype="multipart/form-data" class="form-inline" id="store-parameters">
+    <form method="POST" action = "{{route('parameters.update', $store->store_id)}}" enctype="multipart/form-data" class="form-inline" id="store-parameters">
         @csrf
         @method('PATCH')
         <div>
@@ -66,7 +66,7 @@
     <div class="widget-header title-only">
         <h2 class="widget-title">Store Workhours</h2>
     </div>
-    <form method="POST" action = "{{route('working_hours.bulk_CUD',$store->store_id)}}" class="form-inline" id="store-workhours">
+    <form method="POST" action = "{{route('working_hours.update',$store->store_id)}}" class="form-inline" id="store-workhours">
         @csrf
         {{--@method('PATCH')--}}
         <div class="form-check">

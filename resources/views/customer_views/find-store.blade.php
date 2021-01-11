@@ -6,7 +6,7 @@
 
 @section('main')
 
-    <form method="get" action="{{route('stores.search')}}">
+    <form method="get" action="{{route('home.search')}}">
         <div class="search-bar">
             <input class="search-input" type="text" placeholder="Search stores"  name="search_string">
             <div class="search-actions">
@@ -51,7 +51,7 @@
                     </ul>
                 </div>
                 <div class="store-card-actions">
-                    <a href="/stores/{{$store->store_id}}/details" class="btn long"><span>More details</span></a>
+                    <a href="/store/{{$store->store_id}}/details" class="btn long"><span>More details</span></a>
                 </div>
             </div>
         @endforeach

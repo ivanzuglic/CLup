@@ -14,17 +14,25 @@ class Role
      *
      * @param Request $request
      * @param Closure $next
-     * @param $role_string
+     * @param $access_string
      * @return mixed
      */
-    public function handle($request, Closure $next, $role_string)
+    public function handle(Request $request, Closure $next, $access_string)
     {
-        $user = Auth::user();
-        $role = Roles::where('role_name', $role_string)->firstOrFail();
+        // Fetching the current user
+        $current_user = Auth::user();
 
-        if($user->role_id == $role->id)
+        // Exploding access_string into array around "|"
+        $access_array = explode('|', $access_string);
+
+        foreach ($access_array as $role_name)
         {
-            return $next($request);
+            $role = Roles::where('role_name', $role_name)->firstOrFail();
+
+            if($current_user->role_id == $role->id)
+            {
+                return $next($request);
+            }
         }
 
         return redirect('/not_available');

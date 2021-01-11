@@ -6,7 +6,6 @@ use App\WorkingHours;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class WorkingHoursController extends Controller
 {
@@ -14,8 +13,8 @@ class WorkingHoursController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->user = Auth::user();
-
     }
 
     public function index($store_id)

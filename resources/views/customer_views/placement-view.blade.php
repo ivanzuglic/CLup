@@ -9,7 +9,7 @@
     </div>
     <div class="placement-container">
         @foreach($queues as $queue)
-            <div class="placement @if((strtotime("now") - strtotime($queue->created_at)) <= 30) new-placament @endif">
+            <div class="placement @if((strtotime("now") - strtotime($queue->updated_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
                         Store: <span>{{ $queue->store->name }} [{{ $queue->store->address_line_1 }}, {{ $queue->store->town }}]</span>
@@ -22,10 +22,17 @@
                     </section>
                 </div>
                 <div class="placement-actions">
+                    <form method="GET" action="{{route('appointment.earlierTimeslot', $queue->appointment_id)}}">
+                        <button type="submit" class="btn medium"><span>Earlier?</span></button>
+                    </form>
+                    <form method="POST" action="{{route('appointment.pushBackQueue', $queue->appointment_id)}}">
+                        @csrf
+                        <button type="submit" class="btn medium"><span>Push Back</span></button>
+                    </form>
                     <form method="GET" action="{{route('appointment.show', $queue->appointment_id)}}">
                         <button type="submit" class="btn medium"><span>View</span></button>
                     </form>
-                    <form method="POST" action="{{route('removeFromQueue', $queue->appointment_id)}}">
+                    <form method="POST" action="{{route('appointment.removeQueue', $queue->appointment_id)}}">
                         @csrf
                         @method('PATCH')
                         <button type="submit" class="btn medium" style="background-color: #ff0f0f" ><span>Delete</span></button>
@@ -43,7 +50,7 @@
     </div>
     <div class="placement-container">
         @foreach($reservations as $reservation)
-            <div class="placement @if((strtotime("now") - strtotime($reservation->created_at)) <= 30) new-placament @endif">
+            <div class="placement @if((strtotime("now") - strtotime($reservation->updated_at)) <= 30) new-placament @endif">
                 <div class="placement-details">
                     <section class="store-name">
                         Store: <span>{{ $reservation->store->name }} [{{ $reservation->store->address_line_1 }}, {{ $reservation->store->town }}]</span>
@@ -68,7 +75,7 @@
                     </section>
                 </div>
                 <div class="placement-actions">
-                    <form method="GET" action="/appointments/{{$reservation->appointment_id}}">
+                    <form method="GET" action="{{route('appointment.show', $reservation->appointment_id)}}">
                         <button type="submit" class="btn medium"><span>View</span></button>
                     </form>
                     <form method="post" action="{{route('appointment.removeReservation', $reservation->appointment_id)}}">

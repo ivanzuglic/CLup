@@ -251,6 +251,45 @@ main {
         }
     }
 
+    .stat-parameters {
+        padding: $base-spacing*2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+
+        .stat-container {
+            padding: $base-spacing*.5;
+            background-color: $background-grey;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: $base-spacing*15;
+            height: $base-spacing*2;
+            border-radius: 5px;
+            margin: $base-spacing*.25 $base-spacing*.5;
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 2rem;
+
+            @include media('<=tablet') {
+                width: $base-spacing*10;
+            }
+        }
+    }
+
+    .chart-cotainer-large {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+        padding: $base-spacing*2;
+        width: 80%;
+        border-bottom: 1px solid $grey;
+    }
+
     .store-details-widget {
         display: flex;
         flex-direction: column;
@@ -260,6 +299,87 @@ main {
 
             &:last-of-type {
                 border-bottom: none;
+            }
+        }
+
+        .store-statistics {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: $base-spacing*2;
+
+            @include media('<=phablet') {
+                flex-direction: column;
+            }
+
+            .chart-cotainer {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                flex-shrink: 0;
+                margin-left: $base-spacing*8;
+
+                @include media('<=phablet') {
+                    margin-left: 0;
+                }
+
+                canvas {
+                    transform: translateY($base-spacing*1.5);
+                    flex-shrink: 0;
+                    width: $base-spacing*34;
+                    @include media('<=phablet') {
+                        height: $base-spacing*6;
+                    }
+                }
+            }
+
+            .statistics-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .section-title {
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    margin-bottom: $base-spacing;
+                }
+
+                .parameters-container {
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 6px;
+                    background-color: $background-grey;
+                    padding-left: $base-spacing*.5;
+                    padding-right: $base-spacing*.5;
+                    font-size: 1rem;
+
+                    .single-parameter {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-evenly;
+                        border-bottom: 1px solid $grey;
+                        padding-right: $base-spacing*.5;
+                        padding-left: $base-spacing*.5;
+                        line-height: 2.5rem;
+
+
+                        &:last-of-type {
+                            border-bottom: none;
+                        }
+
+                        .parameter-name {
+                            font-weight: bold;
+                            flex-grow: 1;
+                        }
+
+                        .parameter-value {
+                            margin-left: auto;
+                            padding-left: $base-spacing;
+                        }
+                    }
+                }
             }
         }
 
@@ -351,6 +471,10 @@ main {
             padding-right: $base-spacing;
             display: flex;
             flex-direction: column;
+
+            @include media('<=phablet') {
+                padding-bottom: $base-spacing;
+            }
 
             .reservation-display {
                 margin: $base-spacing;

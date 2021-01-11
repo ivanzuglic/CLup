@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
-    public $timestamps = true;
-
     protected $table = 'appointments';
     protected $primaryKey = 'appointment_id';
 
@@ -19,8 +17,8 @@ class Appointment extends Model
      */
     protected $fillable = [
         'user_id', 'store_id', 'appointment_type',
-        'start_time', 'end_time', 'active', 'in_store', 'date', 'done',
-        'lane'
+        'start_time', 'end_time', 'active', 'in_store', 'date', 'status',
+        'lane', 'store_entered_at', 'store_exited_at'
     ];
 
     protected $casts = [
@@ -45,6 +43,14 @@ class Appointment extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
+//     * @return BelongsTo
+     */
+    public function type()
+    {
+        return $this->belongsTo('App\Appointment_type', 'appointment_type');
     }
 }
 

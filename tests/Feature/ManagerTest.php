@@ -2,13 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Store;
 use App\User;
 use App\WorkingHours;
+use App\Appointment;
+use phpDocumentor\Reflection\Types\Null_;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ManagerTest extends TestCase
+class ManagerTest extends BasicFeatureCase
 {
     /*
      * tests of this class can be started in two ways:
@@ -24,43 +27,28 @@ class ManagerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+//        $this->seed();
 
     }
 
 
-    /** @test */
-    public function only_logged_in_user_can_see_manager_dashboard()
-    {
-        $response = $this->get('/manager/dashboard')
-            ->assertRedirect('/login');
-    }
-
+    /*************** Settings view *********************/
 
     /** @test */
-    public function authenticated_manager_can_see_manager_dashboard()
+    public function only_logged_in_manager_can_see_profile_edit_form()
     {
-        // $this->withoutExceptionHandling();
-        $this->actingAsManager();
-        $response = $this->get('/manager/dashboard')
-            ->assertOk();
-
-    }
-
-    /** @test */
-    public function only_logged_in_admin_can_see_edit_form()
-    {
-        $response = $this->get('/user_profile/edit')
+//        $this->seed();
+        $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
     }
 
     /** @test */
-    public function authenticated_admin_can_see_edit_form()
+    public function authenticated_manager_can_see_profile_edit_form()
     {
         $this->actingAsManager();
 
-        $response = $this->get('/user_profile/edit')
+        $response = $this->get('/profile/edit')
             ->assertOk();
 
     }
@@ -68,7 +56,7 @@ class ManagerTest extends TestCase
     /** @test */
     public function only_logged_in_manager_can_update_their_profile_through_form()
     {
-        $response = $this->patch('/user_profile/update', $this->managerData())
+        $response = $this->patch('/profile/update', $this->managerData())
             ->assertRedirect('/login');
 
     }
@@ -80,7 +68,7 @@ class ManagerTest extends TestCase
 
         $this->actingAsManager();
 
-        $response = $this->patch('/user_profile/update', $this->managerData())
+        $response = $this->patch('/profile/update', $this->managerData())
             ->assertRedirect('/');
 
     }
@@ -92,10 +80,32 @@ class ManagerTest extends TestCase
 
         $this->actingAsManager();
 
-        $response = $this->patch('/user_profile/update/pass', [
+        $response = $this->patch('/profile/update/password', [
             'password' => 'test321',
             'password_confirmation' => 'test321'
         ])->assertRedirect('/');
+
+    }
+
+    /*************** Settings view *********************/
+
+
+    /*************** Store parameters view *********************/
+
+    /** @test */
+    public function only_logged_in_user_can_see_store_parameters()
+    {
+        $response = $this->get('/manager/dashboard/store_parameters/1')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function authenticated_manager_can_see_store_parameters()
+    {
+        // $this->withoutExceptionHandling();
+        $this->user = $this->makeManager();
+        $response = $this->actingAs($this->user)->get('/manager/dashboard/store_parameters/' . $this->user->store_id . '')
+            ->assertOk();
 
     }
 
@@ -106,12 +116,16 @@ class ManagerTest extends TestCase
 
         $this->user = $this->makeManager();
 
-        $response = $this->actingAs($this->user)->patch(route('stores.update', [
+        $response = $this->actingAs($this->user)->patch(route('parameters.update', [
             'store_id' => $this->user->store_id,
             'max_occupancy' => '40',
             'max_reservation_ratio' => '0.5',
             'image_reference' => '/test'
         ]));
+        // there can be full route path (like in test above this one) instead of short one,
+        // but then store_id should be concatenated into the path instead of being sent with other parameters,
+        // as in assertRedirect() of authenticated_manager_can_see_ticket_pdf_of_proxy_user()
+
         $response->assertRedirect('/');
 
     }
@@ -123,7 +137,7 @@ class ManagerTest extends TestCase
 
         $this->user = $this->makeManager();
 
-        $response = $this->actingAs($this->user)->post(route('working_hours.bulk_CUD', [
+        $response = $this->actingAs($this->user)->post(route('working_hours.update', [
             'store_id' => $this->user->store_id,
             'day' => '2',
             'opening_hours' => '08:00',
@@ -134,42 +148,72 @@ class ManagerTest extends TestCase
 
     }
 
+    /*************** Store Parameters view *********************/
 
 
-    /*
-     * Private functions
-     */
+    /*************** Print Tickets view *********************/
 
-    private function actingAsManager()
+    /** @test */
+    public function only_logged_in_manager_can_see_print_ticket_form()
     {
-        $this->actingAs(factory(User::class)->create([
-            'name' => 'Test Manager',
-            'email' => 'manager@test.com',
-            'role_id' => '3',
-            'store_id' => '5'
+        $response = $this->get('/manager/dashboard/print_tickets/1')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function authenticated_manager_can_add_proxy_user_to_queue()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeManager();
+
+        $response = $this->actingAs($this->user)->post(route('appointment.addQueueProxy', [
+            'store_id' => $this->user->store_id,
+            'planned_stay_time' => 10
         ]));
+
+        $this->assertCount(8, Appointment::all());
+
     }
 
-    private function makeManager()
+    /** @test */
+    public function authenticated_manager_can_see_ticket_pdf_of_proxy_user()
     {
-        return factory(User::class)->create([
-            'name' => 'Test Manager',
-            'email' => 'manager@test.com',
-            'role_id' => '3',
-            'store_id' => '5'
-        ]);
+//        $this->withoutExceptionHandling();
+
+        $this->user = $this->makeManager();
+
+        $response = $this->actingAs($this->user)->post(route('appointment.addQueueProxy', [
+            'store_id' => $this->user->store_id,
+            'planned_stay_time' => 10
+        ]));
+
+        $appointment = Appointment::where('user_id', null)->where('store_id', $this->user->store_id)->first();
+
+        $response->assertRedirect('/appointments/' . $appointment->appointment_id . '/pdf');
     }
 
-    /*
-     * Function that returns data that we want to edit
-     */
-    private function managerData()
+    /*************** Print Tickets view *********************/
+
+    /*************** Store Statistics view *********************/
+
+    /** @test */
+    public function only_logged_in_user_can_see_store_statistics()
     {
-        return [
-            'name' => 'Test Manager Changed',
-            'email' => 'manager@changed.com',
-            'phone_number' => '87654321'
-        ];
+        $response = $this->get('/manager/dashboard/store_statistics/1')
+            ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function authenticated_manager_can_see_store_statistics()
+    {
+        // $this->withoutExceptionHandling();
+        $this->user = $this->makeManager();
+        $response = $this->actingAs($this->user)->get('/manager/dashboard/store_statistics/' . $this->user->store_id . '')
+            ->assertOk();
+
+    }
+
+    /*************** Store Statistics view *********************/
 
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Store;
 
 use App\Store;
+use App\StoreOccupancyData;
+use App\StoreStatisticalData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,7 @@ class StoreController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->user = Auth::user();
     }
 
@@ -73,8 +76,10 @@ class StoreController extends Controller
             'max_reservation_ratio' => 'numeric|min:0.0|max:1.0',
         ]);
 
-         Store::create($request->all());
-         return back();
+        $store = Store::create($request->all());
+        app('App\Http\Controllers\Statistics\StoreOccupancyDataController')->initialize($store->store_id);
+        app('App\Http\Controllers\Statistics\StoreStatisticalDataController')->initialize($store->store_id);
+        return back();
     }
 
     public function show($store_id)
@@ -97,7 +102,25 @@ class StoreController extends Controller
             $query->where('day', '=', $day_of_week);
         }])->first();
 
-        return view('customer_views.store-details', array('store' => $store));
+        $statistical_data = StoreStatisticalData::where('store_id', $store_id)->first();
+        $occupancy_data = StoreOccupancyData::where('store_id', $store_id)->first();
+        $occupancy_array = null;
+
+        $stat_exists = false;
+        if($statistical_data != null)
+        {
+            $stat_exists = true;
+        }
+        $occ_exists = false;
+        if($occupancy_data != null)
+        {
+            $occupancy_array = array_slice ( $occupancy_data->array_customer_density , 6);
+            array_push($occupancy_array, 0);
+
+            $occ_exists = true;
+        }
+
+        return view('customer_views.store-details', array('store' => $store, 'stat_exists' => $stat_exists, 'statistical_data' => $statistical_data, 'occ_exists' => $occ_exists, 'occupancy_array' => $occupancy_array));
     }
 
     public function edit()

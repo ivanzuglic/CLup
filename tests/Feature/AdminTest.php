@@ -10,7 +10,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminTest extends TestCase
+class AdminTest extends BasicFeatureCase
 {
     /*
      * tests of this class can be started in two ways:
@@ -26,88 +26,30 @@ class AdminTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+//        $this->seed();
 
-        Gate::before(function() {
+        Gate::before(function () {
             return true;
         });
 
     }
 
+    /*************** Add Store view *********************/
+
     /** @test */
-    public function only_logged_in_user_can_see_admin_dashboard()
+    public function only_logged_in_user_can_see_form_for_adding_stores()
     {
+        $this->seed();
         $response = $this->get('/admin/dashboard/add_store')
             ->assertRedirect('/login');
     }
 
     /** @test */
-    public function authenticated_admin_can_see_admin_dashboard()
+    public function authenticated_admin_can_see_form_for_adding_stores()
     {
         $this->actingAsAdmin();
         $response = $this->get('/admin/dashboard/add_store')
             ->assertOk();
-
-    }
-
-    /** @test */
-    public function authenticated_admin_can_see_form_for_adding_managers()
-    {
-        $this->actingAsAdmin();
-        $response = $this->get('/admin/dashboard/add_manager')
-            ->assertOk();
-
-    }
-
-    /** @test */
-    public function only_logged_in_admin_can_see_edit_form()
-    {
-        $response = $this->get('/user_profile/edit')
-            ->assertRedirect('/login');
-
-    }
-
-    /** @test */
-    public function authenticated_admin_can_see_edit_form()
-    {
-        $this->actingAsAdmin();
-
-        $response = $this->get('/user_profile/edit')
-            ->assertOk();
-
-    }
-
-    /** @test */
-    public function only_logged_in_admin_can_update_their_profile_through_form()
-    {
-        $response = $this->patch('/user_profile/update', $this->adminData())
-            ->assertRedirect('/login');
-
-    }
-
-    /** @test */
-    public function authenticated_admin_can_update_their_profile_through_form()
-    {
-        //$this->withoutExceptionHandling();
-
-        $this->actingAsAdmin();
-
-        $response = $this->patch('/user_profile/update', $this->adminData())
-            ->assertRedirect('/');
-
-    }
-
-    /** @test */
-    public function authenticated_admin_can_update_their_password_through_form()
-    {
-        //$this->withoutExceptionHandling();
-
-        $this->actingAsAdmin();
-
-        $response = $this->patch('/user_profile/update/pass', [
-            'password' => 'test321',
-            'password_confirmation' => 'test321'
-        ])->assertRedirect('/');
 
     }
 
@@ -131,10 +73,31 @@ class AdminTest extends TestCase
             'current_occupancy' => '0',
         ]);
 
-       $this->assertCount(7, Store::all());
+        $this->assertCount(7, Store::all());
 
     }
 
+    /*************** Add Store view *********************/
+
+
+    /*************** Add Manager view *********************/
+
+    /** @test */
+    public function authenticated_admin_can_see_form_for_adding_managers()
+    {
+        $this->actingAsAdmin();
+        $response = $this->get('/admin/dashboard/add_manager')
+            ->assertOk();
+
+    }
+
+    /** @test */
+    public function only_logged_in_admin_can_see_profile_edit_form()
+    {
+        $response = $this->get('/profile/edit')
+            ->assertRedirect('/login');
+
+    }
 
     /** @test */
     public function authenticated_admin_can_add_a_manager_through_the_form()
@@ -157,33 +120,60 @@ class AdminTest extends TestCase
             'store_id' => '5'
         ]);
 
-        $this->assertCount(4, User::all());
+        $this->assertCount(16, User::all());
 
     }
 
+    /*************** Add Manager view *********************/
 
 
-    /*
-     * Private functions
-     */
-    private function actingAsAdmin()
+    /*************** Settings view *********************/
+
+    /** @test */
+    public function authenticated_admin_can_see_profile_edit_form()
     {
-        $this->actingAs(factory(User::class)->create([
-            'name' => 'Test Admin',
-            'email' => 'admin@test.com',
-            'role_id' => '1',
-        ]));
+        $this->actingAsAdmin();
+
+        $response = $this->get('/profile/edit')
+            ->assertOk();
+
     }
 
-    /*
-     * Function that returns data that we want to edit
-     */
-    private function adminData()
+    /** @test */
+    public function only_logged_in_admin_can_update_their_profile_through_form()
     {
-        return [
-            'name' => 'Test Admin Changed',
-            'email' => 'admin@changed.com',
-            'phone_number' => '87654321'
-        ];
+        $response = $this->patch('/profile/update', $this->adminData())
+            ->assertRedirect('/login');
+
     }
+
+    /** @test */
+    public function authenticated_admin_can_update_their_profile_through_form()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsAdmin();
+
+        $response = $this->patch('/profile/update', $this->adminData())
+            ->assertRedirect('/');
+
+    }
+
+    /** @test */
+    public function authenticated_admin_can_update_their_password_through_form()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->actingAsAdmin();
+
+        $response = $this->patch('/profile/update/password', [
+            'password' => 'test321',
+            'password_confirmation' => 'test321'
+        ])->assertRedirect('/');
+
+    }
+
+    /*************** Settings view *********************/
+
+
 }

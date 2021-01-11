@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Appointment;
 
 use App\Appointment;
+use App\Events\AppointmentDeletedEvent;
 use App\Events\QueueCreatedEvent;
 use App\Events\ReservationCreatedEvent;
 use App\Store;
@@ -24,7 +25,8 @@ class QueueController extends AppointmentController
     {
         $store = Store::where('store_id', 1)->first();
 
-        return $store->getEmptyTimeslots($store->max_occupancy);
+//        return $store->getAdequateEmptyTimeslots($store->max_occupancy, '08:00', '20:00', '1200');
+//        return $store->getEmptyTimeslots($store->max_occupancy);
 //        return $store->getAllAppointments($store->max_occupancy);
 //        return $store->getAppointmentsInLane(1);
 //        return $store->getLaneHeads($store->max_occupancy);
@@ -211,6 +213,8 @@ class QueueController extends AppointmentController
 
         $this->rebalanceProxyUsers($appointment->store_id, $appointment);
 
+        event(new AppointmentDeletedEvent($appointment->appointment_id));
+
         return back();
     }
 
@@ -258,12 +262,12 @@ class QueueController extends AppointmentController
             for ($j = 0; $j < sizeof($lane); $j++) {
                 if (strtotime($lane[$j]['end']) > $min_start_time) {
                     if (strtotime($lane[$j]['start']) < $min_start_time) {
-                        if (strtotime($lane[$j]['end']) - $min_start_time >= strtotime($duration)) {
-                            $lane[$j]['start'] = date('H:i:s', $min_start_time);
-                        }
+                        $lane[$j]['start'] = date('H:i:s', $min_start_time);
                     }
-                    $adequate_lanes_empty_slots[$i] = $lane[$j];
-                    break;
+                    if (strtotime($lane[$j]['end']) - $min_start_time >= $duration * 60) {
+                        $adequate_lanes_empty_slots[$i] = $lane[$j];
+                        break;
+                    }
                 }
             }
         }
@@ -332,7 +336,6 @@ class QueueController extends AppointmentController
         return redirect(route('placements', Auth::id()));
     }
 
-
     public function removeUserFromQueue($appointment_id)
     {
         $appointment = Appointment::findOrFail($appointment_id);
@@ -362,6 +365,8 @@ class QueueController extends AppointmentController
         }
         $this->rebalanceProxyUsers($store_id, $appointment);
 
+        event(new AppointmentDeletedEvent($appointment->appointment_id));
+
         return back();
     }
 
@@ -369,25 +374,43 @@ class QueueController extends AppointmentController
     {
         $store = Store::find($store_id);
         $working_hours = $store->working_hours;
-        $today_working_hours = $working_hours->where('day', date('w') - 1)->first();
+
+        if (date('w') == 0) {
+
+            $day_of_week = 6;
+
+        } else {
+
+            $day_of_week = date('w') - 1;
+
+        }
+
+        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
 
         $proxyCustomers = $store->getProxyCustomersAfterTime($canceled_appointment->start_time);
 
         foreach ($proxyCustomers as $customer) {
+
             $planned_stay = strtotime($customer->end_time) - strtotime($customer->start_time);
 
             $empty_timeslots_in_lanes = $store->getEmptyTimeslots($store->max_occupancy, $today_working_hours->opening_hours, $today_working_hours->closing_hours);
+
             $first_empty_in_lanes = [];
             for ($i = 1; $i <= sizeof($empty_timeslots_in_lanes); $i++) {
                 $lane = $empty_timeslots_in_lanes[$i];
 
                 for ($j = 0; $j < sizeof($lane); $j++) {
                     if (strtotime($lane[$j]['end']) > strtotime(date('H:i:s'))) {
-                        if (strtotime($lane[$j]['start']) <= strtotime(date('H:i:s')))
+
+                        if (strtotime($lane[$j]['start']) <= strtotime(date('H:i:s'))) {
+
                             $lane[$j]['start'] = date('H:i:s');
+                        }
+
                         $slot_duration = strtotime($lane[$j]['end']) - strtotime($lane[$j]['start']);
 
                         if ($slot_duration >= $planned_stay) {
+
                             $first_empty_in_lanes[$i] = $lane[$j];
                             break;
                         }
@@ -395,12 +418,15 @@ class QueueController extends AppointmentController
                     }
                 }
             }
+
             if ($first_empty_in_lanes != null) {
+
                 $min = $customer->start_time;
                 $lane_no = $customer->lane;
 
                 foreach ($first_empty_in_lanes as $key => $lane) {
                     if (strtotime($lane['start']) < strtotime($min)) {
+
                         $min = $lane['start'];
                         $lane_no = $key;
                     }
@@ -439,6 +465,8 @@ class QueueController extends AppointmentController
 
         $min = $today_working_hours->closing_hours;
 
+        $duration = date('H:i:s', $duration*60-3600);
+
         $min_start_time = strtotime(date('H:i:s'));
 
         $adequate_lanes_empty_slots = [];
@@ -448,19 +476,24 @@ class QueueController extends AppointmentController
 
             for ($j = 0; $j < sizeof($lane); $j++) {
                 if (strtotime($lane[$j]['end']) > $min_start_time) {
-                    if (strtotime($lane[$j]['start']) < $min_start_time) {
-                        if (strtotime($lane[$j]['end']) - $min_start_time >= strtotime($duration)) {
+
+                    if (date('H:i:s',(strtotime($lane[$j]['end']) - $min_start_time)-3600) >= $duration) {
+
+                        if($lane[$j]['start'] < date('H:i:s')) {
+
                             $lane[$j]['start'] = date('H:i:s', $min_start_time);
+
                         }
+
+                        $adequate_lanes_empty_slots[$i] = $lane[$j];
+                        break;
+
                     }
-                    $adequate_lanes_empty_slots[$i] = $lane[$j];
-                    break;
                 }
             }
         }
 
-
-        for ($i = 1; $i <= $store->max_occupancy; $i++) {
+        for ($i = 1; $i <= sizeof($adequate_lanes_empty_slots); $i++) {
             if (array_key_exists($i, $adequate_lanes_empty_slots)) {
                 $slot = $adequate_lanes_empty_slots[$i];
                 if (strtotime($slot['start']) < strtotime($min)) {
@@ -512,5 +545,115 @@ class QueueController extends AppointmentController
 
         return redirect(route('appointment.pdf', $app->appointment_id));
 
+    }
+
+    /**
+     * @param $appointment_id
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|Redirector
+     */
+    public function moveBackInQueue($appointment_id, Request $request)
+    {
+        // Fetching the appointment
+        $appointment = Appointment::findOrFail($appointment_id);
+        $store_id = $appointment->store_id;
+
+        // Calculating the planned stay time
+        $planned_stay_time = (strtotime($appointment->end_time) - strtotime($appointment->start_time)) / 60;
+        // Calculating a new travel time
+        $now_to_start_sec = (strtotime($appointment->start_time) - strtotime(date("H:i:s")));
+        $now_to_start_min = ($now_to_start_sec - ($now_to_start_sec % 60)) / 60;
+        $new_travel_time = 60 + $now_to_start_min;
+
+        // Removing the old appointment (queue entry)
+        $this->removeUserFromQueue($appointment->appointment_id);
+
+        // Adding new data to the request
+        $request->merge([
+            'store_id' => $store_id,
+            'planned_stay_time' => $planned_stay_time,
+            'travel_time' => $new_travel_time
+        ]);
+
+        // Creating a new appointment (queue entry)
+        return $this->addUserToQueue($request);
+    }
+
+    /**
+     * @param $appointment_id
+     */
+    public function findEarlierTimeSlot($appointment_id)
+    {
+        // Fetching the appointment, store, and working_hours
+        $appointment = Appointment::findOrFail($appointment_id);
+        $store = Store::findOrFail($appointment->store_id);
+        $working_hours = $store->working_hours;
+        // Discerning the day of the week
+        if (date('w') == 0)
+        {
+            $day_of_week = 6;
+        }
+        else
+        {
+            $day_of_week = date('w') - 1;
+        }
+        $today_working_hours = $working_hours->where('day', $day_of_week)->first();
+
+        // Calculating the duration of the appointment
+        $duration = (strtotime($appointment->end_time) - strtotime($appointment->start_time));
+        // Getting all the free possible timeslots
+        $time_slots = $store->getAdequateEmptyTimeslots($store->max_occupancy, $today_working_hours->opening_hours, $today_working_hours->closing_hours, $duration);
+        // Selecting the appointment's lane
+        $lane_time_slots = $time_slots[$appointment->lane];
+
+        $adequate_time_slots = [];
+
+        // Filtering, and if necessary modifying available timeslots
+        foreach ($lane_time_slots as $time_slot)
+        {
+            if(strtotime($time_slot['end']) > strtotime(date("H:i:s")))
+            {
+                if(strtotime($time_slot['start']) < strtotime(date("H:i:s")))
+                {
+                    $time_slot['start'] = date("H:i:s");
+                }
+                if(strtotime($time_slot['end']) - strtotime($time_slot['start']) >= $duration)
+                {
+                    array_push($adequate_time_slots, $time_slot);
+                }
+            }
+        }
+
+        // Selecting the earliest free timeslot
+        $best_free_timeslot = $adequate_time_slots[0];
+        // Checking whether earliest free timeslot is earlier than current timeslot
+        $improvement = false;
+        if(strtotime($best_free_timeslot['start']) < strtotime($appointment->start_time))
+        {
+            $improvement = true;
+        }
+
+        // Setting the timeslot end time
+        $best_free_timeslot['end'] = date("H:i:s", strtotime($best_free_timeslot['start']) + $duration);
+
+        return view('temp.earlier_timeslot_message', compact('appointment', 'improvement', 'best_free_timeslot'));
+    }
+
+    /**
+     * @param $appointment_id
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|Redirector
+     */
+    public function moveUserEarlierInQueue($appointment_id, Request $request)
+    {
+        // Fetching the appointment
+        $appointment = Appointment::findOrFail($appointment_id);
+        // Updating start and end times
+        $appointment->start_time = $request->new_start_time;
+        $appointment->end_time = $request->new_end_time;
+        // Storing changes
+        $appointment->save();
+        // Redirecting to placements page
+        return redirect(route('placements', Auth::id()));
     }
 }

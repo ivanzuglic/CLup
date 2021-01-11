@@ -8,7 +8,7 @@
     <div class="widget-header title-only">
         <h2 class="widget-title">Adding Store Form</h2>
     </div>
-    <form method="POST" action="{{route('stores.store')}}">
+    <form method="POST" action="{{route('add.store')}}">
         @csrf
 
         <div>

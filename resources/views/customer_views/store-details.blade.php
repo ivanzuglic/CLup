@@ -36,8 +36,49 @@
                         </ul>
                     </div>
                 </div>
+                @if($stat_exists == true || $occ_exists == true)
+                    <div class="store-statistics">
+                        @if($stat_exists == true)
+                            <div class="statistics-details">
+                                <section class="section-title">
+                                    Store Statistics:
+                                </section>
+                                <div class="parameters-container">
+        {{--                            <div class="single-parameter">--}}
+        {{--                                <section class="parameter-name">--}}
+        {{--                                    Hourly Visitors:--}}
+        {{--                                </section>--}}
+        {{--                                <section class="parameter-value">--}}
+        {{--                                    20--}}
+        {{--                                </section>--}}
+        {{--                            </div>--}}
+                                    <div class="single-parameter">
+                                        <section class="parameter-name">
+                                            Visits Per Day (AVG):
+                                        </section>
+                                        <section class="parameter-value">
+                                            {{ $statistical_data->avg_customers }}
+                                        </section>
+                                    </div><div class="single-parameter">
+                                        <section class="parameter-name">
+                                            Visit Length (AVG):
+                                        </section>
+                                        <section class="parameter-value">
+                                            {{ $statistical_data->avg_time_spent_min }}'
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if($occ_exists == true)
+                            <div class="chart-cotainer">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        @endif
+                    </div>
+                @endif
                 <div class="store-interactions">
-                    <form class="placament-form" method="post" action="{{route('addToQueue')}}">
+                    <form class="placament-form" method="post" action="{{route('appointment.addQueue')}}">
                         @csrf
 {{--                        <div class="store-interactions-div">--}}
 {{--                            Queue Duration:<span>&nbsp;10min </span>--}}
@@ -45,8 +86,9 @@
 {{--                        <div class="store-interactions-div">--}}
 {{--                            People Currently in Queue:<span>&nbsp;7</span>--}}
 {{--                        </div>--}}
-                        
+
                             <div class="store-interactions-div">
+                                <section class="section-title"> &nbsp| QUEUE UP |&nbsp </section>
                                 <label for="travel-time" class="">Required Travel Time (mins.):</label>
                                 <div class="label-divider">
                                     <input type="hidden" name="store_id" value="{{$store->store_id}}" />
@@ -66,13 +108,14 @@
                     </form>
                 </div>
                 <div class="store-interactions">
-                    <div class="reservation-display">
-                        <div id='timeline-embed'></div>
-                    </div>
+{{--                    <div class="reservation-display">--}}
+{{--                        <div id='timeline-embed'></div>--}}
+{{--                    </div>--}}
                     <form class="placament-form" method="post" action="{{route('appointment.addReservation')}}">
                         @csrf
                         <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                         <div class="store-interactions-div">
+                            <section class="section-title"> &nbsp| BOOK TIMESLOT |&nbsp </section>
                             <label for="reservation_date" class="">Select Date:&nbsp;</label>
                             <div class="label-divider">
                                 <input type="date" id="reservation_date"  name="reservation_date" value="{{ date("Y-m-d") }}" min="{{ date("Y-m-d") }}" class="form-control{{ $errors->has('reservation_date') ? ' is-invalid' : '' }}">
@@ -113,4 +156,9 @@
                     </form>
                 </div>
             </div>
+
+            <script type="text/javascript">
+                var chartOccupancyData = {{ json_encode($occupancy_array) }};
+            </script>
+
 @endsection

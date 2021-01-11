@@ -55,33 +55,33 @@
                     <ul class="nav-container">
                         @if (Auth::user()->role_id == 2)
                             <li class="nav-option">
-                                    <a id="find-store" href="\home">Find store</a>
+                                    <a id="find-store" href="\home">Find Store</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="placaments" href="\user\{{ Auth::id() }}\placements">My placements</a>
+                                    <a id="placaments" href="\user\{{ Auth::id() }}\placements">My Placements</a>
                             </li>
                         @endif
                         @if (Auth::user()->role_id == 3)
                             <li class="nav-option">
-                                    <a id="store-parameters" href="\manager\dashboard">Store parameters</a>
+                                    <a id="store-parameters" href="\manager\dashboard\store_parameters\{{ Auth::user()->store_id }}">Store Parameters</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="print-tickets" href="\manager\print_tickets">Print tickets</a>
+                                    <a id="print-tickets" href="\manager\dashboard\print_tickets\{{ Auth::user()->store_id }}">Print Tickets</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="store-statistics" href="">Store statistics</a>
+                                    <a id="store-statistics" href="\manager\dashboard\store_statistics\{{ Auth::user()->store_id }}">Store Statistics</a>
                             </li>
                         @endif
                         @if (Auth::user()->role_id == 1)
                             <li class="nav-option">
-                                    <a id="add-store" href="\admin\dashboard\add_store">Add store</a>
+                                    <a id="add-store" href="\admin\dashboard\add_store">Add Store</a>
                             </li>
                             <li class="nav-option">
-                                    <a id="add-managers" href="\admin\dashboard\add_manager">Add managers</a>
+                                    <a id="add-managers" href="\admin\dashboard\add_manager">Add Managers</a>
                             </li>
                         @endif
                         <li class="nav-option">
-                                <a id="settings" href="\user_profile\edit">Settings</a>
+                                <a id="settings" href="\profile\edit">Settings</a>
                         </li>
                         <li class="nav-option">
                             <a id="logout" href="{{ route('logout') }}"
