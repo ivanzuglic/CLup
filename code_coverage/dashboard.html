@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\DSD\CLup\app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href=".css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/style.css" rel="stylesheet" type="text/css">
+  <link href=".css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\DSD\CLup\app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Tasks/StatisticsUpdate.php.html#10">App\Tasks\StatisticsUpdate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Events/UserRegisteredEvent.php.html#11">App\Events\UserRegisteredEvent</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tasks/NotifyAt30.php.html#8">App\Tasks\NotifyAt30</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tasks/AppointmentDeleteUpdate.php.html#9">App\Tasks\AppointmentDeleteUpdate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreType.php.html#7">App\StoreType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreStatisticalData.php.html#8">App\StoreStatisticalData</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreOccupancyData.php.html#8">App\StoreOccupancyData</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles.php.html#7">App\Roles</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#8">App\Providers\BroadcastServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#10">App\Policies\WorkingHoursPolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#10">App\Policies\StorePolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#10">App\Policies\AppointmentPolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserRegisteredNotification.php.html#11">App\Notifications\UserRegisteredNotification</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/StoreEnterableNotification.php.html#11">App\Notifications\StoreEnterableNotification</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/EarlierTimeslotAvailableNotification.php.html#11">App\Notifications\EarlierTimeslotAvailableNotification</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/AppointmentReminderNotification.php.html#11">App\Notifications\AppointmentReminderNotification</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/UserRegisteredListener.php.html#8">App\Listeners\UserRegisteredListener</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ForgotPasswordController.php.html#8">App\Http\Controllers\Auth\ForgotPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#12">App\Http\Controllers\Auth\RegisterController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ResetPasswordController.php.html#8">App\Http\Controllers\Auth\ResetPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/LoginController.php.html#10">App\Http\Controllers\Auth\LoginController</a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#10">App\Http\Controllers\Store\WorkingHoursController</a></td><td class="text-right">24%</td></tr>
+       <tr><td><a href="Appointment.php.html#8">App\Appointment</a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#21">App\Http\Controllers\Appointment\AppointmentController</a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="Listeners/StoreExitedListener.php.html#11">App\Listeners\StoreExitedListener</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Providers/AuthServiceProvider.php.html#9">App\Providers\AuthServiceProvider</a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Store.php.html#7">App\Store</a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#12">App\Http\Controllers\Store\StoreController</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Listeners/AppointmentDeletedListener.php.html#11">App\Listeners\AppointmentDeletedListener</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Http/Middleware/Role.php.html#10">App\Http\Middleware\Role</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#18">App\Http\Controllers\Appointment\QueueController</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#21">App\Http\Controllers\Appointment\AppointmentController</a></td><td class="text-right">273</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#10">App\Http\Controllers\Store\WorkingHoursController</a></td><td class="text-right">192</td></tr>
+       <tr><td><a href="Tasks/StatisticsUpdate.php.html#10">App\Tasks\StatisticsUpdate</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#18">App\Http\Controllers\Appointment\QueueController</a></td><td class="text-right">84</td></tr>
+       <tr><td><a href="Store.php.html#7">App\Store</a></td><td class="text-right">66</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#10">App\Policies\AppointmentPolicy</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#12">App\Http\Controllers\Store\StoreController</a></td><td class="text-right">16</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/LoginController.php.html#10">App\Http\Controllers\Auth\LoginController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Tasks/AppointmentDeleteUpdate.php.html#9">App\Tasks\AppointmentDeleteUpdate</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Tasks/NotifyAt30.php.html#8">App\Tasks\NotifyAt30</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Listeners/StoreExitedListener.php.html#11">App\Listeners\StoreExitedListener</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Middleware/Role.php.html#10">App\Http\Middleware\Role</a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Listeners/AppointmentDeletedListener.php.html#11">App\Listeners\AppointmentDeletedListener</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Appointment.php.html#43"><abbr title="App\Appointment::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#21"><abbr title="App\Policies\AppointmentPolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#45"><abbr title="App\Policies\StorePolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#32"><abbr title="App\Policies\StorePolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#21"><abbr title="App\Policies\StorePolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#83"><abbr title="App\Policies\AppointmentPolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#70"><abbr title="App\Policies\AppointmentPolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#58"><abbr title="App\Policies\AppointmentPolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#46"><abbr title="App\Policies\AppointmentPolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#32"><abbr title="App\Policies\AppointmentPolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserRegisteredNotification.php.html#62"><abbr title="App\Notifications\UserRegisteredNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#70"><abbr title="App\Policies\StorePolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserRegisteredNotification.php.html#44"><abbr title="App\Notifications\UserRegisteredNotification::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserRegisteredNotification.php.html#33"><abbr title="App\Notifications\UserRegisteredNotification::via">via</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserRegisteredNotification.php.html#22"><abbr title="App\Notifications\UserRegisteredNotification::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserPasswordUpdateNotification.php.html#60"><abbr title="App\Notifications\UserPasswordUpdateNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/UserCredentialsUpdateNotification.php.html#61"><abbr title="App\Notifications\UserCredentialsUpdateNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/StoreEnterableNotification.php.html#76"><abbr title="App\Notifications\StoreEnterableNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/StoreEnterableNotification.php.html#54"><abbr title="App\Notifications\StoreEnterableNotification::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/StoreEnterableNotification.php.html#43"><abbr title="App\Notifications\StoreEnterableNotification::via">via</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/StoreEnterableNotification.php.html#28"><abbr title="App\Notifications\StoreEnterableNotification::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#57"><abbr title="App\Policies\StorePolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/StorePolicy.php.html#83"><abbr title="App\Policies\StorePolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Appointment.php.html#51"><abbr title="App\Appointment::type">type</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#136"><abbr title="App\Store::getInStoreAppointmentFromLane">getInStoreAppointmentFromLane</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tasks/StatisticsUpdate.php.html#13"><abbr title="App\Tasks\StatisticsUpdate::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tasks/NotifyAt30.php.html#12"><abbr title="App\Tasks\NotifyAt30::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tasks/AppointmentDeleteUpdate.php.html#12"><abbr title="App\Tasks\AppointmentDeleteUpdate::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreType.php.html#26"><abbr title="App\StoreType::stores">stores</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreStatisticalData.php.html#42"><abbr title="App\StoreStatisticalData::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="StoreOccupancyData.php.html#36"><abbr title="App\StoreOccupancyData::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#167"><abbr title="App\Store::getLaneEnds">getLaneEnds</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#154"><abbr title="App\Store::getLaneHeads">getLaneHeads</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#145"><abbr title="App\Store::getAppointmentBefore">getAppointmentBefore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#127"><abbr title="App\Store::getAppointmentsInLane">getAppointmentsInLane</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#21"><abbr title="App\Policies\WorkingHoursPolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#73"><abbr title="App\Store::getAllCompletedAppointmentsForToday">getAllCompletedAppointmentsForToday</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Store.php.html#59"><abbr title="App\Store::getAllAppointments">getAllAppointments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles.php.html#25"><abbr title="App\Roles::users">users</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#15"><abbr title="App\Providers\BroadcastServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#83"><abbr title="App\Policies\WorkingHoursPolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#70"><abbr title="App\Policies\WorkingHoursPolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#57"><abbr title="App\Policies\WorkingHoursPolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#45"><abbr title="App\Policies\WorkingHoursPolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/WorkingHoursPolicy.php.html#32"><abbr title="App\Policies\WorkingHoursPolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ReservationCreatedNotification.php.html#77"><abbr title="App\Notifications\ReservationCreatedNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/QueueCreatedNotification.php.html#76"><abbr title="App\Notifications\QueueCreatedNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ManagerCreatedNotification.php.html#78"><abbr title="App\Notifications\ManagerCreatedNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ForgotPasswordController.php.html#28"><abbr title="App\Http\Controllers\Auth\ForgotPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#85"><abbr title="App\Http\Controllers\Store\StoreController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#56"><abbr title="App\Http\Controllers\Store\StoreController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ResetPasswordController.php.html#35"><abbr title="App\Http\Controllers\Auth\ResetPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#66"><abbr title="App\Http\Controllers\Auth\RegisterController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#50"><abbr title="App\Http\Controllers\Auth\RegisterController::validator">validator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#39"><abbr title="App\Http\Controllers\Auth\RegisterController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/LoginController.php.html#32"><abbr title="App\Http\Controllers\Auth\LoginController::redirectTo">redirectTo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#49"><abbr title="App\Http\Controllers\Appointment\QueueController::insertUserAppointment">insertUserAppointment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#160"><abbr title="App\Http\Controllers\Store\StoreController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#24"><abbr title="App\Http\Controllers\Appointment\QueueController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#324"><abbr title="App\Http\Controllers\Appointment\AppointmentController::print_ticket">print_ticket</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#316"><abbr title="App\Http\Controllers\Appointment\AppointmentController::QrResponse">QrResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#286"><abbr title="App\Http\Controllers\Appointment\AppointmentController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#260"><abbr title="App\Http\Controllers\Appointment\AppointmentController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#248"><abbr title="App\Http\Controllers\Appointment\AppointmentController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#225"><abbr title="App\Http\Controllers\Appointment\AppointmentController::changeAppointmentTime">changeAppointmentTime</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Events/UserRegisteredEvent.php.html#22"><abbr title="App\Events\UserRegisteredEvent::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/EarlierTimeslotAvailableNotification.php.html#77"><abbr title="App\Notifications\EarlierTimeslotAvailableNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#126"><abbr title="App\Http\Controllers\Store\StoreController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#26"><abbr title="App\Http\Controllers\Store\WorkingHoursController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#31"><abbr title="App\Http\Controllers\Store\WorkingHoursController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/EarlierTimeslotAvailableNotification.php.html#54"><abbr title="App\Notifications\EarlierTimeslotAvailableNotification::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/EarlierTimeslotAvailableNotification.php.html#43"><abbr title="App\Notifications\EarlierTimeslotAvailableNotification::via">via</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/EarlierTimeslotAvailableNotification.php.html#28"><abbr title="App\Notifications\EarlierTimeslotAvailableNotification::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/AppointmentReminderNotification.php.html#76"><abbr title="App\Notifications\AppointmentReminderNotification::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/AppointmentReminderNotification.php.html#54"><abbr title="App\Notifications\AppointmentReminderNotification::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/AppointmentReminderNotification.php.html#43"><abbr title="App\Notifications\AppointmentReminderNotification::via">via</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/AppointmentReminderNotification.php.html#28"><abbr title="App\Notifications\AppointmentReminderNotification::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/UserRegisteredListener.php.html#26"><abbr title="App\Listeners\UserRegisteredListener::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/UserRegisteredListener.php.html#15"><abbr title="App\Listeners\UserRegisteredListener::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="User.php.html#36"><abbr title="App\User::role">role</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#148"><abbr title="App\Http\Controllers\Store\WorkingHoursController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#126"><abbr title="App\Http\Controllers\Store\WorkingHoursController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#59"><abbr title="App\Http\Controllers\Store\WorkingHoursController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#48"><abbr title="App\Http\Controllers\Store\WorkingHoursController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#65"><abbr title="App\Http\Controllers\Store\WorkingHoursController::bulk_CUD">bulk_CUD</abbr></a></td><td class="text-right">35%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#181"><abbr title="App\Http\Controllers\Appointment\AppointmentController::pushBackLaneAfterLateAppointment">pushBackLaneAfterLateAppointment</abbr></a></td><td class="text-right">38%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#118"><abbr title="App\Http\Controllers\Appointment\AppointmentController::scan">scan</abbr></a></td><td class="text-right">39%</td></tr>
+       <tr><td><a href="Providers/AuthServiceProvider.php.html#43"><abbr title="App\Providers\AuthServiceProvider::registerManagerPolicies">registerManagerPolicies</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#339"><abbr title="App\Http\Controllers\Appointment\QueueController::removeUserFromQueue">removeUserFromQueue</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Listeners/StoreExitedListener.php.html#29"><abbr title="App\Listeners\StoreExitedListener::handle">handle</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#131"><abbr title="App\Http\Controllers\Store\StoreController::update">update</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#112"><abbr title="App\Http\Controllers\Appointment\QueueController::checkReservationCriteria">checkReservationCriteria</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Listeners/AppointmentDeletedListener.php.html#29"><abbr title="App\Listeners\AppointmentDeletedListener::handle">handle</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Http/Middleware/Role.php.html#20"><abbr title="App\Http\Middleware\Role::handle">handle</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Store.php.html#226"><abbr title="App\Store::getAdequateEmptyTimeslots">getAdequateEmptyTimeslots</abbr></a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Tasks/StatisticsUpdate.php.html#13"><abbr title="App\Tasks\StatisticsUpdate::__invoke">__invoke</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#65"><abbr title="App\Http\Controllers\Store\WorkingHoursController::bulk_CUD">bulk_CUD</abbr></a></td><td class="text-right">25</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#181"><abbr title="App\Http\Controllers\Appointment\AppointmentController::pushBackLaneAfterLateAppointment">pushBackLaneAfterLateAppointment</abbr></a></td><td class="text-right">23</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#324"><abbr title="App\Http\Controllers\Appointment\AppointmentController::print_ticket">print_ticket</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#118"><abbr title="App\Http\Controllers\Appointment\AppointmentController::scan">scan</abbr></a></td><td class="text-right">17</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#112"><abbr title="App\Http\Controllers\Appointment\QueueController::checkReservationCriteria">checkReservationCriteria</abbr></a></td><td class="text-right">17</td></tr>
+       <tr><td><a href="Store.php.html#226"><abbr title="App\Store::getAdequateEmptyTimeslots">getAdequateEmptyTimeslots</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/LoginController.php.html#32"><abbr title="App\Http\Controllers\Auth\LoginController::redirectTo">redirectTo</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/AppointmentController.php.html#225"><abbr title="App\Http\Controllers\Appointment\AppointmentController::changeAppointmentTime">changeAppointmentTime</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Policies/AppointmentPolicy.php.html#32"><abbr title="App\Policies\AppointmentPolicy::create">create</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Tasks/NotifyAt30.php.html#12"><abbr title="App\Tasks\NotifyAt30::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Tasks/AppointmentDeleteUpdate.php.html#12"><abbr title="App\Tasks\AppointmentDeleteUpdate::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Store.php.html#167"><abbr title="App\Store::getLaneEnds">getLaneEnds</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Store.php.html#154"><abbr title="App\Store::getLaneHeads">getLaneHeads</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Store.php.html#59"><abbr title="App\Store::getAllAppointments">getAllAppointments</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#148"><abbr title="App\Http\Controllers\Store\WorkingHoursController::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#126"><abbr title="App\Http\Controllers\Store\WorkingHoursController::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#49"><abbr title="App\Http\Controllers\Appointment\QueueController::insertUserAppointment">insertUserAppointment</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#48"><abbr title="App\Http\Controllers\Store\WorkingHoursController::show">show</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Store/WorkingHoursController.php.html#31"><abbr title="App\Http\Controllers\Store\WorkingHoursController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Appointment/QueueController.php.html#339"><abbr title="App\Http\Controllers\Appointment\QueueController::removeUserFromQueue">removeUserFromQueue</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Listeners/StoreExitedListener.php.html#29"><abbr title="App\Listeners\StoreExitedListener::handle">handle</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Middleware/Role.php.html#20"><abbr title="App\Http\Middleware\Role::handle">handle</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/Store/StoreController.php.html#131"><abbr title="App\Http\Controllers\Store\StoreController::update">update</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Listeners/AppointmentDeletedListener.php.html#29"><abbr title="App\Listeners\AppointmentDeletedListener::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.11</a> with <a href="https://xdebug.org/">Xdebug </a> and <a href="https://phpunit.de/">PHPUnit 7.5.20</a> at Mon Jan 11 12:50:21 CET 2021.</small>
+    </p>
+   </footer>
+  </div>
+  <script src=".js/jquery.min.js" type="text/javascript"></script>
+  <script src=".js/d3.min.js" type="text/javascript"></script>
+  <script src=".js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([20,0,2,1,1,1,0,1,2,4,6,33], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([84,0,1,0,3,0,2,2,0,4,7,87], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[33.33333333333333,3,"<a href=\"Appointment.php.html#8\">App\\Appointment<\/a>"],[100,0,"<a href=\"Appointment_type.php.html#7\">App\\Appointment_type<\/a>"],[100,2,"<a href=\"Console\/Kernel.php.html#11\">App\\Console\\Kernel<\/a>"],[100,1,"<a href=\"Events\/AppointmentDeletedEvent.php.html#11\">App\\Events\\AppointmentDeletedEvent<\/a>"],[100,1,"<a href=\"Events\/ManagerCreatedEvent.php.html#11\">App\\Events\\ManagerCreatedEvent<\/a>"],[100,1,"<a href=\"Events\/QueueCreatedEvent.php.html#11\">App\\Events\\QueueCreatedEvent<\/a>"],[100,1,"<a href=\"Events\/ReservationCreatedEvent.php.html#11\">App\\Events\\ReservationCreatedEvent<\/a>"],[100,1,"<a href=\"Events\/StoreExitedEvent.php.html#11\">App\\Events\\StoreExitedEvent<\/a>"],[100,1,"<a href=\"Events\/UserCredentialsUpdateEvent.php.html#11\">App\\Events\\UserCredentialsUpdateEvent<\/a>"],[100,1,"<a href=\"Events\/UserPasswordUpdateEvent.php.html#11\">App\\Events\\UserPasswordUpdateEvent<\/a>"],[0,1,"<a href=\"Events\/UserRegisteredEvent.php.html#11\">App\\Events\\UserRegisteredEvent<\/a>"],[100,2,"<a href=\"Exceptions\/Handler.php.html#8\">App\\Exceptions\\Handler<\/a>"],[40.869565217391305,34,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#21\">App\\Http\\Controllers\\Appointment\\AppointmentController<\/a>"],[87.4074074074074,74,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#18\">App\\Http\\Controllers\\Appointment\\QueueController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ForgotPasswordController<\/a>"],[18.181818181818183,4,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#10\">App\\Http\\Controllers\\Auth\\LoginController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#12\">App\\Http\\Controllers\\Auth\\RegisterController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ResetPasswordController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#10\">App\\Http\\Controllers\\Controller<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Statistics\/StoreOccupancyDataController.php.html#9\">App\\Http\\Controllers\\Statistics\\StoreOccupancyDataController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Statistics\/StoreStatisticalDataController.php.html#9\">App\\Http\\Controllers\\Statistics\\StoreStatisticalDataController<\/a>"],[80,15,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#12\">App\\Http\\Controllers\\Store\\StoreController<\/a>"],[24.444444444444443,20,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#10\">App\\Http\\Controllers\\Store\\WorkingHoursController<\/a>"],[100,4,"<a href=\"Http\/Controllers\/User\/ManagerRegisterController.php.html#17\">App\\Http\\Controllers\\User\\ManagerRegisterController<\/a>"],[100,4,"<a href=\"Http\/Controllers\/User\/UserController.php.html#18\">App\\Http\\Controllers\\User\\UserController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Views\/AdminDashboardController.php.html#13\">App\\Http\\Controllers\\Views\\AdminDashboardController<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Views\/HomeController.php.html#7\">App\\Http\\Controllers\\Views\\HomeController<\/a>"],[100,11,"<a href=\"Http\/Controllers\/Views\/ManagerDashboardController.php.html#17\">App\\Http\\Controllers\\Views\\ManagerDashboardController<\/a>"],[100,0,"<a href=\"Http\/Kernel.php.html#7\">App\\Http\\Kernel<\/a>"],[100,0,"<a href=\"Http\/Middleware\/CheckForMaintenanceMode.php.html#7\">App\\Http\\Middleware\\CheckForMaintenanceMode<\/a>"],[100,0,"<a href=\"Http\/Middleware\/EncryptCookies.php.html#7\">App\\Http\\Middleware\\EncryptCookies<\/a>"],[18.181818181818183,4,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#9\">App\\Http\\Middleware\\RedirectIfAuthenticated<\/a>"],[85.71428571428571,3,"<a href=\"Http\/Middleware\/Role.php.html#10\">App\\Http\\Middleware\\Role<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrimStrings.php.html#7\">App\\Http\\Middleware\\TrimStrings<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrustProxies.php.html#8\">App\\Http\\Middleware\\TrustProxies<\/a>"],[100,0,"<a href=\"Http\/Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[84.61538461538461,3,"<a href=\"Listeners\/AppointmentDeletedListener.php.html#11\">App\\Listeners\\AppointmentDeletedListener<\/a>"],[100,2,"<a href=\"Listeners\/ManagerCreatedListener.php.html#9\">App\\Listeners\\ManagerCreatedListener<\/a>"],[100,2,"<a href=\"Listeners\/QueueCreatedListener.php.html#8\">App\\Listeners\\QueueCreatedListener<\/a>"],[100,2,"<a href=\"Listeners\/ReservationCreatedListener.php.html#8\">App\\Listeners\\ReservationCreatedListener<\/a>"],[66.66666666666666,4,"<a href=\"Listeners\/StoreExitedListener.php.html#11\">App\\Listeners\\StoreExitedListener<\/a>"],[100,2,"<a href=\"Listeners\/UserCredentialsUpdateListener.php.html#8\">App\\Listeners\\UserCredentialsUpdateListener<\/a>"],[100,2,"<a href=\"Listeners\/UserPasswordUpdateListener.php.html#8\">App\\Listeners\\UserPasswordUpdateListener<\/a>"],[0,2,"<a href=\"Listeners\/UserRegisteredListener.php.html#8\">App\\Listeners\\UserRegisteredListener<\/a>"],[0,4,"<a href=\"Notifications\/AppointmentReminderNotification.php.html#11\">App\\Notifications\\AppointmentReminderNotification<\/a>"],[0,4,"<a href=\"Notifications\/EarlierTimeslotAvailableNotification.php.html#11\">App\\Notifications\\EarlierTimeslotAvailableNotification<\/a>"],[94.44444444444444,4,"<a href=\"Notifications\/ManagerCreatedNotification.php.html#12\">App\\Notifications\\ManagerCreatedNotification<\/a>"],[94.44444444444444,4,"<a href=\"Notifications\/QueueCreatedNotification.php.html#11\">App\\Notifications\\QueueCreatedNotification<\/a>"],[94.44444444444444,4,"<a href=\"Notifications\/ReservationCreatedNotification.php.html#11\">App\\Notifications\\ReservationCreatedNotification<\/a>"],[0,4,"<a href=\"Notifications\/StoreEnterableNotification.php.html#11\">App\\Notifications\\StoreEnterableNotification<\/a>"],[90,4,"<a href=\"Notifications\/UserCredentialsUpdateNotification.php.html#11\">App\\Notifications\\UserCredentialsUpdateNotification<\/a>"],[90,4,"<a href=\"Notifications\/UserPasswordUpdateNotification.php.html#11\">App\\Notifications\\UserPasswordUpdateNotification<\/a>"],[0,4,"<a href=\"Notifications\/UserRegisteredNotification.php.html#11\">App\\Notifications\\UserRegisteredNotification<\/a>"],[0,7,"<a href=\"Policies\/AppointmentPolicy.php.html#10\">App\\Policies\\AppointmentPolicy<\/a>"],[0,6,"<a href=\"Policies\/StorePolicy.php.html#10\">App\\Policies\\StorePolicy<\/a>"],[0,6,"<a href=\"Policies\/WorkingHoursPolicy.php.html#10\">App\\Policies\\WorkingHoursPolicy<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#8\">App\\Providers\\AppServiceProvider<\/a>"],[71.42857142857143,2,"<a href=\"Providers\/AuthServiceProvider.php.html#9\">App\\Providers\\AuthServiceProvider<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#8\">App\\Providers\\BroadcastServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#8\">App\\Providers\\EventServiceProvider<\/a>"],[100,4,"<a href=\"Providers\/RouteServiceProvider.php.html#8\">App\\Providers\\RouteServiceProvider<\/a>"],[0,1,"<a href=\"Roles.php.html#7\">App\\Roles<\/a>"],[72.04301075268818,37,"<a href=\"Store.php.html#7\">App\\Store<\/a>"],[0,1,"<a href=\"StoreOccupancyData.php.html#8\">App\\StoreOccupancyData<\/a>"],[0,1,"<a href=\"StoreStatisticalData.php.html#8\">App\\StoreStatisticalData<\/a>"],[0,1,"<a href=\"StoreType.php.html#7\">App\\StoreType<\/a>"],[0,2,"<a href=\"Tasks\/AppointmentDeleteUpdate.php.html#9\">App\\Tasks\\AppointmentDeleteUpdate<\/a>"],[0,2,"<a href=\"Tasks\/NotifyAt30.php.html#8\">App\\Tasks\\NotifyAt30<\/a>"],[0,11,"<a href=\"Tasks\/StatisticsUpdate.php.html#10\">App\\Tasks\\StatisticsUpdate<\/a>"],[96.29629629629629,2,"<a href=\"User.php.html#9\">App\\User<\/a>"],[100,0,"<a href=\"WorkingHours.php.html#7\">App\\WorkingHours<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Appointment.php.html#35\">App\\Appointment::store<\/a>"],[0,1,"<a href=\"Appointment.php.html#43\">App\\Appointment::user<\/a>"],[0,1,"<a href=\"Appointment.php.html#51\">App\\Appointment::type<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#28\">App\\Console\\Kernel::schedule<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#43\">App\\Console\\Kernel::commands<\/a>"],[100,1,"<a href=\"Events\/AppointmentDeletedEvent.php.html#22\">App\\Events\\AppointmentDeletedEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/ManagerCreatedEvent.php.html#24\">App\\Events\\ManagerCreatedEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/QueueCreatedEvent.php.html#26\">App\\Events\\QueueCreatedEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/ReservationCreatedEvent.php.html#26\">App\\Events\\ReservationCreatedEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/StoreExitedEvent.php.html#22\">App\\Events\\StoreExitedEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/UserCredentialsUpdateEvent.php.html#22\">App\\Events\\UserCredentialsUpdateEvent::__construct<\/a>"],[100,1,"<a href=\"Events\/UserPasswordUpdateEvent.php.html#22\">App\\Events\\UserPasswordUpdateEvent::__construct<\/a>"],[0,1,"<a href=\"Events\/UserRegisteredEvent.php.html#22\">App\\Events\\UserRegisteredEvent::__construct<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#35\">App\\Exceptions\\Handler::report<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#47\">App\\Exceptions\\Handler::render<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#28\">App\\Http\\Controllers\\Appointment\\AppointmentController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#39\">App\\Http\\Controllers\\Appointment\\AppointmentController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#60\">App\\Http\\Controllers\\Appointment\\AppointmentController::store<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#83\">App\\Http\\Controllers\\Appointment\\AppointmentController::show<\/a>"],[39.473684210526315,7,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#118\">App\\Http\\Controllers\\Appointment\\AppointmentController::scan<\/a>"],[38.095238095238095,8,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#181\">App\\Http\\Controllers\\Appointment\\AppointmentController::pushBackLaneAfterLateAppointment<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#225\">App\\Http\\Controllers\\Appointment\\AppointmentController::changeAppointmentTime<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#248\">App\\Http\\Controllers\\Appointment\\AppointmentController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#260\">App\\Http\\Controllers\\Appointment\\AppointmentController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#286\">App\\Http\\Controllers\\Appointment\\AppointmentController::destroy<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#298\">App\\Http\\Controllers\\Appointment\\AppointmentController::getActiveAppointmentsForUser<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#316\">App\\Http\\Controllers\\Appointment\\AppointmentController::QrResponse<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Appointment\/AppointmentController.php.html#324\">App\\Http\\Controllers\\Appointment\\AppointmentController::print_ticket<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#24\">App\\Http\\Controllers\\Appointment\\QueueController::index<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#49\">App\\Http\\Controllers\\Appointment\\QueueController::insertUserAppointment<\/a>"],[94.73684210526315,2,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#67\">App\\Http\\Controllers\\Appointment\\QueueController::addReservation<\/a>"],[80.95238095238095,16,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#112\">App\\Http\\Controllers\\Appointment\\QueueController::checkReservationCriteria<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#208\">App\\Http\\Controllers\\Appointment\\QueueController::removeReservation<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#221\">App\\Http\\Controllers\\Appointment\\QueueController::checkForUserOverlappingAppointments<\/a>"],[92.3076923076923,14,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#231\">App\\Http\\Controllers\\Appointment\\QueueController::addUserToQueue<\/a>"],[57.14285714285714,4,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#339\">App\\Http\\Controllers\\Appointment\\QueueController::removeUserFromQueue<\/a>"],[97.05882352941177,11,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#373\">App\\Http\\Controllers\\Appointment\\QueueController::rebalanceProxyUsers<\/a>"],[93.47826086956522,13,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#444\">App\\Http\\Controllers\\Appointment\\QueueController::addProxyToQueue<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#555\">App\\Http\\Controllers\\Appointment\\QueueController::moveBackInQueue<\/a>"],[95.65217391304348,7,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#585\">App\\Http\\Controllers\\Appointment\\QueueController::findEarlierTimeSlot<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Appointment\/QueueController.php.html#647\">App\\Http\\Controllers\\Appointment\\QueueController::moveUserEarlierInQueue<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#28\">App\\Http\\Controllers\\Auth\\ForgotPasswordController::__construct<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#32\">App\\Http\\Controllers\\Auth\\LoginController::redirectTo<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#56\">App\\Http\\Controllers\\Auth\\LoginController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#39\">App\\Http\\Controllers\\Auth\\RegisterController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#50\">App\\Http\\Controllers\\Auth\\RegisterController::validator<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#66\">App\\Http\\Controllers\\Auth\\RegisterController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#35\">App\\Http\\Controllers\\Auth\\ResetPasswordController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreOccupancyDataController.php.html#14\">App\\Http\\Controllers\\Statistics\\StoreOccupancyDataController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreOccupancyDataController.php.html#23\">App\\Http\\Controllers\\Statistics\\StoreOccupancyDataController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreOccupancyDataController.php.html#31\">App\\Http\\Controllers\\Statistics\\StoreOccupancyDataController::initialize<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreStatisticalDataController.php.html#14\">App\\Http\\Controllers\\Statistics\\StoreStatisticalDataController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreStatisticalDataController.php.html#23\">App\\Http\\Controllers\\Statistics\\StoreStatisticalDataController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Statistics\/StoreStatisticalDataController.php.html#31\">App\\Http\\Controllers\\Statistics\\StoreStatisticalDataController::initialize<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#16\">App\\Http\\Controllers\\Store\\StoreController::__construct<\/a>"],[92.85714285714286,3,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#22\">App\\Http\\Controllers\\Store\\StoreController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#56\">App\\Http\\Controllers\\Store\\StoreController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#62\">App\\Http\\Controllers\\Store\\StoreController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#85\">App\\Http\\Controllers\\Store\\StoreController::show<\/a>"],[94.11764705882352,4,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#90\">App\\Http\\Controllers\\Store\\StoreController::show_details<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#126\">App\\Http\\Controllers\\Store\\StoreController::edit<\/a>"],[66.66666666666666,2,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#131\">App\\Http\\Controllers\\Store\\StoreController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/StoreController.php.html#160\">App\\Http\\Controllers\\Store\\StoreController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#14\">App\\Http\\Controllers\\Store\\WorkingHoursController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#20\">App\\Http\\Controllers\\Store\\WorkingHoursController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#26\">App\\Http\\Controllers\\Store\\WorkingHoursController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#31\">App\\Http\\Controllers\\Store\\WorkingHoursController::store<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#48\">App\\Http\\Controllers\\Store\\WorkingHoursController::show<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#59\">App\\Http\\Controllers\\Store\\WorkingHoursController::edit<\/a>"],[35.294117647058826,8,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#65\">App\\Http\\Controllers\\Store\\WorkingHoursController::bulk_CUD<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#126\">App\\Http\\Controllers\\Store\\WorkingHoursController::update<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Store\/WorkingHoursController.php.html#148\">App\\Http\\Controllers\\Store\\WorkingHoursController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/User\/ManagerRegisterController.php.html#43\">App\\Http\\Controllers\\User\\ManagerRegisterController::__construct<\/a>"],[100,3,"<a href=\"Http\/Controllers\/User\/ManagerRegisterController.php.html#55\">App\\Http\\Controllers\\User\\ManagerRegisterController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/User\/UserController.php.html#25\">App\\Http\\Controllers\\User\\UserController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/User\/UserController.php.html#38\">App\\Http\\Controllers\\User\\UserController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/User\/UserController.php.html#48\">App\\Http\\Controllers\\User\\UserController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/User\/UserController.php.html#68\">App\\Http\\Controllers\\User\\UserController::updatePassword<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/AdminDashboardController.php.html#20\">App\\Http\\Controllers\\Views\\AdminDashboardController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/AdminDashboardController.php.html#30\">App\\Http\\Controllers\\Views\\AdminDashboardController::addStore<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/AdminDashboardController.php.html#43\">App\\Http\\Controllers\\Views\\AdminDashboardController::addManager<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/HomeController.php.html#14\">App\\Http\\Controllers\\Views\\HomeController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/HomeController.php.html#24\">App\\Http\\Controllers\\Views\\HomeController::__invoke<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Views\/ManagerDashboardController.php.html#24\">App\\Http\\Controllers\\Views\\ManagerDashboardController::__construct<\/a>"],[100,4,"<a href=\"Http\/Controllers\/Views\/ManagerDashboardController.php.html#35\">App\\Http\\Controllers\\Views\\ManagerDashboardController::storeParameters<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Views\/ManagerDashboardController.php.html#80\">App\\Http\\Controllers\\Views\\ManagerDashboardController::printTickets<\/a>"],[100,4,"<a href=\"Http\/Controllers\/Views\/ManagerDashboardController.php.html#98\">App\\Http\\Controllers\\Views\\ManagerDashboardController::storeStatistics<\/a>"],[18.181818181818183,4,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#19\">App\\Http\\Middleware\\RedirectIfAuthenticated::handle<\/a>"],[85.71428571428571,3,"<a href=\"Http\/Middleware\/Role.php.html#20\">App\\Http\\Middleware\\Role::handle<\/a>"],[100,1,"<a href=\"Listeners\/AppointmentDeletedListener.php.html#18\">App\\Listeners\\AppointmentDeletedListener::__construct<\/a>"],[83.33333333333334,2,"<a href=\"Listeners\/AppointmentDeletedListener.php.html#29\">App\\Listeners\\AppointmentDeletedListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/ManagerCreatedListener.php.html#16\">App\\Listeners\\ManagerCreatedListener::__construct<\/a>"],[100,1,"<a href=\"Listeners\/ManagerCreatedListener.php.html#27\">App\\Listeners\\ManagerCreatedListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/QueueCreatedListener.php.html#15\">App\\Listeners\\QueueCreatedListener::__construct<\/a>"],[100,1,"<a href=\"Listeners\/QueueCreatedListener.php.html#26\">App\\Listeners\\QueueCreatedListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/ReservationCreatedListener.php.html#15\">App\\Listeners\\ReservationCreatedListener::__construct<\/a>"],[100,1,"<a href=\"Listeners\/ReservationCreatedListener.php.html#26\">App\\Listeners\\ReservationCreatedListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/StoreExitedListener.php.html#18\">App\\Listeners\\StoreExitedListener::__construct<\/a>"],[62.5,3,"<a href=\"Listeners\/StoreExitedListener.php.html#29\">App\\Listeners\\StoreExitedListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/UserCredentialsUpdateListener.php.html#15\">App\\Listeners\\UserCredentialsUpdateListener::__construct<\/a>"],[100,1,"<a href=\"Listeners\/UserCredentialsUpdateListener.php.html#26\">App\\Listeners\\UserCredentialsUpdateListener::handle<\/a>"],[100,1,"<a href=\"Listeners\/UserPasswordUpdateListener.php.html#15\">App\\Listeners\\UserPasswordUpdateListener::__construct<\/a>"],[100,1,"<a href=\"Listeners\/UserPasswordUpdateListener.php.html#26\">App\\Listeners\\UserPasswordUpdateListener::handle<\/a>"],[0,1,"<a href=\"Listeners\/UserRegisteredListener.php.html#15\">App\\Listeners\\UserRegisteredListener::__construct<\/a>"],[0,1,"<a href=\"Listeners\/UserRegisteredListener.php.html#26\">App\\Listeners\\UserRegisteredListener::handle<\/a>"],[0,1,"<a href=\"Notifications\/AppointmentReminderNotification.php.html#28\">App\\Notifications\\AppointmentReminderNotification::__construct<\/a>"],[0,1,"<a href=\"Notifications\/AppointmentReminderNotification.php.html#43\">App\\Notifications\\AppointmentReminderNotification::via<\/a>"],[0,1,"<a href=\"Notifications\/AppointmentReminderNotification.php.html#54\">App\\Notifications\\AppointmentReminderNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/AppointmentReminderNotification.php.html#76\">App\\Notifications\\AppointmentReminderNotification::toArray<\/a>"],[0,1,"<a href=\"Notifications\/EarlierTimeslotAvailableNotification.php.html#28\">App\\Notifications\\EarlierTimeslotAvailableNotification::__construct<\/a>"],[0,1,"<a href=\"Notifications\/EarlierTimeslotAvailableNotification.php.html#43\">App\\Notifications\\EarlierTimeslotAvailableNotification::via<\/a>"],[0,1,"<a href=\"Notifications\/EarlierTimeslotAvailableNotification.php.html#54\">App\\Notifications\\EarlierTimeslotAvailableNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/EarlierTimeslotAvailableNotification.php.html#77\">App\\Notifications\\EarlierTimeslotAvailableNotification::toArray<\/a>"],[100,1,"<a href=\"Notifications\/ManagerCreatedNotification.php.html#27\">App\\Notifications\\ManagerCreatedNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/ManagerCreatedNotification.php.html#40\">App\\Notifications\\ManagerCreatedNotification::via<\/a>"],[100,1,"<a href=\"Notifications\/ManagerCreatedNotification.php.html#51\">App\\Notifications\\ManagerCreatedNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/ManagerCreatedNotification.php.html#78\">App\\Notifications\\ManagerCreatedNotification::toArray<\/a>"],[100,1,"<a href=\"Notifications\/QueueCreatedNotification.php.html#28\">App\\Notifications\\QueueCreatedNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/QueueCreatedNotification.php.html#42\">App\\Notifications\\QueueCreatedNotification::via<\/a>"],[100,1,"<a href=\"Notifications\/QueueCreatedNotification.php.html#53\">App\\Notifications\\QueueCreatedNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/QueueCreatedNotification.php.html#76\">App\\Notifications\\QueueCreatedNotification::toArray<\/a>"],[100,1,"<a href=\"Notifications\/ReservationCreatedNotification.php.html#28\">App\\Notifications\\ReservationCreatedNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/ReservationCreatedNotification.php.html#43\">App\\Notifications\\ReservationCreatedNotification::via<\/a>"],[100,1,"<a href=\"Notifications\/ReservationCreatedNotification.php.html#54\">App\\Notifications\\ReservationCreatedNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/ReservationCreatedNotification.php.html#77\">App\\Notifications\\ReservationCreatedNotification::toArray<\/a>"],[0,1,"<a href=\"Notifications\/StoreEnterableNotification.php.html#28\">App\\Notifications\\StoreEnterableNotification::__construct<\/a>"],[0,1,"<a href=\"Notifications\/StoreEnterableNotification.php.html#43\">App\\Notifications\\StoreEnterableNotification::via<\/a>"],[0,1,"<a href=\"Notifications\/StoreEnterableNotification.php.html#54\">App\\Notifications\\StoreEnterableNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/StoreEnterableNotification.php.html#76\">App\\Notifications\\StoreEnterableNotification::toArray<\/a>"],[100,1,"<a href=\"Notifications\/UserCredentialsUpdateNotification.php.html#22\">App\\Notifications\\UserCredentialsUpdateNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/UserCredentialsUpdateNotification.php.html#33\">App\\Notifications\\UserCredentialsUpdateNotification::via<\/a>"],[100,1,"<a href=\"Notifications\/UserCredentialsUpdateNotification.php.html#44\">App\\Notifications\\UserCredentialsUpdateNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/UserCredentialsUpdateNotification.php.html#61\">App\\Notifications\\UserCredentialsUpdateNotification::toArray<\/a>"],[100,1,"<a href=\"Notifications\/UserPasswordUpdateNotification.php.html#22\">App\\Notifications\\UserPasswordUpdateNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/UserPasswordUpdateNotification.php.html#33\">App\\Notifications\\UserPasswordUpdateNotification::via<\/a>"],[100,1,"<a href=\"Notifications\/UserPasswordUpdateNotification.php.html#44\">App\\Notifications\\UserPasswordUpdateNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/UserPasswordUpdateNotification.php.html#60\">App\\Notifications\\UserPasswordUpdateNotification::toArray<\/a>"],[0,1,"<a href=\"Notifications\/UserRegisteredNotification.php.html#22\">App\\Notifications\\UserRegisteredNotification::__construct<\/a>"],[0,1,"<a href=\"Notifications\/UserRegisteredNotification.php.html#33\">App\\Notifications\\UserRegisteredNotification::via<\/a>"],[0,1,"<a href=\"Notifications\/UserRegisteredNotification.php.html#44\">App\\Notifications\\UserRegisteredNotification::toMail<\/a>"],[0,1,"<a href=\"Notifications\/UserRegisteredNotification.php.html#62\">App\\Notifications\\UserRegisteredNotification::toArray<\/a>"],[0,1,"<a href=\"Policies\/AppointmentPolicy.php.html#21\">App\\Policies\\AppointmentPolicy::view<\/a>"],[0,2,"<a href=\"Policies\/AppointmentPolicy.php.html#32\">App\\Policies\\AppointmentPolicy::create<\/a>"],[0,1,"<a href=\"Policies\/AppointmentPolicy.php.html#46\">App\\Policies\\AppointmentPolicy::update<\/a>"],[0,1,"<a href=\"Policies\/AppointmentPolicy.php.html#58\">App\\Policies\\AppointmentPolicy::delete<\/a>"],[0,1,"<a href=\"Policies\/AppointmentPolicy.php.html#70\">App\\Policies\\AppointmentPolicy::restore<\/a>"],[0,1,"<a href=\"Policies\/AppointmentPolicy.php.html#83\">App\\Policies\\AppointmentPolicy::forceDelete<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#21\">App\\Policies\\StorePolicy::view<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#32\">App\\Policies\\StorePolicy::create<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#45\">App\\Policies\\StorePolicy::update<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#57\">App\\Policies\\StorePolicy::delete<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#70\">App\\Policies\\StorePolicy::restore<\/a>"],[0,1,"<a href=\"Policies\/StorePolicy.php.html#83\">App\\Policies\\StorePolicy::forceDelete<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#21\">App\\Policies\\WorkingHoursPolicy::view<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#32\">App\\Policies\\WorkingHoursPolicy::create<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#45\">App\\Policies\\WorkingHoursPolicy::update<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#57\">App\\Policies\\WorkingHoursPolicy::delete<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#70\">App\\Policies\\WorkingHoursPolicy::restore<\/a>"],[0,1,"<a href=\"Policies\/WorkingHoursPolicy.php.html#83\">App\\Policies\\WorkingHoursPolicy::forceDelete<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#15\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#31\">App\\Providers\\AuthServiceProvider::boot<\/a>"],[50,1,"<a href=\"Providers\/AuthServiceProvider.php.html#43\">App\\Providers\\AuthServiceProvider::registerManagerPolicies<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#15\">App\\Providers\\BroadcastServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#47\">App\\Providers\\EventServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#24\">App\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#36\">App\\Providers\\RouteServiceProvider::map<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#52\">App\\Providers\\RouteServiceProvider::mapWebRoutes<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#66\">App\\Providers\\RouteServiceProvider::mapApiRoutes<\/a>"],[0,1,"<a href=\"Roles.php.html#25\">App\\Roles::users<\/a>"],[100,1,"<a href=\"Store.php.html#41\">App\\Store::type<\/a>"],[100,1,"<a href=\"Store.php.html#49\">App\\Store::working_hours<\/a>"],[0,2,"<a href=\"Store.php.html#59\">App\\Store::getAllAppointments<\/a>"],[0,1,"<a href=\"Store.php.html#73\">App\\Store::getAllCompletedAppointmentsForToday<\/a>"],[100,2,"<a href=\"Store.php.html#90\">App\\Store::getAllOverlappingAppointments<\/a>"],[0,1,"<a href=\"Store.php.html#127\">App\\Store::getAppointmentsInLane<\/a>"],[0,1,"<a href=\"Store.php.html#136\">App\\Store::getInStoreAppointmentFromLane<\/a>"],[0,1,"<a href=\"Store.php.html#145\">App\\Store::getAppointmentBefore<\/a>"],[0,2,"<a href=\"Store.php.html#154\">App\\Store::getLaneHeads<\/a>"],[0,2,"<a href=\"Store.php.html#167\">App\\Store::getLaneEnds<\/a>"],[100,1,"<a href=\"Store.php.html#180\">App\\Store::getProxyCustomersAfterTime<\/a>"],[100,9,"<a href=\"Store.php.html#189\">App\\Store::getEmptyTimeslots<\/a>"],[87.5,13,"<a href=\"Store.php.html#226\">App\\Store::getAdequateEmptyTimeslots<\/a>"],[0,1,"<a href=\"StoreOccupancyData.php.html#36\">App\\StoreOccupancyData::store<\/a>"],[0,1,"<a href=\"StoreStatisticalData.php.html#42\">App\\StoreStatisticalData::store<\/a>"],[0,1,"<a href=\"StoreType.php.html#26\">App\\StoreType::stores<\/a>"],[0,2,"<a href=\"Tasks\/AppointmentDeleteUpdate.php.html#12\">App\\Tasks\\AppointmentDeleteUpdate::__invoke<\/a>"],[0,2,"<a href=\"Tasks\/NotifyAt30.php.html#12\">App\\Tasks\\NotifyAt30::__invoke<\/a>"],[0,11,"<a href=\"Tasks\/StatisticsUpdate.php.html#13\">App\\Tasks\\StatisticsUpdate::__invoke<\/a>"],[0,1,"<a href=\"User.php.html#36\">App\\User::role<\/a>"],[100,1,"<a href=\"User.php.html#41\">App\\User::getAllUserAppointmentsInTimeframe<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
