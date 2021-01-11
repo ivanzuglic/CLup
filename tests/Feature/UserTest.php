@@ -147,7 +147,7 @@ class UserTest extends BasicFeatureCase
     }
 
     /** @test */
-    public function authenticated_customer_can_exit__store()
+    public function authenticated_customer_can_exit_store()
     {
 //        $this->withoutExceptionHandling();
 //        $this->seed();
