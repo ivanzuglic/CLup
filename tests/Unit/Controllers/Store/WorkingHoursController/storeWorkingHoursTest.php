@@ -31,6 +31,7 @@ class storeWorkingHoursTest extends BasicFeatureCase
     /** @test */
     public function test_workingHours_store_with_invalid_store_id()
     {
+//        $this->seed();
         $this->withoutExceptionHandling();
 
         $request = new Request([
@@ -41,8 +42,9 @@ class storeWorkingHoursTest extends BasicFeatureCase
         ]);
 
         $response = app('App\Http\Controllers\Store\WorkingHoursController')->store($request, 2);
+        $error_msg = $response->getOriginalContent();
+        $this->assertEquals("store_id and working_hours_id do not match!", $error_msg['error']);
 
-        $this->assertH;
     }
 
 }
