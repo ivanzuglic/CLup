@@ -17,8 +17,8 @@ class Appointment extends Model
      */
     protected $fillable = [
         'user_id', 'store_id', 'appointment_type',
-        'start_time', 'end_time', 'active', 'in_store', 'date', 'done',
-        'lane'
+        'start_time', 'end_time', 'active', 'in_store', 'date', 'status',
+        'lane', 'store_entered_at', 'store_exited_at'
     ];
 
     protected $casts = [
