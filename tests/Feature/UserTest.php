@@ -154,7 +154,23 @@ class UserTest extends BasicFeatureCase
         $appointment = Appointment::where('appointment_id', 1)->first();
         $appointment->status = 'in store';
         $appointment->save();
+
+        $new_appointment = [
+            'user_id' => 10,
+            'store_id' => 1,
+            'appointment_type' => '2',
+            'start_time' => '09:10',
+            'end_time' => '10:10',
+            'date' => date("Y-m-d", strtotime("+2 day")),
+            'status' => 'waiting',
+            'active' => '1',
+            'lane' => '1',
+        ];
+
+        $created_appointment = Appointment::create($new_appointment);
         $response = app('App\Http\Controllers\Appointment\AppointmentController')->scan($appointment->appointment_id);
+
+        Appointment::where('appointment_id', $created_appointment->appointment_id)->delete();
 
         $this->assertEquals('in store', $appointment->status);
 
