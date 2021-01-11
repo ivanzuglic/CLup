@@ -84,7 +84,7 @@ class AppointmentPolicyTest extends TestCase
         $appointment = Appointment::where('appointment_id', 1)->first();
         $user = User::where('id', 10)->first();
 
-        $response = app('App\Policies\AppointmentPolicy')->restore($user, $appointment);
+        $response = app('App\Policies\AppointmentPolicy')->forceDelete($user, $appointment);
 
         $this->assertEquals(false,$response);
     }
