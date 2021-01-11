@@ -58,6 +58,16 @@ class BasicFeatureCase extends TestCase
         ]));
     }
 
+    protected function actingAsManager2()
+    {
+        $this->actingAs(factory(User::class)->create([
+            'name' => 'Test Manager',
+            'email' => 'manager@test.com',
+            'role_id' => '3',
+            'store_id' => '3'
+        ]));
+    }
+
     protected function makeManager()
     {
         return factory(User::class)->create([

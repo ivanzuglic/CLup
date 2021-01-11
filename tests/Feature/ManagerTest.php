@@ -37,7 +37,7 @@ class ManagerTest extends BasicFeatureCase
     /** @test */
     public function only_logged_in_manager_can_see_profile_edit_form()
     {
-        $this->seed();
+//        $this->seed();
         $response = $this->get('/profile/edit')
             ->assertRedirect('/login');
 
@@ -172,7 +172,7 @@ class ManagerTest extends BasicFeatureCase
             'planned_stay_time' => 10
         ]));
 
-        $this->assertCount(6, Appointment::all());
+        $this->assertCount(8, Appointment::all());
 
     }
 
@@ -194,5 +194,26 @@ class ManagerTest extends BasicFeatureCase
     }
 
     /*************** Print Tickets view *********************/
+
+    /*************** Store Statistics view *********************/
+
+    /** @test */
+    public function only_logged_in_user_can_see_store_statistics()
+    {
+        $response = $this->get('/manager/dashboard/store_statistics/1')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function authenticated_manager_can_see_store_statistics()
+    {
+        // $this->withoutExceptionHandling();
+        $this->user = $this->makeManager();
+        $response = $this->actingAs($this->user)->get('/manager/dashboard/store_statistics/' . $this->user->store_id . '')
+            ->assertOk();
+
+    }
+
+    /*************** Store Statistics view *********************/
 
 }

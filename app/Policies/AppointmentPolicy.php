@@ -31,7 +31,7 @@ class AppointmentPolicy
      */
     public function create(User $user)
     {
-        $store_manager_role = Roles::where('role_name','store_manager')->firstOrFail();
+        $store_manager_role = Roles::where('role_name','manager')->firstOrFail();
         $customer_role = Roles::where('role_name','customer')->firstOrFail();
         return ($user->role_id === $customer_role->id) || ($user->role_id === $store_manager_role->id);
     }
