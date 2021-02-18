@@ -476,6 +476,59 @@ main {
                 padding-bottom: $base-spacing;
             }
 
+            .interaction-title {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding-left: $base-spacing;
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: $blue;
+                line-height: 2rem;
+                padding-bottom: $base-spacing;
+            }
+
+            .availability-display {
+                display: block;
+                overflow: auto;
+                white-space: nowrap;
+                margin-left: $base-spacing;
+                margin-bottom: $base-spacing;
+                overflow-x: auto;
+
+                .availability-timeline {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 738px;
+
+                    .time-part {
+                        font-size: .5rem;
+                        color: $grey;
+                    }
+                }
+
+                .availability-slots {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    margin-bottom: $base-spacing;
+                    flex-grow: 40;
+                    margin-left: 9px;
+                    width: 722px;
+                    max-width: 722px;
+                    min-width: 722px;
+                    border-radius: 6px;
+
+                    .time-slot-marker {
+                        width: 10px;
+                        height: $base-spacing;
+                        background-color: $blue;
+                        overflow: hidden;
+                    }
+                }
+            }
+
             .reservation-display {
                 margin: $base-spacing;
 

@@ -280,6 +280,7 @@ form.placament-form {
       -ms-flex-pack: start;
           justify-content: flex-start;
   margin: 0 16px;
+  padding-bottom: 8px;
 }
 
 form.placament-form h3 {
@@ -1312,6 +1313,82 @@ main .store-details-widget .store-interactions {
   main .store-details-widget .store-interactions {
     padding-bottom: 16px;
   }
+}
+
+main .store-details-widget .store-interactions .interaction-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 16px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #0ca7ff;
+  line-height: 2rem;
+  padding-bottom: 16px;
+}
+
+main .store-details-widget .store-interactions .availability-display {
+  display: block;
+  overflow: auto;
+  white-space: nowrap;
+  margin-left: 16px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-timeline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 738px;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-timeline .time-part {
+  font-size: .5rem;
+  color: #a0a0a0;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-slots {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-bottom: 16px;
+  -webkit-box-flex: 40;
+      -ms-flex-positive: 40;
+          flex-grow: 40;
+  margin-left: 9px;
+  width: 722px;
+  max-width: 722px;
+  min-width: 722px;
+  border-radius: 6px;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker {
+  width: 10px;
+  height: 16px;
+  background-color: #0ca7ff;
+  overflow: hidden;
 }
 
 main .store-details-widget .store-interactions .reservation-display {
