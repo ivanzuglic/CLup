@@ -119,12 +119,13 @@
                                 </div>
                             @endfor
                         </div>
-                        <!-- <div class="timeline-chart-cotainer">
-                            <canvas id="timelineChart"></canvas>
-                        </div> -->
                         <div class="availability-slots">
                             @for ($i = 0; $i < 721; $i++)
-                                <div class="time-slot-marker" id="time-slot-{{$i}}"></div>
+                                <div class="time-slot-marker tooltip" id="time-slot-{{$i}}">
+                                    <span class="tooltip-text" id="time-slot-tooltip-{{$i}}">
+                                        &nbsp;{{str_pad(number_format((int)($i / 30),0, '.', ''), 2, '0', STR_PAD_LEFT)}}:{{str_pad(2 * ($i - (30 * (number_format((int)($i / 30),0, '.', '')))), 2, '0', STR_PAD_LEFT)}}&nbsp;
+                                    </span>
+                                </div>
                             @endfor
                         </div>
                     </div>

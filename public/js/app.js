@@ -35246,7 +35246,6 @@ Chart.defaults.global.responsive = true;
 
 var graphDiv = document.getElementById("myChart");
 var graphLargeDiv = document.getElementById("myLargeChart");
-// var timelineChartDiv = document.getElementById("timelineChart");
 
 if (graphDiv) {
     var graphContainer = graphDiv.getContext("2d");
@@ -35255,10 +35254,6 @@ if (graphDiv) {
 if (graphLargeDiv) {
     var graphLargeContainer = graphLargeDiv.getContext("2d");
 }
-
-// if (timelineChartDiv) {
-//     var graphTimelineContainer = timelineChartDiv.getContext("2d");
-// }
 
 if (typeof chartOccupancyData !== 'undefined') {
     var chartData = {
@@ -35286,33 +35281,6 @@ if (typeof chartOccupancyData !== 'undefined') {
             data: chartOccupancyData
         }]
     };
-
-    // var timelineChartData = {
-    //     datasets : [{
-    //         label: 'Occupancy',
-    //         fill: true,
-    //         lineTension: 0.1,
-    //         backgroundColor: ["#0ca7ff", "#0ca7ff", "#0ca7ff", "#0ca7ff", "#0ca7ff", "#0ca7ff", ],
-    //         borderColor: "#0ca7ff",
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: "rgba(75,192,192,1)",
-    //         pointBackgroundColor: "#fff",
-    //         pointBorderWidth: 1,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: "rgba(75,192,192,1)",
-    //         pointHoverBorderColor: "rgba(220,220,220,1)",
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         categoryPercentage: .8,
-    //         barThickness: 1,
-    //         maxBarThickness: 2,
-    //         data : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    //     }]
-    // };
 
     var chartOptions = {
         responsive: true,
@@ -35359,29 +35327,6 @@ if (typeof chartOccupancyData !== 'undefined') {
         }
     };
 
-    // var timelineChartOptions = {
-    //     responsive: true,
-    //     aspectRatio: 4,
-    //     legend: {
-    //         display: false,
-    //     },
-    //     hover: {
-    //         mode: 'index'
-    //     },
-    //     scales: {
-    //         xAxes: [{
-    //             gridLines: {
-    //                 color: "rgba(0, 0, 0, 0)",
-    //             }
-    //         }],
-    //         yAxes: [{
-    //             ticks: {
-    //                 display: false
-    //             }
-    //         }]
-    //     }
-    // };
-
     if (graphContainer) {
         var myChart = new Chart(graphContainer, {
             type: 'bar',
@@ -35397,14 +35342,6 @@ if (typeof chartOccupancyData !== 'undefined') {
             options: chartLargeOptions
         });
     }
-
-    // if (graphTimelineContainer) {
-    //     var myTimelineChart = new Chart(graphTimelineContainer, {
-    //         type: 'bar',
-    //         data: timelineChartData,
-    //         options: timelineChartOptions
-    //     });
-    // }
 }
 
 // Generates mockup data for testing
@@ -35426,7 +35363,8 @@ availabilityData.forEach(function (item, index, array) {
         backDeleteCounter++;
         var timeSlot = document.getElementById("time-slot-" + (index + 1));
         if (timeSlot) {
-            timeSlot.style.backgroundColor = "#ff0f0f";
+            timeSlot.style.backgroundColor = "#fc4921";
+            timeSlot.firstElementChild.style.backgroundColor = "#fc4921";
         }
     } else {
         frontDeleteCounterFlag = false;
@@ -35469,7 +35407,7 @@ for (i = 720; i >= 720 - backDeleteCounter; i--) {
 for (i = 0; i <= 25; i++) {
     var timeSlot = document.getElementById("time-slot-" + i * 30);
     if (timeSlot) {
-        timeSlot.style.backgroundColor = "#000000";
+        timeSlot.style.backgroundColor = "#3d3d3d";
     }
 }
 

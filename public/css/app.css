@@ -1336,11 +1336,25 @@ main .store-details-widget .store-interactions .interaction-title {
 
 main .store-details-widget .store-interactions .availability-display {
   display: block;
-  overflow: auto;
   white-space: nowrap;
   margin-left: 16px;
   margin-bottom: 16px;
+  overflow-y: visible;
   overflow-x: auto;
+  margin-right: auto;
+  background-color: #e9e9e9;
+  border-radius: 4px;
+  padding-top: 20px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 780px;
+}
+
+@media (max-width: 560px) {
+  main .store-details-widget .store-interactions .availability-display {
+    margin-right: 16px;
+  }
 }
 
 main .store-details-widget .store-interactions .availability-display .availability-timeline {
@@ -1385,10 +1399,20 @@ main .store-details-widget .store-interactions .availability-display .availabili
 }
 
 main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker {
-  width: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1px;
+  -webkit-box-flex: 10;
+      -ms-flex-positive: 10;
+          flex-grow: 10;
   height: 16px;
   background-color: #0ca7ff;
-  overflow: hidden;
+  overflow: visible;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker:hover {
+  background-color: #fafafa;
 }
 
 main .store-details-widget .store-interactions .reservation-display {
@@ -1892,5 +1916,28 @@ main div.form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  height: 16px;
+  background-color: #0ca7ff;
+  color: #fafafa;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  z-index: 10;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  -webkit-transform: translate(-50%, -106%);
+          transform: translate(-50%, -106%);
+  font-size: 1rem;
+  line-height: 1.1rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 

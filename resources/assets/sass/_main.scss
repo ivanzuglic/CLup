@@ -490,11 +490,24 @@ main {
 
             .availability-display {
                 display: block;
-                overflow: auto;
+                //overflow: auto;
                 white-space: nowrap;
                 margin-left: $base-spacing;
                 margin-bottom: $base-spacing;
+                overflow-y: visible;
                 overflow-x: auto;
+                margin-right: auto;
+                background-color: $background-grey;
+                border-radius: 4px;
+                padding-top: $base-spacing*1.25;
+                padding-bottom: $base-spacing*.5;
+                padding-left: $base-spacing;
+                padding-right: $base-spacing;
+                max-width: 780px;
+
+                @include media('<=phablet') {
+                    margin-right: $base-spacing;
+                }
 
                 .availability-timeline {
                     display: flex;
@@ -521,10 +534,16 @@ main {
                     border-radius: 6px;
 
                     .time-slot-marker {
-                        width: 10px;
+                        display: flex;
+                        width: 1px;
+                        flex-grow: 10;
                         height: $base-spacing;
                         background-color: $blue;
-                        overflow: hidden;
+                        overflow: visible;
+
+                        &:hover {
+                            background-color: $white;
+                        }
                     }
                 }
             }

@@ -113,10 +113,27 @@
     }
 }
 
-.pager {
+.tooltip {
+    .tooltip-text {
+        visibility: hidden;
+        height: $base-spacing;
+        background-color: $blue;
+        color: $white;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.3s;
+        transform: translate(-50%, -106%);
+        font-size: 1rem;
+        line-height: 1.1rem;
+    }
 
-}
-
-.notification {
-    
+    &:hover {
+        .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
 }
