@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    // public function register()
-    // {
-    //     App::bind('path.public', function() {
-    //         return base_path().'/public_html';
-    //     });
-    // }
+    public function register()
+    {
+        App::bind('path.public', function() {
+            return base_path().'/public_html';
+        });
+    }
 }

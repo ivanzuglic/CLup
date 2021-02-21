@@ -128,6 +128,10 @@
         transform: translate(-50%, -106%);
         font-size: 1rem;
         line-height: 1.1rem;
+
+        &.unavailable-timeslot {
+            background-color: $pastelle-red;
+        }
     }
 
     &:hover {

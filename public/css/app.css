@@ -1415,6 +1415,18 @@ main .store-details-widget .store-interactions .availability-display .availabili
   background-color: #fafafa;
 }
 
+main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker.active-timeslot {
+  background-color: #fafafa;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker.active-in-between {
+  opacity: 50%;
+}
+
+main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker.unavailable-timeslot {
+  background-color: #fc4921;
+}
+
 main .store-details-widget .store-interactions .reservation-display {
   margin: 16px;
 }
@@ -1934,6 +1946,10 @@ main div.form {
           transform: translate(-50%, -106%);
   font-size: 1rem;
   line-height: 1.1rem;
+}
+
+.tooltip .tooltip-text.unavailable-timeslot {
+  background-color: #fc4921;
 }
 
 .tooltip:hover .tooltip-text {

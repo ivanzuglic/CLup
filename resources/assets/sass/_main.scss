@@ -490,7 +490,6 @@ main {
 
             .availability-display {
                 display: block;
-                //overflow: auto;
                 white-space: nowrap;
                 margin-left: $base-spacing;
                 margin-bottom: $base-spacing;
@@ -543,6 +542,18 @@ main {
 
                         &:hover {
                             background-color: $white;
+                        }
+
+                        &.active-timeslot {
+                            background-color: $white;
+                        }
+
+                        &.active-in-between {
+                            opacity: 50%;
+                        }
+
+                        &.unavailable-timeslot {
+                            background-color: $pastelle-red;
                         }
                     }
                 }
