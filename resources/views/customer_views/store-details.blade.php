@@ -155,10 +155,43 @@
                         @endif
                     </form>
                 </div>
+
+            {{-- \/ TEMP --}}
+
+            <div class="store-interactions">
+                <form class="placament-form" method="post" action="{{route('store.timeline')}}">
+                    @csrf
+                    <input type="hidden" name="store_id" value="{{$store->store_id}}" />
+                    <div class="store-interactions-div">
+                        <section class="section-title"> &nbsp| GENERATE TIMELINE |&nbsp </section>
+                        <label for="date" class="">Select Date:&nbsp;</label>
+                        <div class="label-divider">
+                            <input type="date" id="date"  name="date" value="{{ date("Y-m-d") }}" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}">
+                            @if ($errors->has('date'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('date') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="store-interactions-div">
+                        <button type="submit" class="btn large">
+                            <span>Generate!</span>
+                        </button>
+                    </div>
+                    <br>
+                    @if($errors->any())
+                        <span  class="invalid-feedback" style="color: #ff0000">{{$errors->first()}}</span>
+                    @endif
+                </form>
             </div>
 
-            <script type="text/javascript">
-                var chartOccupancyData = {{ json_encode($occupancy_array) }};
-            </script>
+            {{-- /\ TEMP --}}
+
+        </div>
+
+        <script type="text/javascript">
+            var chartOccupancyData = {{ json_encode($occupancy_array) }};
+        </script>
 
 @endsection

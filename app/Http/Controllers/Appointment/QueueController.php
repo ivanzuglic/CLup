@@ -122,7 +122,8 @@ class QueueController extends AppointmentController
 
         if (date('w', strtotime($date)) == 0) {
             $day_of_week = 6;
-        } else {
+        }
+        else {
             $day_of_week = date('w', strtotime($date)) - 1;
         }
 
@@ -135,7 +136,7 @@ class QueueController extends AppointmentController
         if ($date >= date("Y-m-d")) {
             // Check whether end time is after start time
             if (strtotime($start_time) < strtotime($end_time)) {
-                // Getting working hours of the store for $day_of_the_week (if open)
+                // Getting working hours of the store for $day_of_week (if open)
                 $working_hours = $working_hours_col->where('day', $day_of_week)->first();
                 if ($working_hours === null) {
                     return array("valid" => false, "lane" => $return_lane);

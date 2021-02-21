@@ -94,3 +94,6 @@ Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@
 Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit')->middleware('role:admin');
 Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update')->middleware('role:admin');
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy')->middleware('role:admin');
+
+// TEST routes
+Route::post('/store/timeline', ['as' => 'store.timeline', 'uses' => 'Store\StoreController@generateTimelineArray'])->middleware('role:customer');
