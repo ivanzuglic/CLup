@@ -11,9 +11,6 @@ window.Vue = require('vue');
 
 var Chart = require('chart.js');
 
-// var timeline_json = generateDailyTimeline();
-// window.timeline = new TL.Timeline('timeline-embed', timeline_json);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -126,6 +123,148 @@ if (typeof chartOccupancyData !== 'undefined') {
             data: chartData,
             options: chartLargeOptions
         });
+    }
+}
+
+// Generates mockup data for testing
+var availabilityData = [];
+for (i = 0; i <= 720; i++) {
+    if (i > 300 && i < 359) {
+        availabilityData.push(1);
+    }
+    else if (i > 360 && i < 440) {
+        availabilityData.push(0);
+    }
+    else if (i > 441 && i < 500) {
+        availabilityData.push(1);
+    }
+    else {
+        availabilityData.push(0);
+    }
+}
+
+var frontDeleteCounter = 0;
+var backDeleteCounter = 0;
+var frontDeleteCounterFlag = true;
+
+availabilityData.forEach(function(item, index, array) {
+    var timeSlot = document.getElementById("time-slot-" + (index + 1));
+    if (item == 0) {
+        backDeleteCounter++;
+        if (timeSlot) {
+            timeSlot.classList.add("unavailable-timeslot");
+            timeSlot.firstElementChild.classList.add("unavailable-timeslot");
+        }
+    }
+    else {
+        frontDeleteCounterFlag = false;
+        backDeleteCounter = 0;
+        if (timeSlot && !timeSlot.classList.contains("unavailable-timeslot")) {
+            timeSlot.addEventListener('click', () => markAsActive())
+            const markAsActive = () => {
+                if (!timeSlot.classList.contains('active-timeslot')) {
+                    var activeTimeslots = document.getElementsByClassName("active-timeslot");
+                    if (activeTimeslots.length >= 2) {
+                        var activeIDs = [];
+                        activeIDs[0] = activeTimeslots[0].id.split("-")[2];
+                        activeIDs[1] = activeTimeslots[1].id.split("-")[2];
+                        activeIDs.sort(function(a, b){return a - b});
+                        for (i = (parseInt(activeIDs[0]) + 1); i < activeIDs[1]; i++) {
+                            var inBetweenTimeslot = document.getElementById("time-slot-" + i);
+                            if (inBetweenTimeslot) {
+                                inBetweenTimeslot.classList.remove("active-in-between");
+                            }
+                        }
+
+                        activeTimeslots[0].classList.remove("active-timeslot");
+                        activeTimeslots[0].classList.remove("active-timeslot");
+                    }
+                    timeSlot.classList.add('active-timeslot');
+                    if (activeTimeslots.length == 2) {
+                        var activeIDs = [];
+                        activeIDs[0] = activeTimeslots[0].id.split("-")[2];
+                        activeIDs[1] = activeTimeslots[1].id.split("-")[2];
+                        activeIDs.sort(function(a, b){return a - b});
+                        var authenticationCounter = 0;
+                        for (i = (parseInt(activeIDs[0]) + 1); i <= activeIDs[1]; i++) {
+                            var inBetweenTimeslot = document.getElementById("time-slot-" + i);
+                            if (inBetweenTimeslot) {
+                                if (inBetweenTimeslot.classList.contains("unavailable-timeslot")) {
+                                    break;
+                                }
+                                else {
+                                    authenticationCounter++;
+                                }   
+                            }
+                        }
+                        if (authenticationCounter == (activeIDs[1] - activeIDs[0])) {
+                            for (i = (parseInt(activeIDs[0]) + 1); i < activeIDs[1]; i++) {
+                                var inBetweenTimeslot = document.getElementById("time-slot-" + i);
+                                if (inBetweenTimeslot) {
+                                    inBetweenTimeslot.classList.add("active-in-between");
+                                }
+                            }
+
+                            var startTimeInput =  document.getElementById("reservation_start_time");
+                            var endTimeInput =  document.getElementById("reservation_end_time");
+
+                            if (startTimeInput) {
+                                startTimeInput.value = activeTimeslots[0].firstElementChild.innerHTML.trim().replace(/&nbsp;/g,'');
+                            }
+
+                            if (endTimeInput) {
+                                endTimeInput.value = activeTimeslots[1].firstElementChild.innerHTML.trim().replace(/&nbsp;/g,'');
+                            }
+                        }
+                        else {
+                            activeTimeslots[0].classList.remove("active-timeslot");
+                            if (activeTimeslots[0]) {
+                                activeTimeslots[0].classList.remove("active-timeslot");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(frontDeleteCounterFlag) {
+        frontDeleteCounter++;
+    }
+});
+
+frontDeleteCounter = Math.trunc(frontDeleteCounter / 30) * 30;
+backDeleteCounter = Math.trunc(backDeleteCounter / 30) * 30;
+
+for (i = 0; i <= frontDeleteCounter; i++) {
+    var timeSlot = document.getElementById("time-slot-" + i);
+    if (timeSlot && (i != (frontDeleteCounter))) {
+        timeSlot.style.display = "none";
+    }
+    if (i % 30 == 0) {
+        var timeLabel = document.getElementById("time-label-" + ((i / 30) - 1));
+        if (timeLabel) {
+            timeLabel.style.display = "none";
+        }
+    }
+}
+
+for (i = 720; i >= (720 - backDeleteCounter); i--) {
+    var timeSlot = document.getElementById("time-slot-" + i);
+    if (timeSlot && (i != (720 - backDeleteCounter))) {
+        timeSlot.style.display = "none";
+    }
+    if (i % 30 == 0) {
+        var timeLabel = document.getElementById("time-label-" + ((i / 30) + 1));
+        if (timeLabel) {
+            timeLabel.style.display = "none";
+        }
+    }
+}
+
+for (i = 0; i <= 25; i++) {
+    var timeSlot = document.getElementById("time-slot-" + (i * 30));
+    if (timeSlot) {
+        timeSlot.style.backgroundColor = "#3d3d3d";
     }
 }
 

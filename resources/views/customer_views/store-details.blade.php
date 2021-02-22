@@ -78,17 +78,12 @@
                     </div>
                 @endif
                 <div class="store-interactions">
+                    <div class="interaction-title">
+                        Queue Up:
+                    </div>
                     <form class="placament-form" method="post" action="{{route('appointment.addQueue')}}">
                         @csrf
-{{--                        <div class="store-interactions-div">--}}
-{{--                            Queue Duration:<span>&nbsp;10min </span>--}}
-{{--                        </div>--}}
-{{--                        <div class="store-interactions-div">--}}
-{{--                            People Currently in Queue:<span>&nbsp;7</span>--}}
-{{--                        </div>--}}
-
                             <div class="store-interactions-div">
-                                <section class="section-title"> &nbsp| QUEUE UP |&nbsp </section>
                                 <label for="travel-time" class="">Required Travel Time (mins.):</label>
                                 <div class="label-divider">
                                     <input type="hidden" name="store_id" value="{{$store->store_id}}" />
@@ -108,14 +103,36 @@
                     </form>
                 </div>
                 <div class="store-interactions">
-{{--                    <div class="reservation-display">--}}
-{{--                        <div id='timeline-embed'></div>--}}
-{{--                    </div>--}}
+                    <div class="interaction-title">
+                        Book a Timeslot:
+                    </div>
+                    <div class="availability-display">
+                        <div class="availability-timeline">
+                            @for ($i = 0; $i < 10; $i++)
+                                <div class="time-part" id="time-label-{{$i}}">
+                                    0{{$i}}:00
+                                </div>
+                            @endfor
+                            @for ($i = 10; $i < 25; $i++)
+                                <div class="time-part" id="time-label-{{$i}}">
+                                    {{$i}}:00
+                                </div>
+                            @endfor
+                        </div>
+                        <div class="availability-slots">
+                            @for ($i = 0; $i < 721; $i++)
+                                <div class="time-slot-marker tooltip" id="time-slot-{{$i}}">
+                                    <span class="tooltip-text" id="time-slot-tooltip-{{$i}}">
+                                        &nbsp;{{str_pad(number_format((int)($i / 30),0, '.', ''), 2, '0', STR_PAD_LEFT)}}:{{str_pad(2 * ($i - (30 * (number_format((int)($i / 30),0, '.', '')))), 2, '0', STR_PAD_LEFT)}}&nbsp;
+                                    </span>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
                     <form class="placament-form" method="post" action="{{route('appointment.addReservation')}}">
                         @csrf
                         <input type="hidden" name="store_id" value="{{$store->store_id}}" />
                         <div class="store-interactions-div">
-                            <section class="section-title"> &nbsp| BOOK TIMESLOT |&nbsp </section>
                             <label for="reservation_date" class="">Select Date:&nbsp;</label>
                             <div class="label-divider">
                                 <input type="date" id="reservation_date"  name="reservation_date" value="{{ date("Y-m-d") }}" min="{{ date("Y-m-d") }}" class="form-control{{ $errors->has('reservation_date') ? ' is-invalid' : '' }}">
