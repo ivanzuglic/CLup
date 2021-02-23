@@ -179,9 +179,8 @@
 
     <script type="text/javascript">
         var chartOccupancyData = {{ json_encode($occupancy_array) }};
-    </script>
+        var timelineArray = [];
 
-    <script>
         $(document).ready(function (){
             console.log('JQUERY READY');
         })
@@ -201,7 +200,7 @@
                     date: $("input[name=reservation_date]").val()
                 },
                 success: function(data){
-                    var timelineArray = data.timeline_array;
+                    timelineArray = data.timeline_array;
                     console.log($("input[name=store_id]").val());
                     console.log($("input[name=reservation_date]").val());
                     console.log(timelineArray);
@@ -209,5 +208,7 @@
             })
         })
     </script>
+
+    
 
 @endsection

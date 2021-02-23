@@ -1368,7 +1368,7 @@ main .store-details-widget .store-interactions .availability-display .availabili
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 738px;
+  width: 740px;
 }
 
 main .store-details-widget .store-interactions .availability-display .availability-timeline .time-part {
@@ -1395,7 +1395,6 @@ main .store-details-widget .store-interactions .availability-display .availabili
   width: 722px;
   max-width: 722px;
   min-width: 722px;
-  border-radius: 6px;
 }
 
 main .store-details-widget .store-interactions .availability-display .availability-slots .time-slot-marker {
