@@ -7,6 +7,7 @@ use App\Store;
 use App\StoreOccupancyData;
 use App\StoreStatisticalData;
 use App\WorkingHours;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -171,9 +172,9 @@ class StoreController extends Controller
 
     /**
      * @param Request $request
-     * @return array
+     * @return JsonResponse
      */
-    public function generateTimelineArray(Request $request)
+    public function ajaxGenerateTimelineArray(Request $request)
     {
         // \/ TEMP
         // For testing purposes
@@ -286,7 +287,7 @@ class StoreController extends Controller
                 }
 
                 // Returning the final array
-                return $array_final;
+                return response()->json(array('timeline_array'=> $array_final), 200);
             }
             else {
 
@@ -295,7 +296,7 @@ class StoreController extends Controller
                     $array_final[$i] = UNAVAILABLE;
                 }
                 // Returning the final array
-                return $array_final;
+                return response()->json(array('timeline_array'=> $array_final), 200);
             }
         }
         else{
@@ -305,7 +306,7 @@ class StoreController extends Controller
                 $array_final[$i] = ERROR;
             }
             // Returning the final array
-            return $array_final;
+            return response()->json(array('timeline_array'=> $array_final), 200);
         }
     }
 

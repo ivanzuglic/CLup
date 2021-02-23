@@ -95,5 +95,5 @@ Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentContro
 Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update')->middleware('role:admin');
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy')->middleware('role:admin');
 
-// TEST routes
-Route::post('/store/timeline', ['as' => 'store.timeline', 'uses' => 'Store\StoreController@generateTimelineArray'])->middleware('role:customer');
+// AJAX routes
+Route::post('/ajax/timeline', ['as' => 'ajax.timeline', 'uses' => 'Store\StoreController@ajaxGenerateTimelineArray'])->middleware('role:customer');
