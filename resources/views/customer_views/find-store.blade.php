@@ -8,43 +8,44 @@
 
     <form method="get" action="{{route('home.search')}}">
         <div class="search-bar">
-            <label>Store type:</label>
-            <select id="store_type" name="store_type" style="width: 25%">
-                <option selected disabled
-                    {{--                        value=""--}}
-                >--- select store type ---</option>
-                @foreach($store_types as $type)
-                    <option value="{{$type->type_id}}">{{$type->store_type}}</option>
-                @endforeach
-            </select>
+            <div class="search-bar-main">
+                <input class="search-input" type="text" placeholder="Enter store name / city / zip code"
+                    id="search_string" name="search_string">
+                <div class="search-actions">
+                    <button class="btn medium" type="submit"><span>Search</span></button>
+                    <div class="btn small" id="filter-toggle"><span>Filters</span></div>
+                </div>
+            </div>
+            <div id="search-bar-filters">
+                <label>Store type:</label>
+                <select id="store_type" name="store_type" style="width: 25%">
+                    <option selected disabled
+                        {{--                        value=""--}}
+                    >--- select store type ---</option>
+                    @foreach($store_types as $type)
+                        <option value="{{$type->type_id}}">{{$type->store_type}}</option>
+                    @endforeach
+                </select>
 
-            <label>Country:</label>
-            <select id="country" name="country" style="width: 25%">
-                <option selected disabled
-                    {{--                        value=""--}}
-                >--- select country ---</option>
-                @foreach($countries as $country)
-                    <option value="{{$country->country}}">{{$country->country}}</option>
-                @endforeach
-            </select>
+                <label>Country:</label>
+                <select id="country" name="country" style="width: 25%">
+                    <option selected disabled
+                        {{--                        value=""--}}
+                    >--- select country ---</option>
+                    @foreach($countries as $country)
+                        <option value="{{$country->country}}">{{$country->country}}</option>
+                    @endforeach
+                </select>
 
-            <label>City:</label>
-            <select id="city" name="city" style="width: 25%">
-                <option selected disabled
-                    {{--                        value=""--}}
-                >--- select city ---</option>
-                @foreach($cities as $city)
-                    <option value="{{$city->city}}">{{$city->city}}</option>
-                @endforeach
-            </select>
-
-
-        </div>
-        <div class="search-bar">
-            <input class="search-input" type="text" placeholder="Enter store name / city / zip code"
-                   id="search_string" name="search_string">
-            <div class="search-actions">
-                <button class="btn medium" type="submit"><span>Search</span></button>
+                <label>City:</label>
+                <select id="city" name="city" style="width: 25%">
+                    <option selected disabled
+                        {{--                        value=""--}}
+                    >--- select city ---</option>
+                    @foreach($cities as $city)
+                        <option value="{{$city->city}}">{{$city->city}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </form>
