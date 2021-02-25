@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Store;
 
+use App\Appointment;
 use App\Store;
 use App\StoreOccupancyData;
 use App\StoreStatisticalData;
+use App\WorkingHours;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -163,5 +165,225 @@ class StoreController extends Controller
         $store->delete();
 
         return 204;
+    }
+
+    // NEW (SCORE) - Luka
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function generateTimelineArray(Request $request)
+    {
+        // \/ TEMP
+        // For testing purposes
+        // The precise way of passing arguments still needs to be decided upon
+        $store_id = $request->store_id;
+        $date = $request->date;
+        // /\ TEMP
+
+        // ARRAY LENGTH
+        define( "ARR_LENGTH",   "721" );
+        // TIMELINE ARRAY VALUES
+        define( "AVAILABLE",    "1"   );
+        define( "UNAVAILABLE",  "0"   );
+        define( "ERROR",        '-1'  );
+
+        // Fetch the store (if it exists in the database)
+        $store = Store::findOrFail($store_id);
+
+        // Initializing the final array to available values
+        $array_final = array_fill(0, ARR_LENGTH, AVAILABLE);
+        $array_appointment_num = array_fill(0, ARR_LENGTH, 0);
+        $array_reservation_num = array_fill(0, ARR_LENGTH, 0);
+
+        // Check whether the selected date is valid (today or after today)
+        if ($date >= date("Y-m-d")) {
+
+            // Determine the weekday for the selected date
+            $weekday = $this->weekday($date);
+            // Check if the store is open on a selected weekday
+            if($this->isOpen($store_id, $weekday)) {
+
+                // >>-- OPENING AND CLOSING HOURS --<<
+
+                // Fetching the working_hours entry
+                $working_hours = $this->workingHoursForWeekday($store_id, $weekday);
+                // Determining array relevant data
+                $opening_hours_array_data = $this->timeToIndex($working_hours->opening_hours);
+                $closing_hours_array_data = $this->timeToIndex($working_hours->closing_hours);
+
+                // Determining indexes for opening and closing hours
+                if($opening_hours_array_data["half"]) {
+                    $opening_hours_index = $opening_hours_array_data["index"] + 1;
+                }
+                else {
+                    $opening_hours_index = $opening_hours_array_data["index"];
+                }
+                $closing_hours_index = $closing_hours_array_data["index"];
+
+                // Setting array entries before opening hours and after closing hours as UNAVAILABLE
+                for ($i = 0; $i < $opening_hours_index; $i++) {
+                    $array_final[$i] = UNAVAILABLE;
+                }
+                for ($i = $closing_hours_index; $i < ARR_LENGTH; $i++) {
+                    $array_final[$i] = UNAVAILABLE;
+                }
+
+                // >>-- APPOINTMENTS --<<
+
+                // Fetching all appointments for the selected date
+                $appointments_on_date = $this->appointmentsForDate($store_id, $date);
+
+                // Iterating through appointments on selected date
+                foreach($appointments_on_date as $appointment) {
+
+                    // Determining array relevant data for an appointment
+                    $appointment_start_time_array_data = $this->timeToIndex($appointment->start_time);
+                    $appointment_end_time_array_data = $this->timeToIndex($appointment->end_time);
+
+                    // Determining indexes for appointment start_time and end_time
+                    $appointment_start_time_index = $appointment_start_time_array_data["index"];
+                    $appointment_end_time_index = $appointment_end_time_array_data["index"] + 1;
+
+                    // Incrementing relevant counters in auxiliary arrays
+                    for ($i = $appointment_start_time_index; $i < $appointment_end_time_index; $i++) {
+
+                        // Incrementing the number of appointments for the index
+                        $array_appointment_num[$i]++;
+                        // Incrementing the number of reservations for the index
+                        if($appointment->appointment_type == 1) {
+                            $array_reservation_num[$i]++;
+                        }
+                    }
+                }
+
+                // Iterating through auxiliary tables
+                for($i = 0; $i < ARR_LENGTH; $i++) {
+
+                    // If there are already a max allowed number of appointments in timespan corresponding to index $i, that timespan is UNAVAILABLE
+                    if($array_appointment_num[$i] >= $store->max_occupancy) {
+                        $array_final[$i] = UNAVAILABLE;
+                    }
+                    // If there are already a mam allowed number of reservations in timespan corresponding to index $i, that timespan is UNAVAILABLE
+                    elseif(($array_reservation_num[$i] + 1) > ($store->max_occupancy * $store->max_reservation_ratio)) {
+                        $array_final[$i] = UNAVAILABLE;
+                    }
+                }
+
+                // >>-- PASSED TIME (IF "TODAY") --<<
+
+                if($date == date("Y-m-d"))
+                {
+                    // Determining array relevant data for current time
+                    $current_time_array_data = $this->timeToIndex(date("H:i"));
+                    $current_time_index = $current_time_array_data["index"] + 1;
+
+                    // Setting array entries before current time as UNAVAILABLE
+                    for ($i = 0; $i < $current_time_index; $i++) {
+                        $array_final[$i] = UNAVAILABLE;
+                    }
+                }
+
+                // Returning the final array
+                return $array_final;
+            }
+            else {
+
+                // Filling the final array with UNAVAILABLE values
+                for ($i = 0; $i < ARR_LENGTH; $i++) {
+                    $array_final[$i] = UNAVAILABLE;
+                }
+                // Returning the final array
+                return $array_final;
+            }
+        }
+        else{
+
+            // Filling the final array with ERROR values
+            for ($i = 0; $i < ARR_LENGTH; $i++) {
+                $array_final[$i] = ERROR;
+            }
+            // Returning the final array
+            return $array_final;
+        }
+    }
+
+    /**
+     * @param $time
+     * @return array
+     */
+    private function timeToIndex ($time)
+    {
+        // Extracting the hours value from time
+        $hours = date("H", strtotime($time));
+        // Extracting the minutes value from time
+        $minutes = date("i", strtotime($time));
+
+        // Calculating the index
+        $double_index_time = $hours * 60 + $minutes;
+        $index = ($double_index_time - ($double_index_time % 2)) / 2;
+
+        // Determining half value
+        if(($double_index_time % 2) == 1) {
+            $half = true;
+        }
+        else {
+            $half = false;
+        }
+
+        return array("index" => $index, "half" => $half);
+    }
+
+    /**
+     * @param $date
+     * @return int
+     */
+    private function weekday($date)
+    {
+        // Aligning the weekday number with 0 = Mon, 6 = Sun
+        if (date('w', strtotime($date)) == 0) {
+            $weekday = 6;
+        }
+        else {
+            $weekday = date('w', strtotime($date)) - 1;
+        }
+
+        return $weekday;
+    }
+
+    /**
+     * @param $store_id
+     * @param $weekday
+     * @return bool
+     */
+    private function isOpen ($store_id, $weekday)
+    {
+        // Checking if working_hours entry for a selected weekday exists
+        if(WorkingHours::where([['store_id', '=', $store_id], ['day', '=', $weekday]])->exists()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * @param $store_id
+     * @param $weekday
+     * @return mixed
+     */
+    private function workingHoursForWeekday ($store_id, $weekday)
+    {
+        $working_hours = WorkingHours::where([['store_id', '=', $store_id], ['day', '=', $weekday]])->first();
+
+        return $working_hours;
+    }
+
+    private function appointmentsForDate ($store_id, $date)
+    {
+        $appointments = Appointment::where([['store_id', '=', $store_id], ['date', '=', $date], ['active', '=', 1]])->get();
+
+        return $appointments;
     }
 }
