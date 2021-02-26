@@ -117,29 +117,6 @@
             var country = getUrlParameter('country');
             var search_string = getUrlParameter('search_string');
 
-            $('#store_type option').each(function(){
-                if($(this).val() == store_type){
-                    $(this).attr("selected","selected");
-                }
-            });
-
-            $('#city option').each(function(){
-                if($(this).val() == city){
-                    $(this).attr("selected","selected");
-                }
-            });
-
-            $('#country option').each(function(){
-                if($(this).val() == country){
-                    $(this).attr("selected","selected");
-                    refreshCities();
-                }
-            });
-
-            if (search_string != false) {
-                $('#search_string').val(search_string);
-            }
-
             function refreshCities() {
                 var country = document.getElementById('country').value;
 
@@ -166,6 +143,11 @@
                                 text: val.city
                             }));
                         });
+                        $('#city option').each(function(){
+                            if($(this).val() == city){
+                                $(this).attr("selected","selected");
+                            }
+                        });
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         alert(textStatus + ':' + errorThrown);
@@ -174,6 +156,29 @@
             }
 
             $('#country').change(refreshCities);
+
+            $('#store_type option').each(function(){
+                if($(this).val() == store_type){
+                    $(this).attr("selected","selected");
+                }
+            });
+
+            $('#country option').each(function(){
+                if($(this).val() == country){
+                    $(this).attr("selected","selected");
+                    refreshCities();
+                }
+            });
+
+            $('#city option').each(function(){
+                if($(this).val() == city){
+                    $(this).attr("selected","selected");
+                }
+            });
+
+            if (search_string != false) {
+                $('#search_string').val(search_string);
+            }
         });
     </script>
 @endsection
