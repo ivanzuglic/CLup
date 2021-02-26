@@ -135,7 +135,9 @@
                 }
             });
 
-            $('#search_string').val(search_string);
+            if (search_string != false) {
+                $('#search_string').val(search_string);
+            }
 
             function refreshCities() {
                 var country = document.getElementById('country').value;
