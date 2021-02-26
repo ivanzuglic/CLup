@@ -6,10 +6,12 @@ use App\Appointment;
 use App\Store;
 use App\StoreOccupancyData;
 use App\StoreStatisticalData;
+use App\StoreType;
 use App\WorkingHours;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
@@ -23,9 +25,23 @@ class StoreController extends Controller
 
     public function index()
     {
+        $sql = <<<SQL
+SELECT DISTINCT UPPER(s.country) AS country
+FROM stores s
+SQL;
+        $countries = DB::select(DB::raw($sql));
 
-//        return Store::with('store_type')->get();
+        $sql = <<<SQL
+SELECT DISTINCT UPPER(s.town) AS city
+FROM stores s
+SQL;
+        $cities = DB::select(DB::raw($sql));
 
+        $store_types = StoreType::all();
+
+        $store_type = isset($_GET['store_type']) ? $_GET['store_type'] : "";
+        $country = isset($_GET['country']) ? $_GET['country'] : "";
+        $city = isset($_GET['city']) ? $_GET['city'] : "";
         $search_string = isset($_GET['search_string']) ? $_GET['search_string'] : "";
         $store = (new Store)->newQuery();
 
@@ -37,6 +53,24 @@ class StoreController extends Controller
                 ->orWhere('country', 'LIKE', '%' . $search_string . '%')
                 ->orWhere('zip_code', 'LIKE', '%' . $search_string . '%');
         })->get();
+
+        //searching where store_type matches selected store type
+        if ($store_type != null) {
+            $store->where('store_type', $store_type)
+                ->get();
+        }
+
+        //searching where store_type matches selected store type
+        if ($country != null) {
+            $store->where('country', 'like', $country)
+                ->get();
+        }
+
+        //searching where store_type matches selected store type
+        if ($city != null) {
+            $store->where('town', 'like', $city)
+                ->get();
+        }
 
         $stores = $store->with('type')->with(['working_hours' => function ($query) {
             if(date('w') == 0)
@@ -51,7 +85,20 @@ class StoreController extends Controller
             $query->where('day', '=', $day_of_week);
         }])->get();
 
-        return view('customer_views.find-store',compact('stores'));
+        return view('customer_views.find-store',compact('stores', 'countries', 'cities', 'store_types'));
+
+    }
+
+    public function getCities()
+    {
+        $country = $_GET['country'];
+
+        $sql = <<<SQL
+SELECT DISTINCT UPPER(s.town) AS city
+FROM stores s
+WHERE s.country LIKE '$country'
+SQL;
+        return DB::select(DB::raw($sql));
 
     }
 
