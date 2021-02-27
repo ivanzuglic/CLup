@@ -1,5 +1,0 @@
-All .svg icons used in this project are taken from the Font Awesome Free icon set.
-Font Awesome does in no way endorse or support this project.
-All icons are used without modification, except for changes in colour when necessary.
-Font Awesome Free is free and open source and it can be used in both commercial and open source projects (https://fontawesome.com/license/free).
-All the .svg icons are licensed under the Creative Commons Attribution 4.0 International license (https://creativecommons.org/licenses/by/4.0/).
