@@ -128,4 +128,18 @@ export default class Timeline {
             Timeslots[i].classList.remove("active-timeslot", "active-in-between");
         }
     }
+
+    static resetEntireTimeline() {
+        var timeSlotMarkers = document.getElementsByClassName("time-slot-marker");
+        var timeParts = document.getElementsByClassName("time-parts");
+        var i;
+        for (i = 0; i < timeSlotMarkers.length; i++) {
+            timeSlotMarkers[i].style.display = "flex";
+            timeSlotMarkers[i].classList.remove("unavailable-timeslot", "active-timeslot", "active-in-between");
+            timeSlotMarkers[i].firstElementChild.classList.remove("unavailable-timeslot");
+        }
+        for (i = 0; i < timeParts.length; i++) {
+            timeParts[i].style.display = "flex";
+        }
+    }
 }

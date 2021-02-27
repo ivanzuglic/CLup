@@ -1372,6 +1372,9 @@ main .store-details-widget .store-interactions .availability-display .availabili
 }
 
 main .store-details-widget .store-interactions .availability-display .availability-timeline .time-part {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   font-size: .5rem;
   color: #a0a0a0;
 }

@@ -179,34 +179,6 @@
 
     <script type="text/javascript">
         var chartOccupancyData = {{ json_encode($occupancy_array) }};
-        var timelineArray = [];
-
-        $(document).ready(function (){
-            console.log('JQUERY READY');
-        })
-        $('#reservation_date').change(function (e){
-            e.preventDefault();
-            console.log('DEFAULT PREVENTED');
-            $.ajaxSetup({
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-            $.ajax({
-                url: "{{url('/ajax/timeline')}}",
-                method: 'POST',
-                data: {
-                    store_id: $("input[name=store_id]").val(),
-                    date: $("input[name=reservation_date]").val()
-                },
-                success: function(data){
-                    timelineArray = data.timeline_array;
-                    console.log($("input[name=store_id]").val());
-                    console.log($("input[name=reservation_date]").val());
-                    console.log(timelineArray);
-                }
-            })
-        })
     </script>
 
     

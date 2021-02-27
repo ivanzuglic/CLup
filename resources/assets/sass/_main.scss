@@ -515,6 +515,7 @@ main {
                     width: 740px;
 
                     .time-part {
+                        display: flex;
                         font-size: .5rem;
                         color: $grey;
                     }
