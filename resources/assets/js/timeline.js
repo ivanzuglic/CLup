@@ -131,7 +131,7 @@ export default class Timeline {
 
     static resetEntireTimeline() {
         var timeSlotMarkers = document.getElementsByClassName("time-slot-marker");
-        var timeParts = document.getElementsByClassName("time-parts");
+        var timeParts = document.getElementsByClassName("time-part");
         var i;
         for (i = 0; i < timeSlotMarkers.length; i++) {
             timeSlotMarkers[i].style.display = "flex";
