@@ -163,7 +163,7 @@ class ManagerTest extends BasicFeatureCase
     /** @test */
     public function authenticated_manager_can_add_proxy_user_to_queue()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
 
         $this->user = $this->makeManager();
 
@@ -194,6 +194,7 @@ class ManagerTest extends BasicFeatureCase
     }
 
     /*************** Print Tickets view *********************/
+
 
     /*************** Store Statistics view *********************/
 

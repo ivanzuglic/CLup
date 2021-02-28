@@ -202,7 +202,7 @@ class UserTest extends BasicFeatureCase
 
         $response = $this->actingAs($this->user)->post('/appointments/reservations', [
             'store_id' => 2,
-            'reservation_date' => '2021-01-21',
+            'reservation_date' => '2021-03-21',
             'reservation_start_time' => '13:00',
             'reservation_end_time' => '13:30'
         ]);
@@ -251,7 +251,7 @@ class UserTest extends BasicFeatureCase
         // creating new reservation appointment to be able to test it
         $response = $this->actingAs($this->user)->post('/appointments/reservations', [
             'store_id' => 2,
-            'reservation_date' => '2021-01-21',
+            'reservation_date' => '2021-03-21',
             'reservation_start_time' => '13:00',
             'reservation_end_time' => '13:30'
         ]);
