@@ -35225,9 +35225,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(150);
 
-window.Vue = __webpack_require__(172);
 
-var Chart = __webpack_require__(176);
 
 window.Vue = __webpack_require__(172);
 
@@ -35430,6 +35428,19 @@ $.ajax({
                     console.log(timelineArray);
                 }
             });
+        };
+    }
+
+    var filterToggleButton = document.querySelector('#filter-toggle');
+    if (filterToggleButton) {
+        filterToggleButton.addEventListener('click', function (event) {
+            return toggleFilterActive();
+        });
+        var toggleFilterActive = function toggleFilterActive() {
+            var filterElement = document.getElementById("search-bar-filters");
+            if (filterElement) {
+                filterElement.classList.toggle("active");
+            }
         };
     }
 })();
