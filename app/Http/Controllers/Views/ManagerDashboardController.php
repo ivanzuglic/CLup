@@ -86,8 +86,41 @@ class ManagerDashboardController extends Controller
         {
             // Fetching the manager's linked store
             $store = Store::findorfail($user->store_id);
+
+            // A flag that enables "Print Ticket" button, initially true
+            $is_open = true;
+
+            // Fetching store working hours
+            $working_hours = $store->working_hours;
+            // Shifting weekday numbers to compensate for Monday = 0, Sunday = 6 setup
+            if (date('w') == 0)
+            {
+                $day_of_week = 6;
+            }
+            else
+            {
+                $day_of_week = date('w') - 1;
+            }
+            // Selecting working hours for today's weekday (if they exist)
+            $today_working_hours = $working_hours->where('day', $day_of_week)->first();
+            // Setting is_open flag to false if there is no working_hours entry for today's weekday
+            if($today_working_hours == null)
+            {
+                $is_open = false;
+            }
+            // Checking whether the current time is inside the store's open time window (if working_hours entry for today's weekday exists)
+            else
+            {
+                if(strtotime(date("H:i:s")) < strtotime($today_working_hours->opening_hours)
+                   ||
+                   strtotime(date("H:i:s")) > strtotime($today_working_hours->closing_hours))
+                {
+                    $is_open = false;
+                }
+            }
+
             // Returning print-tickets-view with managers linked store
-            return view('manager_views.print-ticket-view', compact('store'));
+            return view('manager_views.print-ticket-view', compact('store', 'is_open'));
         }
         else
         {

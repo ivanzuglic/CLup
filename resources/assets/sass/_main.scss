@@ -476,6 +476,89 @@ main {
                 padding-bottom: $base-spacing;
             }
 
+            .interaction-title {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding-left: $base-spacing;
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: $blue;
+                line-height: 2rem;
+                padding-bottom: $base-spacing;
+            }
+
+            .availability-display {
+                display: block;
+                white-space: nowrap;
+                margin-left: $base-spacing;
+                margin-bottom: $base-spacing;
+                overflow-y: visible;
+                overflow-x: auto;
+                margin-right: auto;
+                background-color: $background-grey;
+                border-radius: 4px;
+                padding-top: $base-spacing*1.25;
+                padding-bottom: $base-spacing*.5;
+                padding-left: $base-spacing;
+                padding-right: $base-spacing;
+                max-width: 780px;
+
+                @include media('<=phablet') {
+                    margin-right: $base-spacing;
+                }
+
+                .availability-timeline {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 740px;
+
+                    .time-part {
+                        display: flex;
+                        font-size: .5rem;
+                        color: $grey;
+                    }
+                }
+
+                .availability-slots {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    margin-bottom: $base-spacing;
+                    flex-grow: 40;
+                    margin-left: 9px;
+                    width: 722px;
+                    max-width: 722px;
+                    min-width: 722px;
+
+                    .time-slot-marker {
+                        display: flex;
+                        width: 1px;
+                        flex-grow: 10;
+                        height: $base-spacing;
+                        background-color: $blue;
+                        overflow: visible;
+
+                        &:hover {
+                            background-color: $white;
+                        }
+
+                        &.active-timeslot {
+                            background-color: $white;
+                        }
+
+                        &.active-in-between {
+                            opacity: 50%;
+                        }
+
+                        &.unavailable-timeslot {
+                            background-color: $pastelle-red;
+                        }
+                    }
+                }
+            }
+
             .reservation-display {
                 margin: $base-spacing;
 
@@ -569,40 +652,106 @@ main {
         border-radius: 8px;
         box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.22);
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
 
-        .search-input {
-            margin-left: $base-spacing;
-            border: none;
-            flex: 1 6 0px;
-            margin-right: $base-spacing;
-            max-width: 100%;
-            overflow: hidden;
-            height: $base-spacing*3;
-            border-radius: inherit;
-            position: relative;
-            font-size: 1rem;
-            background-color: $white;
-        }
-        .search-actions {
-            margin-top: auto;
-            margin-bottom: auto;
-            margin-left: auto;
-            margin-right: $base-spacing*.5;
+        .search-bar-main {
+            display: flex;
+            flex-direction: row;
+
+            @include media('<=phablet') {
+                flex-direction: column;
+            }
+
+            .search-input {
+                margin-left: $base-spacing*3;
+                border: none;
+                border-radius: 4px;
+                flex: 1 6 0px;
+                margin-right: $base-spacing;
+                max-width: 100%;
+                overflow: hidden;
+                height: $base-spacing*3;
+                position: relative;
+                font-size: 1rem;
+                background-color: $white;
+
+                @include media('<=phablet') {
+                    min-height: $base-spacing*2.5;
+                    margin-top: $base-spacing*.25;
+                    max-width: 80%;
+                    overflow: visible;
+                }
+            }
+            .search-actions {
+                display: flex;
+                flex-direction: row;
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-left: auto;
+                margin-right: $base-spacing*.5;
+
+                @include media('<=phablet') {
+                    margin-top: $base-spacing;
+                    margin-right: auto;
+                    margin-bottom: $base-spacing*.5;
+                }
+
+                >.btn {
+                    margin-right: $base-spacing*.5;
+                }
+            }
+
+            &:before {
+                content: '';
+                z-index: 11;
+                position: absolute;
+                background-size: $base-spacing*1.5 $base-spacing*1.5;
+                width: $base-spacing*2;
+                height: $base-spacing*2;
+                opacity: .5;
+                background-image: url('/images/search-solid.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+                transform: translate($base-spacing*.5, $base-spacing*.5);
+            }
         }
 
-        &:before {
-            content: '';
-            z-index: 7;
-            position: relative;
-            background-size: $base-spacing*1.5 $base-spacing*1.5;
-            width: $base-spacing*2;
-            height: $base-spacing*2;
-            opacity: .5;
-            background-image: url('/images/search-solid.svg');
-            background-repeat: no-repeat;
-            background-position: center;
-            transform: translate($base-spacing*.5, $base-spacing*.5);
+        #search-bar-filters {
+            visibility: hidden;
+            opacity: 0%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            height: 0px;
+            transition: height .3s linear;
+
+            @include media('<=tablet') {
+                flex-direction: column;
+            }
+
+            &.active {
+                height: $base-spacing*3;
+                padding-top: $base-spacing;
+                visibility: visible;
+                border-top: 1px solid $grey;
+                opacity: 100%;
+                transition: height .3s linear, opacity .8s linear .3s;
+
+                @include media('<=tablet') {
+                    height: $base-spacing*14;
+                    padding-bottom: $base-spacing*.5;
+                    align-items: center;
+
+                    label {
+                        margin-bottom: 0;
+                    }
+
+                    select {
+                        margin-bottom: $base-spacing*.5;
+                        width: 75%!important;
+                    }
+                }
+            }
         }
     }
 

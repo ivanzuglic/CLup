@@ -22,6 +22,7 @@ Route::get('/home', 'Views\HomeController')->middleware('role:customer');
 Route::get('/home/search', ['as' => 'home.search', 'uses' => 'Store\StoreController@index'])->middleware('role:customer');
 Route::get('/store/{store_id}/details', ['as' => 'store.show_details', 'uses' => 'Store\StoreController@show_details'])->middleware('role:customer');
 Route::get('/user/{user_id}/placements', [ 'as' => 'placements', 'uses' => 'Appointment\AppointmentController@getActiveAppointmentsForUser'])->middleware('role:customer');
+Route::get('/stores/country', ['as' => 'getCities', 'uses' => 'Store\StoreController@getCities'])->middleware('role:customer');
 
 // Admin-accessible pages
 Route::get('/admin/dashboard/add_store', 'Views\AdminDashboardController@addStore')->middleware('role:admin');
@@ -94,3 +95,6 @@ Route::get('/appointments/{appointment_id}', 'Appointment\AppointmentController@
 Route::get('/appointments/{appointment_id}/edit', 'Appointment\AppointmentController@edit')->middleware('role:admin');
 Route::patch('/appointments/{appointment_id}', 'Appointment\AppointmentController@update')->middleware('role:admin');
 Route::delete('/appointments/{appointment_id}', 'Appointment\AppointmentController@destroy')->middleware('role:admin');
+
+// AJAX routes
+Route::post('/ajax/timeline', ['as' => 'ajax.timeline', 'uses' => 'Store\StoreController@ajaxGenerateTimelineArray'])->middleware('role:customer');

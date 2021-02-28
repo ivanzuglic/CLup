@@ -210,6 +210,7 @@ form {
         flex-wrap: wrap;
         justify-content: flex-start;
         margin: 0 $base-spacing;
+        padding-bottom: $base-spacing*.5;
 
         h3 {
             margin-bottom: 0;

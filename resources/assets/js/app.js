@@ -7,12 +7,11 @@
 
 require('./bootstrap');
 
+import Timeline from './timeline.js';
+
 window.Vue = require('vue');
 
 var Chart = require('chart.js');
-
-// var timeline_json = generateDailyTimeline();
-// window.timeline = new TL.Timeline('timeline-embed', timeline_json);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -129,6 +128,27 @@ if (typeof chartOccupancyData !== 'undefined') {
     }
 }
 
+$.ajaxSetup({
+    headers:{
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+})
+$.ajax({
+    url: '/ajax/timeline',
+    method: 'POST',
+    data: {
+        store_id: $("input[name=store_id]").val(),
+        date: $("input[name=reservation_date]").val()
+    },
+    success: function(data){
+        var timelineArray = data.timeline_array;
+        Timeline.generateTimeline(timelineArray);
+        console.log($("input[name=store_id]").val());
+        console.log($("input[name=reservation_date]").val());
+        console.log(timelineArray);
+    }
+})
+
 ;(() => {
     const menu = document.querySelector('#nav')
     const body = document.querySelector('body')
@@ -155,7 +175,48 @@ if (typeof chartOccupancyData !== 'undefined') {
     if (uploadFileButton) {
         uploadFileButton.addEventListener('click', (event) => uploadImage())
         const uploadImage = () => {
-            document.getElementById("file-input").click();
+            document.getElementById("file-input").click()
+        }
+    }
+
+    const inputDay = document.querySelector('#reservation_date')
+    if (inputDay) {
+        inputDay.addEventListener('change', (event) => refreshTimeline())
+        const refreshTimeline = () => {
+            event.preventDefault();
+            console.log('DEFAULT PREVENTED');
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+            $.ajax({
+                url: '/ajax/timeline',
+                method: 'POST',
+                data: {
+                    store_id: $("input[name=store_id]").val(),
+                    date: $("input[name=reservation_date]").val()
+                },
+                success: function(data){
+                    var timelineArray = data.timeline_array;
+                    Timeline.resetEntireTimeline();
+                    Timeline.generateTimeline(timelineArray);
+                    console.log($("input[name=store_id]").val());
+                    console.log($("input[name=reservation_date]").val());
+                    console.log(timelineArray);
+                }
+            })
+        }
+    }
+
+    const filterToggleButton = document.querySelector('#filter-toggle')
+    if (filterToggleButton) {
+        filterToggleButton.addEventListener('click', (event) => toggleFilterActive())
+        const toggleFilterActive = () => {
+            var filterElement = document.getElementById("search-bar-filters")
+            if (filterElement) {
+                filterElement.classList.toggle("active");
+            }
         }
     }
 })()
