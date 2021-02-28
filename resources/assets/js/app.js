@@ -175,7 +175,7 @@ $.ajax({
     if (uploadFileButton) {
         uploadFileButton.addEventListener('click', (event) => uploadImage())
         const uploadImage = () => {
-            document.getElementById("file-input").click();
+            document.getElementById("file-input").click()
         }
     }
 
@@ -206,6 +206,17 @@ $.ajax({
                     console.log(timelineArray);
                 }
             })
+        }
+    }
+
+    const filterToggleButton = document.querySelector('#filter-toggle')
+    if (filterToggleButton) {
+        filterToggleButton.addEventListener('click', (event) => toggleFilterActive())
+        const toggleFilterActive = () => {
+            var filterElement = document.getElementById("search-bar-filters")
+            if (filterElement) {
+                filterElement.classList.toggle("active");
+            }
         }
     }
 })()

@@ -35225,7 +35225,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(150);
 
+window.Vue = __webpack_require__(172);
 
+var Chart = __webpack_require__(176);
 
 window.Vue = __webpack_require__(172);
 
