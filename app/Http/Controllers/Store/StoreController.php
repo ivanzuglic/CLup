@@ -8,6 +8,7 @@ use App\StoreOccupancyData;
 use App\StoreStatisticalData;
 use App\StoreType;
 use App\WorkingHours;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -218,9 +219,9 @@ SQL;
 
     /**
      * @param Request $request
-     * @return array
+     * @return JsonResponse
      */
-    public function generateTimelineArray(Request $request)
+    public function ajaxGenerateTimelineArray(Request $request)
     {
         // \/ TEMP
         // For testing purposes
@@ -333,7 +334,7 @@ SQL;
                 }
 
                 // Returning the final array
-                return $array_final;
+                return response()->json(array('timeline_array'=> $array_final), 200);
             }
             else {
 
@@ -342,7 +343,7 @@ SQL;
                     $array_final[$i] = UNAVAILABLE;
                 }
                 // Returning the final array
-                return $array_final;
+                return response()->json(array('timeline_array'=> $array_final), 200);
             }
         }
         else{
@@ -352,7 +353,7 @@ SQL;
                 $array_final[$i] = ERROR;
             }
             // Returning the final array
-            return $array_final;
+            return response()->json(array('timeline_array'=> $array_final), 200);
         }
     }
 

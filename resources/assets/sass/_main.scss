@@ -512,9 +512,10 @@ main {
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
-                    width: 738px;
+                    width: 740px;
 
                     .time-part {
+                        display: flex;
                         font-size: .5rem;
                         color: $grey;
                     }
@@ -530,7 +531,6 @@ main {
                     width: 722px;
                     max-width: 722px;
                     min-width: 722px;
-                    border-radius: 6px;
 
                     .time-slot-marker {
                         display: flex;
