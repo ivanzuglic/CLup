@@ -35214,6 +35214,8 @@ module.exports = __webpack_require__(178);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline_js__ = __webpack_require__(171);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -35222,6 +35224,8 @@ module.exports = __webpack_require__(178);
  */
 
 __webpack_require__(150);
+
+
 
 window.Vue = __webpack_require__(172);
 
@@ -35342,149 +35346,26 @@ if (typeof chartOccupancyData !== 'undefined') {
     }
 }
 
-// Generates mockup data for testing
-// var availabilityData = [];
-// for (i = 0; i <= 720; i++) {
-//     if (i > 300 && i < 359) {
-//         availabilityData.push(1);
-//     }
-//     else if (i > 360 && i < 440) {
-//         availabilityData.push(0);
-//     }
-//     else if (i > 441 && i < 500) {
-//         availabilityData.push(1);
-//     }
-//     else {
-//         availabilityData.push(0);
-//     }
-// }
-
-// var frontDeleteCounter = 0;
-// var backDeleteCounter = 0;
-// var frontDeleteCounterFlag = true;
-
-// availabilityData.forEach(function(item, index, array) {
-//     var timeSlot = document.getElementById("time-slot-" + (index + 1));
-//     if (item == 0) {
-//         backDeleteCounter++;
-//         if (timeSlot) {
-//             timeSlot.classList.add("unavailable-timeslot");
-//             timeSlot.firstElementChild.classList.add("unavailable-timeslot");
-//         }
-//     }
-//     else {
-//         frontDeleteCounterFlag = false;
-//         backDeleteCounter = 0;
-//         if (timeSlot && !timeSlot.classList.contains("unavailable-timeslot")) {
-//             timeSlot.addEventListener('click', () => markAsActive())
-//             const markAsActive = () => {
-//                 if (!timeSlot.classList.contains('active-timeslot')) {
-//                     var activeTimeslots = document.getElementsByClassName("active-timeslot");
-//                     if (activeTimeslots.length >= 2) {
-//                         var activeIDs = [];
-//                         activeIDs[0] = activeTimeslots[0].id.split("-")[2];
-//                         activeIDs[1] = activeTimeslots[1].id.split("-")[2];
-//                         activeIDs.sort(function(a, b){return a - b});
-//                         for (i = (parseInt(activeIDs[0]) + 1); i < activeIDs[1]; i++) {
-//                             var inBetweenTimeslot = document.getElementById("time-slot-" + i);
-//                             if (inBetweenTimeslot) {
-//                                 inBetweenTimeslot.classList.remove("active-in-between");
-//                             }
-//                         }
-
-//                         activeTimeslots[0].classList.remove("active-timeslot");
-//                         activeTimeslots[0].classList.remove("active-timeslot");
-//                     }
-//                     timeSlot.classList.add('active-timeslot');
-//                     if (activeTimeslots.length == 2) {
-//                         var activeIDs = [];
-//                         activeIDs[0] = activeTimeslots[0].id.split("-")[2];
-//                         activeIDs[1] = activeTimeslots[1].id.split("-")[2];
-//                         activeIDs.sort(function(a, b){return a - b});
-//                         var authenticationCounter = 0;
-//                         for (i = (parseInt(activeIDs[0]) + 1); i <= activeIDs[1]; i++) {
-//                             var inBetweenTimeslot = document.getElementById("time-slot-" + i);
-//                             if (inBetweenTimeslot) {
-//                                 if (inBetweenTimeslot.classList.contains("unavailable-timeslot")) {
-//                                     break;
-//                                 }
-//                                 else {
-//                                     authenticationCounter++;
-//                                 }   
-//                             }
-//                         }
-//                         if (authenticationCounter == (activeIDs[1] - activeIDs[0])) {
-//                             for (i = (parseInt(activeIDs[0]) + 1); i < activeIDs[1]; i++) {
-//                                 var inBetweenTimeslot = document.getElementById("time-slot-" + i);
-//                                 if (inBetweenTimeslot) {
-//                                     inBetweenTimeslot.classList.add("active-in-between");
-//                                 }
-//                             }
-
-//                             var startTimeInput =  document.getElementById("reservation_start_time");
-//                             var endTimeInput =  document.getElementById("reservation_end_time");
-
-//                             if (startTimeInput) {
-//                                 startTimeInput.value = activeTimeslots[0].firstElementChild.innerHTML.trim().replace(/&nbsp;/g,'');
-//                             }
-
-//                             if (endTimeInput) {
-//                                 endTimeInput.value = activeTimeslots[1].firstElementChild.innerHTML.trim().replace(/&nbsp;/g,'');
-//                             }
-//                         }
-//                         else {
-//                             activeTimeslots[0].classList.remove("active-timeslot");
-//                             if (activeTimeslots[0]) {
-//                                 activeTimeslots[0].classList.remove("active-timeslot");
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     if(frontDeleteCounterFlag) {
-//         frontDeleteCounter++;
-//     }
-// });
-
-// frontDeleteCounter = Math.trunc(frontDeleteCounter / 30) * 30;
-// backDeleteCounter = Math.trunc(backDeleteCounter / 30) * 30;
-
-// for (i = 0; i <= frontDeleteCounter; i++) {
-//     var timeSlot = document.getElementById("time-slot-" + i);
-//     if (timeSlot && (i != (frontDeleteCounter))) {
-//         timeSlot.style.display = "none";
-//     }
-//     if (i % 30 == 0) {
-//         var timeLabel = document.getElementById("time-label-" + ((i / 30) - 1));
-//         if (timeLabel) {
-//             timeLabel.style.display = "none";
-//         }
-//     }
-// }
-
-// for (i = 720; i >= (720 - backDeleteCounter); i--) {
-//     var timeSlot = document.getElementById("time-slot-" + i);
-//     if (timeSlot && (i != (720 - backDeleteCounter))) {
-//         timeSlot.style.display = "none";
-//     }
-//     if (i % 30 == 0) {
-//         var timeLabel = document.getElementById("time-label-" + ((i / 30) + 1));
-//         if (timeLabel) {
-//             timeLabel.style.display = "none";
-//         }
-//     }
-// }
-
-// for (i = 0; i <= 25; i++) {
-//     var timeSlot = document.getElementById("time-slot-" + (i * 30));
-//     if (timeSlot) {
-//         timeSlot.style.backgroundColor = "#3d3d3d";
-//     }
-// }
-
-;(function () {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+$.ajax({
+    url: '/ajax/timeline',
+    method: 'POST',
+    data: {
+        store_id: $("input[name=store_id]").val(),
+        date: $("input[name=reservation_date]").val()
+    },
+    success: function success(data) {
+        var timelineArray = data.timeline_array;
+        __WEBPACK_IMPORTED_MODULE_0__timeline_js__["a" /* default */].generateTimeline(timelineArray);
+        console.log($("input[name=store_id]").val());
+        console.log($("input[name=reservation_date]").val());
+        console.log(timelineArray);
+    }
+});(function () {
     var menu = document.querySelector('#nav');
     var body = document.querySelector('body');
 
@@ -35515,6 +35396,38 @@ if (typeof chartOccupancyData !== 'undefined') {
         });
         var uploadImage = function uploadImage() {
             document.getElementById("file-input").click();
+        };
+    }
+
+    var inputDay = document.querySelector('#reservation_date');
+    if (inputDay) {
+        inputDay.addEventListener('change', function (event) {
+            return refreshTimeline();
+        });
+        var refreshTimeline = function refreshTimeline() {
+            event.preventDefault();
+            console.log('DEFAULT PREVENTED');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/ajax/timeline',
+                method: 'POST',
+                data: {
+                    store_id: $("input[name=store_id]").val(),
+                    date: $("input[name=reservation_date]").val()
+                },
+                success: function success(data) {
+                    var timelineArray = data.timeline_array;
+                    __WEBPACK_IMPORTED_MODULE_0__timeline_js__["a" /* default */].resetEntireTimeline();
+                    __WEBPACK_IMPORTED_MODULE_0__timeline_js__["a" /* default */].generateTimeline(timelineArray);
+                    console.log($("input[name=store_id]").val());
+                    console.log($("input[name=reservation_date]").val());
+                    console.log(timelineArray);
+                }
+            });
         };
     }
 
@@ -58022,7 +57935,178 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 171 */,
+/* 171 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Timeline = function () {
+    function Timeline() {
+        _classCallCheck(this, Timeline);
+    }
+
+    _createClass(Timeline, null, [{
+        key: "generateTimeline",
+
+
+        // Function that generates the timeline from a timeline array
+        value: function generateTimeline(timelineArray) {
+            console.log("Updating");
+            var frontDeleteCounter = 0;
+            var backDeleteCounter = 0;
+            var frontDeleteCounterFlag = true;
+            var i;
+
+            timelineArray.forEach(function (item, index) {
+                var timeSlot = document.getElementById("time-slot-" + (index + 1));
+                if (item == 0) {
+                    backDeleteCounter++;
+                    if (timeSlot) {
+                        timeSlot.classList.add("unavailable-timeslot");
+                        timeSlot.firstElementChild.classList.add("unavailable-timeslot");
+                    }
+                } else {
+                    frontDeleteCounterFlag = false;
+                    backDeleteCounter = 0;
+
+                    if (timeSlot) {
+                        timeSlot.addEventListener('click', function () {
+                            return _markAsActive();
+                        });
+                        var _markAsActive = function _markAsActive() {
+                            if (!timeSlot.classList.contains('active-timeslot')) {
+                                var activeTimeslots = document.getElementsByClassName("active-timeslot");
+
+                                if (activeTimeslots.length >= 2) {
+                                    Timeline.resetActiveSlots();
+                                }
+
+                                timeSlot.classList.add('active-timeslot');
+
+                                if (activeTimeslots.length == 2) {
+                                    var activeIDs = [];
+                                    activeIDs[0] = activeTimeslots[0].id.split("-")[2];
+                                    activeIDs[1] = activeTimeslots[1].id.split("-")[2];
+                                    activeIDs.sort(function (a, b) {
+                                        return a - b;
+                                    });
+                                    var authenticationCounter = 0;
+                                    for (i = parseInt(activeIDs[0]) + 1; i <= activeIDs[1]; i++) {
+                                        var inBetweenTimeslot = document.getElementById("time-slot-" + i);
+                                        if (inBetweenTimeslot) {
+                                            if (inBetweenTimeslot.classList.contains("unavailable-timeslot")) {
+                                                break;
+                                            } else {
+                                                authenticationCounter++;
+                                            }
+                                        }
+                                    }
+                                    if (authenticationCounter == activeIDs[1] - activeIDs[0]) {
+                                        for (i = parseInt(activeIDs[0]) + 1; i < activeIDs[1]; i++) {
+                                            var inBetweenTimeslot = document.getElementById("time-slot-" + i);
+                                            if (inBetweenTimeslot) {
+                                                inBetweenTimeslot.classList.add("active-in-between");
+                                            }
+                                        }
+
+                                        var startTimeInput = document.getElementById("reservation_start_time");
+                                        var endTimeInput = document.getElementById("reservation_end_time");
+
+                                        if (startTimeInput) {
+                                            startTimeInput.value = activeTimeslots[0].firstElementChild.innerHTML.trim().replace(/&nbsp;/g, '');
+                                        }
+
+                                        if (endTimeInput) {
+                                            endTimeInput.value = activeTimeslots[1].firstElementChild.innerHTML.trim().replace(/&nbsp;/g, '');
+                                        }
+                                    } else {
+                                        Timeline.resetActiveSlots();
+                                    }
+                                }
+                            }
+                        };
+                    }
+                }
+
+                if (frontDeleteCounterFlag) {
+                    frontDeleteCounter++;
+                }
+            });
+
+            frontDeleteCounter = Math.trunc(frontDeleteCounter / 30) * 30;
+            backDeleteCounter = Math.trunc(backDeleteCounter / 30) * 30;
+
+            for (i = 0; i <= frontDeleteCounter; i++) {
+                var timeSlot = document.getElementById("time-slot-" + i);
+                if (timeSlot && i != frontDeleteCounter) {
+                    timeSlot.style.display = "none";
+                }
+                if (i % 30 == 0) {
+                    var timeLabel = document.getElementById("time-label-" + (i / 30 - 1));
+                    if (timeLabel) {
+                        timeLabel.style.display = "none";
+                    }
+                }
+            }
+
+            for (i = 720; i >= 720 - backDeleteCounter; i--) {
+                var timeSlot = document.getElementById("time-slot-" + i);
+                if (timeSlot && i != 720 - backDeleteCounter) {
+                    timeSlot.style.display = "none";
+                }
+                if (i % 30 == 0) {
+                    var timeLabel = document.getElementById("time-label-" + (i / 30 + 1));
+                    if (timeLabel) {
+                        timeLabel.style.display = "none";
+                    }
+                }
+            }
+
+            for (i = 0; i <= 25; i++) {
+                var timeSlot = document.getElementById("time-slot-" + i * 30);
+                if (timeSlot) {
+                    timeSlot.style.backgroundColor = "#3d3d3d";
+                }
+            }
+        }
+
+        // Function that deletes all active timeslots
+
+    }, {
+        key: "resetActiveSlots",
+        value: function resetActiveSlots() {
+            var Timeslots = document.getElementsByClassName("time-slot-marker");
+            var i;
+            for (i = 0; i < Timeslots.length; i++) {
+                Timeslots[i].classList.remove("active-timeslot", "active-in-between");
+            }
+        }
+    }, {
+        key: "resetEntireTimeline",
+        value: function resetEntireTimeline() {
+            var timeSlotMarkers = document.getElementsByClassName("time-slot-marker");
+            var timeParts = document.getElementsByClassName("time-part");
+            var i;
+            for (i = 0; i < timeSlotMarkers.length; i++) {
+                timeSlotMarkers[i].style.display = "flex";
+                timeSlotMarkers[i].classList.remove("unavailable-timeslot", "active-timeslot", "active-in-between");
+                timeSlotMarkers[i].firstElementChild.classList.remove("unavailable-timeslot");
+            }
+            for (i = 0; i < timeParts.length; i++) {
+                timeParts[i].style.display = "flex";
+            }
+        }
+    }]);
+
+    return Timeline;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Timeline);
+
+/***/ }),
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
